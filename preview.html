@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三十色 — 配色方案预览</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Serif SC',sans-serif;background:#111;color:#fff;min-height:100vh}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.g-card{animation:fadeUp .4s ease both}
+
+/* ===== HERO FADE ===== */
+#heroSection.hiding{opacity:0;transform:translateY(-20px);pointer-events:none}
+.mode-bar{transition:opacity .3s,transform .3s}
+.mode-bar.hidden{opacity:0;transform:translateY(-50px);pointer-events:none}
+
+/* ===== MODE TOGGLE ===== */
+.mode-bar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(17,17,17,.96);backdrop-filter:blur(10px);
+  border-bottom:1px solid #2a2a2a;
+  display:flex;align-items:center;justify-content:space-between;
+  height:50px;padding:0 24px;
+}
+.mode-tabs{display:flex;gap:4px;background:#1a1a1a;border-radius:8px;padding:3px}
+.mode-tab{
+  padding:6px 16px;border-radius:6px;border:none;
+  background:transparent;color:#888;font-size:12px;font-family:inherit;
+  cursor:pointer;transition:all .15s;
+}
+.mode-tab.active{background:#333;color:#fff}
+.mode-info{font-size:11px;color:#666}
+.picked-badge{background:#4ecdc4;color:#111;padding:2px 8px;border-radius:10px;font-weight:600;font-size:11px;margin-left:6px}
+.lang-toggle{
+  padding:4px 10px;border-radius:6px;border:1px solid #444;
+  background:transparent;color:#999;font-size:11px;font-family:inherit;
+  cursor:pointer;transition:all .15s;margin-left:8px;
+}
+.lang-toggle:hover{border-color:#888;color:#fff}
+
+/* ===== GALLERY VIEW ===== */
+#galleryView{padding:70px 24px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.g-card{
+  border-radius:10px;overflow:hidden;cursor:pointer;
+  border:2px solid transparent;transition:all .2s;
+  position:relative;
+}
+.g-card:hover{border-color:#555;transform:translateY(-2px)}
+.g-card.picked{border-color:#4ecdc4}
+.g-card-pick{
+  position:absolute;top:8px;right:8px;z-index:2;
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(0,0,0,.5);border:2px solid #666;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;transition:all .15s;
+}
+.g-card.picked .g-card-pick{background:#4ecdc4;border-color:#4ecdc4;color:#111}
+.g-swatch{display:flex;height:8px}
+.g-swatch div{flex:1}
+.g-mock{padding:20px 24px;min-height:220px;transition:all .3s}
+.g-mock-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:10px}
+.g-mock-logo{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:500;letter-spacing:1px}
+.g-mock-links{display:flex;gap:14px;font-size:10px;opacity:.55}
+.g-mock-tag{font-size:8px;letter-spacing:2px;opacity:.45;margin-bottom:8px}
+.g-mock h2{font-family:'Noto Serif SC',Georgia,serif;font-size:17px;font-weight:400;line-height:1.55;margin-bottom:8px}
+.g-mock p{font-size:11px;line-height:1.7;opacity:.6;margin-bottom:14px;max-width:90%}
+.g-mock-btns{display:flex;gap:8px;margin-bottom:16px}
+.g-btn1{padding:5px 14px;border-radius:4px;font-size:10px;font-weight:500;border:none}
+.g-btn2{padding:5px 14px;border-radius:4px;font-size:10px;border:1.5px solid;background:transparent}
+.g-mock-article{padding:10px 14px;border-radius:6px;margin-bottom:6px}
+.g-mock-article-t{font-family:'Noto Serif SC',serif;font-size:12px;margin-bottom:3px}
+.g-mock-article-d{font-size:9px;opacity:.5;line-height:1.6}
+.g-label{background:rgba(17,17,17,.92);padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.g-label-name{font-size:13px;font-weight:500}
+.g-label-sub{font-size:11px;color:#888}
+.g-label-rec{font-size:9px;color:#4ecdc4;margin-top:2px}
+
+/* ===== DETAIL VIEW ===== */
+#detailView{display:none;padding:70px 24px 24px}
+.d-bar{
+  display:flex;gap:6px;margin-bottom:20px;
+  overflow-x:auto;padding-bottom:8px;
+  -webkit-overflow-scrolling:touch;
+}
+.d-bar::-webkit-scrollbar{height:3px}
+.d-bar::-webkit-scrollbar-thumb{background:#444;border-radius:2px}
+.d-btn{
+  flex-shrink:0;display:flex;align-items:center;gap:5px;
+  height:34px;padding:0 10px 0 5px;
+  border:1.5px solid #333;border-radius:7px;
+  background:transparent;cursor:pointer;
+  color:#999;font-size:11px;font-family:inherit;transition:all .15s;
+}
+.d-btn:hover{border-color:#666;color:#fff}
+.d-btn.active{border-color:#fff;color:#fff;background:rgba(255,255,255,.06)}
+.d-btn.picked{box-shadow:0 0 0 2px #4ecdc4;border-color:#4ecdc4}
+.d-dots{display:flex;gap:1px;border-radius:3px;overflow:hidden}
+.d-dots div{width:10px;height:20px}
+
+#fakePage{
+  max-width:900px;margin:0 auto;
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 4px 60px rgba(0,0,0,.5);
+  transition:background .35s;
+}
+.fn{display:flex;justify-content:space-between;align-items:center;padding:18px 36px}
+.fn-logo{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:500;letter-spacing:1px}
+.fn-links{display:flex;gap:22px;font-size:12px}
+.fn-links span{opacity:.65}
+.fh{padding:52px 36px 44px}
+.fh-tag{font-size:10px;letter-spacing:2px;opacity:.5;margin-bottom:14px}
+.fh h1{font-family:'Noto Serif SC',Georgia,serif;font-size:28px;font-weight:400;line-height:1.55;margin-bottom:14px}
+.fh p{font-size:14px;line-height:1.8;opacity:.65;max-width:540px;margin-bottom:22px}
+.fh-btns{display:flex;gap:10px}
+.fb1{padding:9px 22px;border-radius:6px;font-size:12px;font-weight:500;border:none}
+.fb2{padding:9px 22px;border-radius:6px;font-size:12px;border:1.5px solid;background:transparent}
+.fs{padding:36px;transition:border-color .35s}
+.fs-title{font-size:10px;letter-spacing:2px;opacity:.45;margin-bottom:20px}
+.fa{padding:18px 22px;border-radius:8px;margin-bottom:12px}
+.fa-t{font-family:'Noto Serif SC',Georgia,serif;font-size:16px;margin-bottom:5px}
+.fa-d{font-size:12px;opacity:.6;line-height:1.7;margin-bottom:8px}
+.fa-m{font-size:10px;opacity:.4;display:flex;gap:14px;align-items:center}
+.fa-tag{padding:2px 8px;border-radius:3px;font-size:9px;font-weight:500;opacity:1}
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fp{padding:22px;border-radius:8px}
+.fp-icon{font-size:22px;margin-bottom:10px}
+.fp-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:500;margin-bottom:5px}
+.fp-desc{font-size:11px;opacity:.55;line-height:1.6}
+.ff{padding:28px 36px;display:flex;justify-content:space-between;font-size:11px;opacity:.35}
+
+.d-info{
+  max-width:900px;margin:16px auto 0;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:#888;
+}
+.d-info strong{color:#fff;font-weight:500;font-size:14px}
+.d-rec{max-width:900px;margin:12px auto 0;font-size:12px;color:#666;line-height:1.7}
+.d-rec em{color:#999;font-style:normal}
+
+.hint{
+  position:fixed;bottom:16px;right:16px;z-index:999;
+  background:rgba(30,30,30,.92);border:1px solid #333;border-radius:8px;
+  padding:8px 12px;font-size:10px;color:#777;line-height:1.5;
+}
+.hint kbd{background:#222;border:1px solid #444;border-radius:2px;padding:0 4px;color:#bbb;font-family:inherit;font-size:9px}
+
+/* ===== HERO ===== */
+#heroSection{
+  padding:80px 24px 0;
+  max-width:720px;margin:0 auto;
+  text-align:center;
+  transition:opacity .3s;
+}
+.hero-num{
+  font-family:'Playfair Display',serif;font-size:120px;font-weight:400;
+  line-height:1;letter-spacing:-4px;
+  background:linear-gradient(135deg,#f9bc60 0%,#e07a5f 40%,#c89a7c 70%,#8c7851 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:8px;
+}
+.hero-title{
+  font-family:'Noto Serif SC','Playfair Display',serif;
+  font-size:22px;font-weight:400;color:#ccc;
+  letter-spacing:2px;margin-bottom:24px;
+}
+.hero-sub{
+  font-size:13px;color:#666;line-height:1.9;max-width:520px;margin:0 auto 32px;
+}
+.hero-divider{
+  width:40px;height:1px;background:#333;margin:0 auto 32px;
+}
+.hero-guide{
+  text-align:left;max-width:480px;margin:0 auto;
+  padding:20px 24px;background:rgba(255,255,255,.03);border-radius:10px;
+  border:1px solid #222;margin-bottom:32px;
+}
+.hero-guide-title{
+  font-size:11px;color:#666;letter-spacing:2px;margin-bottom:14px;
+}
+.hero-guide ol{
+  list-style:none;counter-reset:step;padding:0;
+}
+.hero-guide li{
+  counter-increment:step;font-size:12px;color:#888;line-height:1.8;
+  padding-left:24px;position:relative;margin-bottom:8px;
+}
+.hero-guide li::before{
+  content:counter(step);position:absolute;left:0;top:1px;
+  width:16px;height:16px;border-radius:50%;
+  background:#222;color:#666;font-size:9px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-guide code{
+  background:#1a1a1a;padding:1px 5px;border-radius:3px;font-size:11px;color:#aaa;
+}
+.hero-enter{
+  display:inline-block;padding:10px 28px;border-radius:8px;
+  background:linear-gradient(135deg,#c89a7c,#e07a5f);color:#fff;
+  font-size:13px;font-weight:500;border:none;cursor:pointer;
+  transition:all .2s;margin-bottom:16px;letter-spacing:1px;
+}
+.hero-enter:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(200,154,124,.4)}
+</style>
+</head>
+<body>
+
+<div class="mode-bar hidden">
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="setMode('gallery')">总览</button>
+      <button class="mode-tab" onclick="setMode('detail')">详情</button>
+    </div>
+    <span class="mode-info" id="modeInfo">点击卡片预览 · Shift+点击收藏</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+    <span class="mode-info">已选：</span>
+    <span class="picked-badge" id="pickedBadge">0</span>
+    <span class="mode-info" id="pickedNames"></span>
+  </div>
+</div>
+
+<div id="heroSection">
+  <div class="hero-num" id="heroNum">30</div>
+  <div class="hero-title" id="heroTitle">三十色</div>
+  <div class="hero-sub" id="heroSub">
+    配色不该是难题。这里有 30 种氛围等你翻阅，<br>
+    也可以交给 AI 按你的心情推荐。<br>
+    随时往这块调色盘里添加自己的颜色。
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-guide">
+    <div class="hero-guide-title" id="heroGuideTitle">怎 么 用</div>
+    <ol id="heroGuideList">
+      <li><strong>安装</strong> · 让 AI 从 GitHub 帮你装好，一句话的事</li>
+      <li><strong>选色</strong> · "帮我选个配色" — 写页面时随口一说</li>
+      <li><strong>描述</strong> · "暖一点的"、"像咖啡馆" — 说感觉就行，AI 帮你匹配</li>
+      <li><strong>指定</strong> · 知道名字的话，直接说"用 Earthy Scholar"</li>
+      <li><strong>扩展</strong> · "在我的配色库里加一套日系的" — AI 去网上找、撞色、生成新方案</li>
+    </ol>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:center;align-items:center">
+    <button class="hero-enter" onclick="dismissHero()" id="heroEnterBtn">浏览配色</button>
+    <button class="lang-toggle" id="heroLangBtn" onclick="toggleLang()" style="padding:8px 16px;font-size:12px;border-radius:8px">EN</button>
+  </div>
+</div>
+
+<div id="galleryView"></div>
+
+<div id="detailView">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+    <button onclick="setMode('gallery')" style="flex-shrink:0;width:32px;height:32px;border-radius:8px;border:1.5px solid #333;background:transparent;color:#999;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#999'">&#8592;</button>
+    <div class="d-bar" id="dBar" style="margin-bottom:0"></div>
+  </div>
+  <div id="fakePage">
+    <div class="fn"><div class="fn-logo">留白集</div><div class="fn-links"><span>关于</span><span>作品</span><span>随笔</span><span>联络</span></div></div>
+    <div class="fh">
+      <div class="fh-tag">设计 · 文字 · 手艺</div>
+      <h1>好的设计，是让人忘记设计本身。</h1>
+      <p>在意图与形式之间，留一段可以呼吸的距离。克制是审美的起点，留白是表达的另一种方式。</p>
+      <div class="fh-btns"><div class="fb1">浏览作品</div><div class="fb2">阅读随笔</div></div>
+    </div>
+    <div class="fs" id="secArt">
+      <div class="fs-title">近期随笔</div>
+      <div class="fa" id="a1"><div class="fa-t">克制的力量</div><div class="fa-d">最好的界面让人觉得它一直就在那里。而达到这种"消失感"所需要的纪律，远比堆砌功能更难。</div><div class="fa-m"><span>2026.04</span><span>设计随想</span><span class="fa-tag" id="tag1">推荐</span></div></div>
+      <div class="fa" id="a2"><div class="fa-t">色彩是氛围，不是装饰</div><div class="fa-d">一套配色不是色卡。它是你未曾踏入的房间里，空气的温度。</div><div class="fa-m"><span>2026.03</span><span>色彩手记</span></div></div>
+      <div class="fa" id="a3"><div class="fa-t">元素之间的间距</div><div class="fa-d">留白不是空。它是音符之间的停顿——正是那些沉默，赋予了旋律意义。</div><div class="fa-m"><span>2026.02</span><span>排版笔记</span></div></div>
+    </div>
+    <div class="fs" id="secProj">
+      <div class="fs-title">精选作品</div>
+      <div class="fp-grid">
+        <div class="fp" id="p1"><div class="fp-icon">&#9678;</div><div class="fp-name">作品集模板</div><div class="fp-desc">支持主题切换的极简作品集，语义化配色，一键换装。</div></div>
+        <div class="fp" id="p2"><div class="fp-icon">&#9830;</div><div class="fp-name">日历手帐</div><div class="fp-desc">基于暖色调排版的日记应用，文字与留白的平衡练习。</div></div>
+        <div class="fp" id="p3"><div class="fp-icon">&#9674;</div><div class="fp-name">书架</div><div class="fp-desc">卡片式阅读清单，柔和过渡动效，安静地陪你读完一本书。</div></div>
+        <div class="fp" id="p4"><div class="fp-icon">&#9700;</div><div class="fp-name">画布</div><div class="fp-desc">生成式色彩实验场，探索和谐与节奏的视觉可能。</div></div>
+      </div>
+    </div>
+    <div class="ff"><span>二十色 · color-palettes</span><span>简约至上</span><span>为 Claude Code 而作</span></div>
+  </div>
+  <div class="d-info"><div><strong id="dName">A · Earthy Scholar</strong> <span id="dSub">旧书店温润</span></div><div id="dHex" style="font-family:monospace;font-size:11px;color:#666"></div></div>
+  <div class="d-rec" id="dRec"></div>
+</div>
+
+<div class="hint">
+  <kbd>←</kbd><kbd>→</kbd> 切换 &nbsp; <kbd>Space</kbd> 收藏 &nbsp; <kbd>Tab</kbd> 总览/详情
+</div>
+
+<script>
+let lang='zh';
+const L={
+  zh:{
+    logo:'留白集', nav:['关于','作品','随笔','联络'], tag:'设计 · 文字 · 手艺',
+    hero:'好的设计，是让人忘记设计本身。',
+    sub:'在意图与形式之间，留一段可以呼吸的距离。',
+    btn1:'浏览作品', btn2:'阅读随笔',
+    sec1:'近期随笔',
+    a1t:'克制的力量', a1d:'最好的界面让人觉得它一直就在那里。而达到这种"消失感"所需要的纪律，远比堆砌功能更难。',
+    a2t:'色彩是氛围，不是装饰', a2d:'一套配色不是色卡。它是你未曾踏入的房间里，空气的温度。',
+    a3t:'元素之间的间距', a3d:'留白不是空。它是音符之间的停顿——正是那些沉默，赋予了旋律意义。',
+    a1m:'设计随想', a2m:'色彩手记', a3m:'排版笔记', badge:'推荐',
+    sec2:'精选作品',
+    p1n:'作品集模板', p1d:'支持主题切换的极简作品集，语义化配色，一键换装。',
+    p2n:'日历手帐', p2d:'基于暖色调排版的日记应用，文字与留白的平衡练习。',
+    p3n:'书架', p3d:'卡片式阅读清单，柔和过渡动效，安静地陪你读完一本书。',
+    p4n:'画布', p4d:'生成式色彩实验场，探索和谐与节奏的视觉可能。',
+    f1:'二十色 · color-palettes', f2:'简约至上', f3:'为 Claude Code 而作',
+    modeG:'总览', modeD:'详情',
+    hintG:'点击卡片预览 · Shift+点击收藏', hintD:'←→ 切换 · 空格收藏 · Tab 返回总览',
+    sel:'已选：', recL:'推荐语：', pairL:'搭配建议：',
+    hintKeys:'切换', hintSel:'收藏', hintView:'总览/详情',
+  },
+  en:{
+    logo:'Whitespace', nav:['About','Work','Writing','Contact'], tag:'Design · Words · Craft',
+    hero:'Good design makes you forget design itself.',
+    sub:'Between intention and form, leave room to breathe.',
+    btn1:'View Work', btn2:'Read Writing',
+    sec1:'Recent Writing',
+    a1t:'The Quiet Power of Restraint', a1d:'The best interfaces feel like they were always there — and the discipline to achieve that invisibility is harder than piling on features.',
+    a2t:'Color as Atmosphere', a2d:'A palette is not a paint swatch. It is the emotional temperature of a room you have never entered.',
+    a3t:'The Space Between', a3d:'Whitespace is not empty. It is the silence between notes — the very thing that gives melody its meaning.',
+    a1m:'Design', a2m:'Color Theory', a3m:'Typography', badge:'Featured',
+    sec2:'Selected Projects',
+    p1n:'Folio', p1d:'A minimal portfolio template with theme switching and semantic color roles.',
+    p2n:'Almanac', p2d:'A daily journal app built on warm typography and the balance of text and space.',
+    p3n:'Shelf', p3d:'Card-based reading list with gentle transitions — quietly keeping you company.',
+    p4n:'Canvas', p4d:'Generative color playground exploring harmony and visual rhythm.',
+    f1:'20 Colors · color-palettes', f2:'Less is more', f3:'Built for Claude Code',
+    modeG:'Gallery', modeD:'Detail',
+    hintG:'Click to preview · Shift+click to select', hintD:'←→ switch · Space select · Tab gallery',
+    sel:'Selected:', recL:'Recommendation: ', pairL:'Pairing tip: ',
+    hintKeys:'switch', hintSel:'select', hintView:'toggle view',
+  }
+};
+
+const T=[
+  {id:'A',n:'Earthy Scholar',s:'旧书店温润',bg:'#f9f4ef',c:'#eaddcf',tx:'#020826',tx2:'#716040',ac:'#8c7851',ac2:'#f25042',bt:'#fff',
+   rec:'像翻开一本泛黄的精装书。土褐与象牙白铺底，偶尔一笔朱红点亮视线。适合学术博客、读书笔记、个人随笔站。',
+   recEn:'Like opening a well-worn hardcover. Earthy browns and ivory set the stage; a stroke of vermilion catches the eye. Perfect for academic blogs, reading journals, personal essays.',
+   pair:'搭配衬线标题 + 无衬线正文，留白充足时最为优雅。',
+   pairEn:'Pair serif headings with sans-serif body text. Most elegant with generous whitespace.'},
+  {id:'B',n:'Rose Petal',s:'柔和浪漫',bg:'#faeee7',c:'#fff',tx:'#33272a',tx2:'#594a4e',ac:'#ff8ba7',ac2:'#c3f0ca',bt:'#33272a',
+   rec:'花瓣落在奶茶上的颜色。粉色系中最不甜腻的一种——因为有薄荷绿在旁边托着。适合生活方式博客、婚礼页面、个人品牌。',
+   recEn:'Petals falling on milk tea. The least cloying pink — grounded by a quiet mint green. Great for lifestyle blogs, wedding pages, personal brands.',
+   pair:'主色粉红要克制使用，大面积留给暖白底色呼吸。',
+   pairEn:'Use the pink sparingly. Let the warm white background do the breathing.'},
+  {id:'C',n:'Cream & Navy',s:'杂志高级感',bg:'#fef6e4',c:'#f3d2c1',tx:'#001858',tx2:'#172c66',ac:'#f582ae',ac2:'#8bd3dd',bt:'#001858',
+   rec:'奶油底上的藏蓝字，像一本排版讲究的独立杂志。桃粉与浅蓝的点缀恰到好处。适合作品集、产品落地页、设计师主页。',
+   recEn:'Navy type on cream — like a beautifully typeset indie magazine. Peach and sky-blue accents hit just right. Ideal for portfolios, landing pages, designer homepages.',
+   pair:'深蓝文字自带权威感，配合大号衬线标题效果极佳。',
+   pairEn:'Deep navy carries natural authority. Pair with large serif headings for maximum impact.'},
+  {id:'D',n:'Teal & Gold',s:'东方美学',bg:'#004643',c:'rgba(171,209,198,.15)',tx:'#fffffe',tx2:'#abd1c6',ac:'#f9bc60',ac2:'#e16162',bt:'#001e1d',
+   rec:'墨绿如深潭，金色如灯盏。这是整套方案中最有叙事感的暗色调——像雨夜的茶室，窗外竹影婆娑。适合个人主页、摄影集、文化类站点。',
+   recEn:'Ink-green like a still pond, gold like a lantern. The most narrative dark palette here — a teahouse on a rainy night, bamboo shadows swaying outside. For personal sites, photography, cultural projects.',
+   pair:'金色 accent 是整个画面的灵魂，务必少而精地使用。',
+   pairEn:'The gold accent is the soul of this palette. Use it sparingly and precisely.'},
+  {id:'E',n:'Forest & Gold',s:'自然清新',bg:'#f2f7f5',c:'#e8f0ec',tx:'#00473e',tx2:'#475d5b',ac:'#faae2b',ac2:'#ffa8ba',bt:'#00473e',
+   rec:'清晨的林间小路，阳光从叶缝间漏下来，落成金色的光斑。清新却不寡淡。适合环保品牌、户外博客、自然主题应用。',
+   recEn:'A morning forest path — sunlight filtering through leaves, landing as golden dapples. Fresh but never bland. For eco brands, outdoor blogs, nature-themed apps.',
+   pair:'绿底金字的组合古典而通透，粉色点缀增添一丝温柔。',
+   pairEn:'Green with gold is classic and airy. The pink accent adds a touch of warmth.'},
+  {id:'F',n:'Paper & Teal',s:'知性干净',bg:'#f8f5f2',c:'#feefe8',tx:'#232323',tx2:'#222525',ac:'#078080',ac2:'#f45d48',bt:'#f8f5f2',
+   rec:'铺纸研墨的气质。纸白底色上，青绿色的链接像一枚安静的书签。偶尔出现的朱红，是批注时不经意的落笔。适合技术博客、文档站、工具类产品。',
+   recEn:'The feel of laying paper and grinding ink. Teal links like quiet bookmarks on a paper-white page. The occasional vermilion is an absent-minded margin note. For tech blogs, docs, tool products.',
+   pair:'最"万能"的浅色方案之一，几乎适配所有内容类型。',
+   pairEn:'One of the most versatile light palettes — works with almost any content type.'},
+  {id:'G',n:'Silver & Orange',s:'现代极简',bg:'#eff0f3',c:'#fffffe',tx:'#0d0d0d',tx2:'#2a2a2a',ac:'#ff8e3c',ac2:'#d9376e',bt:'#0d0d0d',
+   rec:'银灰底色如同磨砂金属面板，橙色按钮是唯一的视觉锚点。冷静、利落、不废话。适合 SaaS 产品、开发者工具、仪表盘。',
+   recEn:'Silver-grey like brushed metal. The orange button is the only visual anchor — cool, sharp, no-nonsense. For SaaS, dev tools, dashboards.',
+   pair:'橙色面积越小，冲击力越大。用在 CTA 按钮上恰好。',
+   pairEn:'The smaller the orange, the stronger the punch. Perfect for CTA buttons.'},
+  {id:'H',n:'Midnight Rose',s:'深夜书房',bg:'#232946',c:'rgba(184,193,236,.12)',tx:'#fffffe',tx2:'#b8c1ec',ac:'#eebbc3',ac2:'#d4d8f0',bt:'#232946',
+   rec:'深蓝如午夜，玫瑰粉如台灯洒下的暖光。安静、私密、适合沉浸式阅读。适合个人博客、夜间模式、阅读类应用。',
+   recEn:'Deep blue like midnight, rose-pink like the warm glow of a desk lamp. Quiet, intimate, made for immersive reading. For personal blogs, dark mode, reading apps.',
+   pair:'薰衣草色的次要文字在深蓝底上可读性极佳，优于纯白。',
+   pairEn:'Lavender secondary text reads beautifully on deep blue — better than pure white.'},
+  {id:'I',n:'Chocolate Rose',s:'复古奢华',bg:'#55423d',c:'rgba(255,243,236,.12)',tx:'#fffffe',tx2:'#fff3ec',ac:'#ffc0ad',ac2:'#e78fb3',bt:'#271c19',
+   rec:'巧克力色的丝绒幕布，玫瑰金的灯光。这套配色自带叙事——像午后咖啡馆的角落。适合时尚品牌、高端餐饮、奢侈品展示。',
+   recEn:'Chocolate velvet curtains, rose-gold lighting. A palette that tells a story — an afternoon corner in a Parisian café. For fashion, fine dining, luxury.',
+   pair:'暗底亮字的方案，注意正文行高要拉大，至少 1.7。',
+   pairEn:'Light on dark demands generous line-height — at least 1.7 for body text.'},
+  {id:'J',n:'Blush Latte',s:'裸粉渐变',bg:'#F7E6E1',c:'#f0d5cd',tx:'#4B332E',tx2:'#A77A6E',ac:'#CFA59A',ac2:'#A77A6E',bt:'#fff',
+   rec:'整套都在裸粉色系里轻轻浮动，像一杯燕麦拿铁表面的奶泡。极度柔和，没有一处硬边。适合美妆品牌、母婴产品、温柔系个人站。',
+   recEn:'Everything floats gently in nude-pink, like the foam on an oat latte. Extremely soft, no hard edges anywhere. For beauty brands, maternal care, gentle personal sites.',
+   pair:'因为色差小，需要靠字重和字号差异建立层级。',
+   pairEn:'Low contrast means hierarchy must come from font weight and size differences.'},
+  {id:'K',n:'Champagne Smoke',s:'画廊烛光',bg:'#FBF6EE',c:'#f2ebe0',tx:'#2A2A2B',tx2:'#7B746B',ac:'#2A2A2B',ac2:'#C8B89E',bt:'#FBF6EE',
+   rec:'画廊里的白墙与暖色射灯。没有彩色——全靠明暗与材质说话。这是"无色胜有色"的典范。适合建筑事务所、艺术家主页、极简作品集。',
+   recEn:'Gallery white walls under warm spotlights. No chromatic color — all about light, shadow, and texture. The epitome of "absence as presence." For architecture firms, artist pages, minimal portfolios.',
+   pair:'纯黑 accent 在暖白底上反而不刺眼，反倒有一种沉稳的力量。',
+   pairEn:'Pure black accent on warm white is surprisingly gentle — it carries a quiet authority.'},
+  {id:'L',n:'Vanilla Sage',s:'疗愈自然',bg:'#F6F0E6',c:'#e8eed5',tx:'#2F3E3A',tx2:'#6F8A78',ac:'#6F8A78',ac2:'#A8BDA3',bt:'#F6F0E6',
+   rec:'香草色底板上铺着鼠尾草绿的卡片。整个页面像一盆养了很久的绿植——不张扬，但让人觉得安心。适合健康、冥想、心理咨询类产品。',
+   recEn:'Sage-green cards on a vanilla base. The whole page feels like a houseplant you have tended for years — unassuming yet calming. For wellness, meditation, therapy apps.',
+   pair:'绿色系配色容易显得"土"，关键是底色要足够暖。',
+   pairEn:'Green palettes risk looking earthy — the key is a warm enough background.'},
+  {id:'M',n:'Sunset Gradient',s:'日落浪漫',bg:'#355C7D',c:'rgba(248,177,149,.12)',tx:'#F8B195',tx2:'#dda090',ac:'#F67280',ac2:'#F8B195',bt:'#355C7D',
+   rec:'海边黄昏的最后十分钟。灰蓝色天空渐渐沉下去，地平线上还留着一抹珊瑚色的余温。适合旅行博客、音乐应用、情感类内容。',
+   recEn:'The last ten minutes of a seaside dusk. Slate-blue sky sinking while a coral afterglow lingers on the horizon. For travel blogs, music apps, emotional storytelling.',
+   pair:'暗色底上的暖色文字有天然的浪漫感，但要注意对比度。',
+   pairEn:'Warm text on a dark background is naturally romantic — but mind the contrast ratio.'},
+  {id:'N',n:'Peach & Forest',s:'蜜桃森林',bg:'#2A363B',c:'rgba(153,184,152,.1)',tx:'#FECEAB',tx2:'#99B898',ac:'#FF847C',ac2:'#99B898',bt:'#2A363B',
+   rec:'深林底色上开出蜜桃色的花。暖冷对撞但并不突兀——像冬天壁炉旁的一杯热可可。适合美食博客、植物类应用、户外品牌。',
+   recEn:'Peach blossoms against a deep forest floor. Warm-cold collision that never clashes — like hot cocoa by a winter fireplace. For food blogs, plant apps, outdoor brands.',
+   pair:'蜜桃色标题 + 草绿色正文的组合非常耐看。',
+   pairEn:'Peach headings with sage body text is a surprisingly enduring combination.'},
+  {id:'O',n:'Pastel Bloom',s:'糖果轻快',bg:'#fff8f5',c:'#fff',tx:'#444',tx2:'#888',ac:'#FFAAA6',ac2:'#A8E6CE',bt:'#444',
+   rec:'像一颗刚拆开包装纸的马卡龙。粉与薄荷绿的经典搭配，轻盈、明快、不沉重。适合儿童教育、轻社交、创意工具。',
+   recEn:'Like unwrapping a fresh macaron. The classic pink-and-mint pairing — light, cheerful, never heavy. For kids\' education, casual social apps, creative tools.',
+   pair:'底色接近纯白，适合承载大量内容而不显拥挤。',
+   pairEn:'Near-white background handles dense content without feeling cramped.'},
+  {id:'P',n:'Coral Garden',s:'明快浪漫',bg:'#fdf0e6',c:'#fff',tx:'#3a2020',tx2:'#6b4a4a',ac:'#FE4365',ac2:'#83AF9B',bt:'#fff',
+   rec:'珊瑚红是这套方案的心跳。在奶白色的静谧里，它像一朵突然盛开的花——浓烈、明确、不犹豫。适合活动页、促销落地页、创意机构。',
+   recEn:'Coral red is the heartbeat of this palette. Against creamy silence, it blooms suddenly — bold, decisive, unhesitating. For event pages, promos, creative agencies.',
+   pair:'珊瑚红 + 灰绿的互补色组合让页面既有活力又不失稳重。',
+   pairEn:'Coral-red and muted green complement each other — lively yet grounded.'},
+  {id:'Q',n:'Lavender Dusk',s:'紫黄出挑',bg:'#f6efef',c:'#f0e2e1',tx:'#181818',tx2:'#555',ac:'#994ff3',ac2:'#fbdd74',bt:'#fff',
+   rec:'紫色与金黄，一个冷一个暖，本不该和谐——但在浅粉灰底色的调停下，竟有一种戏剧感的优雅。适合创意机构、音乐平台、艺术展览。',
+   recEn:'Purple and gold — one cool, one warm, they shouldn\'t harmonize. Yet on a blush-grey stage, they produce a dramatic elegance. For creative agencies, music platforms, art exhibitions.',
+   pair:'紫色按钮 + 金黄标签的组合非常抢眼，少即是多。',
+   pairEn:'Purple buttons with golden tags are eye-catching. Less is more.'},
+  {id:'R',n:'Mocha Mousse',s:'摩卡慕斯',bg:'#FAF7F2',c:'#f0ebe3',tx:'#2C1810',tx2:'#6B4C3B',ac:'#A47864',ac2:'#d4a58a',bt:'#FAF7F2',
+   rec:'Pantone 2025 年度色。像一杯摩卡慕斯——不是浓烈的巧克力，是那种加了牛奶之后的温润。全色系同色调，安全感极强。适合生活方式品牌、家居产品、温暖系博客。',
+   recEn:'Pantone 2025 Color of the Year. Like a mocha mousse — not intense chocolate, but the warmth after milk is added. Monochromatic and deeply comforting. For lifestyle brands, home products, warm blogs.',
+   pair:'同色调方案的关键是字重和间距拉开差异，否则层级模糊。',
+   pairEn:'In monochromatic palettes, hierarchy comes from weight and spacing — not color.'},
+  {id:'S',n:'Warm Clay',s:'手作质朴',bg:'#FAF2E8',c:'#f3ebe0',tx:'#2F201B',tx2:'#8B5A44',ac:'#C89A7C',ac2:'#8B5A44',bt:'#fff',
+   rec:'陶土、亚麻、手工纸。这套配色带着手作的温度，每一个颜色都像是从自然里取来、又被时间打磨过的。适合手工艺品牌、独立书店、慢生活类内容。',
+   recEn:'Clay, linen, handmade paper. Every color feels gathered from nature and polished by time. For craft brands, indie bookshops, slow-living content.',
+   pair:'与 R 相比更偏暖黄，适合想要"手工感"而非"咖啡馆感"的场景。',
+   pairEn:'Warmer than R — choose this when you want "handmade" rather than "café" vibes.'},
+  {id:'T',n:'Dark Ember',s:'暗黑炽烈',bg:'#0f0e17',c:'rgba(167,169,190,.1)',tx:'#fffffe',tx2:'#a7a9be',ac:'#ff8906',ac2:'#f25f4c',bt:'#0f0e17',
+   rec:'纯黑底色上，橙色火焰般炽烈。这是二十套方案中对比度最高、视觉冲击最强的一套。适合游戏、开发者工具、暗黑系产品页、技术会议官网。',
+   recEn:'On pure black, orange burns like flame. The highest contrast palette in this collection — maximum visual impact. For gaming, dev tools, dark product pages, tech conference sites.',
+   pair:'橙与红的双 accent 要避免同时大面积出现，否则会显得燥。',
+   pairEn:'Avoid using both orange and red accents in large areas simultaneously — it gets noisy.'},
+  {id:'U',n:'Neon Dusk',s:'赛博黄昏',bg:'#16161a',c:'rgba(127,90,240,.08)',tx:'#fffffe',tx2:'#94a1b2',ac:'#7f5af0',ac2:'#2cb67d',bt:'#fffffe',
+   rec:'深空底色上，紫色与翠绿交替闪烁。这是属于代码编辑器和终端窗口的配色——冷峻、精确、带着一丝科幻感。适合开发者工具、技术产品、游戏后台。',
+   recEn:'Purple and emerald flicker against deep space. A palette born from code editors and terminal windows — sharp, precise, with a hint of sci-fi. For dev tools, tech products, gaming dashboards.',
+   pair:'紫色作为主 accent 极其抢眼，绿色辅助色用于成功状态和次要操作。',
+   pairEn:'Purple as primary accent is striking. Reserve green for success states and secondary actions.'},
+  {id:'V',n:'Violet Pop',s:'紫电惊鸿',bg:'#fffffe',c:'#d1d1e9',tx:'#2b2c34',tx2:'#2b2c34',ac:'#6246ea',ac2:'#e45858',bt:'#fffffe',
+   rec:'纯白底上的紫色按钮，像闪电划过白昼。淡紫色卡片温柔地托底，红色点缀在关键时刻登场。适合创意工具、设计平台、科技初创品牌。',
+   recEn:'Purple buttons on pure white — lightning across a bright sky. Lilac cards soften the base; red appears at critical moments. For creative tools, design platforms, tech startups.',
+   pair:'紫色与红色不要同时大面积出现，一个用于 CTA，一个用于警告/标签。',
+   pairEn:'Avoid using purple and red in large areas simultaneously. One for CTAs, one for alerts/tags.'},
+  {id:'W',n:'Sunshine Mint',s:'柠檬薄荷',bg:'#fffffe',c:'#e3f6f5',tx:'#272343',tx2:'#2d334a',ac:'#ffd803',ac2:'#bae8e8',bt:'#272343',
+   rec:'阳光黄与薄荷绿在白色画布上嬉戏——这是整套方案中最快乐的一组。明亮、乐观、让人想到夏天的柠檬水。适合教育产品、儿童应用、轻量级工具。',
+   recEn:'Sunshine yellow and mint play on a white canvas — the happiest palette in the collection. Bright, optimistic, summery lemonade. For education, kids apps, lightweight tools.',
+   pair:'黄色按钮上用深色文字保证可读性，薄荷绿卡片底色清爽而不刺眼。',
+   pairEn:'Use dark text on yellow buttons for readability. Mint card backgrounds stay fresh without glare.'},
+  {id:'X',n:'Cotton Candy',s:'棉花糖',bg:'#fec7d7',c:'#d9d4e7',tx:'#0e172c',tx2:'#322f49',ac:'#a786df',ac2:'#f9f8fc',bt:'#fffffe',
+   rec:'粉色底板铺满整个画布，薰衣草紫的卡片浮在上面。像游乐园的棉花糖——甜、软、让人卸下防备。适合少女向品牌、派对邀请、梦幻系产品。',
+   recEn:'Pink floods the canvas, lavender cards float above. Like cotton candy at a fairground — sweet, soft, disarming. For girlish brands, party invites, dreamy products.',
+   pair:'深蓝文字在粉色底上对比度意外地好，是整套方案稳定感的来源。',
+   pairEn:'Dark navy text on pink has surprisingly good contrast — it anchors this dreamy palette.'},
+  {id:'Y',n:'Coastal Linen',s:'海岸亚麻',bg:'#F3EFE7',c:'#e8e4db',tx:'#2C3D45',tx2:'#6C8A96',ac:'#6C8A96',ac2:'#AFC1C7',bt:'#F3EFE7',
+   rec:'亚麻白底色上透出一缕海风的蓝灰。没有纯色的强势，只有自然光下布料的质感。适合建筑事务所、室内设计、北欧风格品牌。',
+   recEn:'Linen white with a breath of coastal blue-grey. No bold statements — just the texture of fabric under natural light. For architecture firms, interior design, Scandi brands.',
+   pair:'同为蓝灰色调的 accent 和 accent2 通过深浅差异建立层级，极为克制。',
+   pairEn:'Accent and accent2 share the same blue-grey family. Hierarchy comes from value contrast alone — minimal and restrained.'},
+  {id:'Z',n:'Terracotta Whisper',s:'陶语轻声',bg:'#F5E7DB',c:'#f0ddd0',tx:'#3A2A25',tx2:'#A55A43',ac:'#D48B6A',ac2:'#A55A43',bt:'#fff',
+   rec:'陶土色的温度从屏幕里渗出来。赤褐、赭石、焦糖——像午后阳光照在泥墙上的那一刻。适合手工陶瓷品牌、有机食品、旅行杂志。',
+   recEn:'Terracotta warmth seeps through the screen. Sienna, ochre, caramel — like afternoon sun on an adobe wall. For ceramic brands, organic food, travel magazines.',
+   pair:'与 S（手作质朴）相比偏红，更适合食物和大地相关的品牌叙事。',
+   pairEn:'Redder than S (Warm Clay) — better suited for food and earth-related brand narratives.'},
+  {id:'AA',n:'Retro Mint Soda',s:'薄荷汽水',bg:'#F8F1E6',c:'#CDEBDD',tx:'#2B3A3F',tx2:'#4a5c5f',ac:'#72C7B7',ac2:'#F2A65A',bt:'#2B3A3F',
+   rec:'薄荷绿卡片浮在奶黄色底板上，琥珀色点缀像气泡冒出来。复古、轻快、有一种 50 年代美式餐厅的怀旧感。适合餐饮品牌、复古风应用、生活方式产品。',
+   recEn:'Mint cards float on cream, amber accents bubble up like fizz. Retro, breezy, with a 1950s diner nostalgia. For food brands, vintage-style apps, lifestyle products.',
+   pair:'薄荷绿和琥珀色是天然互补色，对比舒适而不刺激。',
+   pairEn:'Mint and amber are natural complements — comfortable contrast without visual strain.'},
+  {id:'AB',n:'Iced Blueberry',s:'蓝莓冰沙',bg:'#F7F8FC',c:'#DCE6FA',tx:'#2D3354',tx2:'#6E83C7',ac:'#6E83C7',ac2:'#AFC3F2',bt:'#F7F8FC',
+   rec:'冰蓝色的宁静。整套方案都在蓝紫色域内轻轻滑动，像一杯蓝莓冰沙的渐层。专业、可信、不张扬。适合金融科技、医疗健康、企业 SaaS。',
+   recEn:'Icy-blue tranquility. The entire palette glides within the blue-violet spectrum like a blueberry smoothie gradient. Professional, trustworthy, understated. For fintech, healthcare, enterprise SaaS.',
+   pair:'同色系方案需要靠字号和字重拉开层级，颜色本身不够区分。',
+   pairEn:'Monochromatic blue needs font size and weight to establish hierarchy — color alone won\'t differentiate.'},
+  {id:'AC',n:'Olive Ink',s:'橄榄墨香',bg:'#F2F0E6',c:'#e6e3d5',tx:'#141A14',tx2:'#3F4B39',ac:'#9AA27E',ac2:'#3F4B39',bt:'#F2F0E6',
+   rec:'橄榄绿与旧纸色，像一本放在书房角落的植物图鉴。沉静、学术、带着泥土气息。适合出版社官网、植物学应用、环保组织。',
+   recEn:'Olive green and aged paper — like a botanical atlas in the corner of a study. Calm, scholarly, earthy. For publishing houses, botanical apps, environmental orgs.',
+   pair:'墨绿色 accent 低调到几乎消失，靠面积和位置而非色彩对比引导视线。',
+   pairEn:'The olive accent is so subtle it nearly vanishes. Guide the eye with placement and area, not color contrast.'},
+  {id:'AD',n:'Cherry Mocha',s:'樱桃摩卡',bg:'#F6EEE9',c:'#f0e5de',tx:'#1C1214',tx2:'#5B2A2A',ac:'#B24A4A',ac2:'#E7B9B2',bt:'#fff',
+   rec:'樱桃红沉入摩卡底色，像一颗巧克力裹着的酒心樱桃。成熟、温暖、带一丝微醺。适合红酒品牌、精品咖啡、独立设计师。',
+   recEn:'Cherry red sinks into mocha — a chocolate-covered kirsch cherry. Mature, warm, slightly intoxicating. For wine brands, specialty coffee, independent designers.',
+   pair:'樱桃红在暖白底上不刺目，配合淡粉 accent2 形成柔和的红色叙事。',
+   pairEn:'Cherry red on warm white stays gentle. Paired with blush accent2, it tells a soft red story.'},
+];
+
+let cur=0, picked=new Set(), mode='gallery';
+
+function t(key){return L[lang][key]}
+function tr(item){return lang==='zh'?item.rec:item.recEn}
+function tp(item){return lang==='zh'?item.pair:item.pairEn}
+
+function rebuildGallery(){
+  const gv=document.getElementById('galleryView');
+  gv.innerHTML='';
+  T.forEach((th,i)=>{
+    const card=document.createElement('div');
+    card.className='g-card'+(picked.has(i)?' picked':'');
+    card.id='gc'+i;
+    card.innerHTML=`
+      <div class="g-card-pick">✓</div>
+      <div class="g-swatch">
+        <div style="background:${th.bg}"></div><div style="background:${th.c.startsWith('rgba')?th.bg:th.c}"></div>
+        <div style="background:${th.ac}"></div><div style="background:${th.ac2}"></div><div style="background:${th.tx}"></div>
+      </div>
+      <div class="g-mock" style="background:${th.bg};color:${th.tx}">
+        <div class="g-mock-nav" style="border-bottom:1px solid ${th.tx2}22">
+          <div class="g-mock-logo" style="color:${th.tx}">${t('logo')}</div>
+          <div class="g-mock-links" style="color:${th.tx2}">${t('nav').map(n=>'<span>'+n+'</span>').join('')}</div>
+        </div>
+        <div class="g-mock-tag" style="color:${th.tx2}">${t('tag')}</div>
+        <h2 style="color:${th.tx}">${t('hero')}</h2>
+        <p style="color:${th.tx2}">${t('sub')}</p>
+        <div class="g-mock-btns">
+          <div class="g-btn1" style="background:${th.ac};color:${th.bt}">${t('btn1')}</div>
+          <div class="g-btn2" style="border-color:${th.ac};color:${th.ac}">${t('btn2')}</div>
+        </div>
+        <div class="g-mock-article" style="background:${th.c}">
+          <div class="g-mock-article-t" style="color:${th.tx}">${t('a1t')}</div>
+          <div class="g-mock-article-d" style="color:${th.tx2}">${t('a1d').slice(0,40)}…</div>
+        </div>
+        <div class="g-mock-article" style="background:${th.c}">
+          <div class="g-mock-article-t" style="color:${th.tx}">${t('a2t')}</div>
+          <div class="g-mock-article-d" style="color:${th.tx2}">${t('a2d').slice(0,40)}…</div>
+        </div>
+      </div>
+      <div class="g-label">
+        <div>
+          <div class="g-label-name">${th.id} · ${th.n}</div>
+          <div class="g-label-rec">${th.s}</div>
+        </div>
+        <div class="g-label-sub">${tp(th).slice(0,18)}…</div>
+      </div>`;
+    card.onclick=(e)=>{
+      if(e.shiftKey||e.metaKey){pick(i)}
+      else{cur=i;setMode('detail')}
+    };
+    card.style.animationDelay=(i*0.03)+'s';
+    gv.appendChild(card);
+  });
+}
+
+function rebuildDetailPage(){
+  const pg=document.getElementById('fakePage');
+  pg.querySelector('.fn-logo').textContent=t('logo');
+  const links=pg.querySelectorAll('.fn-links span');
+  t('nav').forEach((n,i)=>{if(links[i])links[i].textContent=n});
+  pg.querySelector('.fh-tag').textContent=t('tag');
+  pg.querySelector('.fh h1').textContent=t('hero');
+  pg.querySelector('.fh p').textContent=t('sub');
+  pg.querySelector('.fb1').textContent=t('btn1');
+  pg.querySelector('.fb2').textContent=t('btn2');
+  const titles=pg.querySelectorAll('.fs-title');
+  if(titles[0])titles[0].textContent=t('sec1');
+  if(titles[1])titles[1].textContent=t('sec2');
+  const arts=pg.querySelectorAll('.fa');
+  if(arts[0]){arts[0].querySelector('.fa-t').textContent=t('a1t');arts[0].querySelector('.fa-d').textContent=t('a1d');arts[0].querySelectorAll('.fa-m span')[1].textContent=t('a1m')}
+  if(arts[1]){arts[1].querySelector('.fa-t').textContent=t('a2t');arts[1].querySelector('.fa-d').textContent=t('a2d');arts[1].querySelectorAll('.fa-m span')[1].textContent=t('a2m')}
+  if(arts[2]){arts[2].querySelector('.fa-t').textContent=t('a3t');arts[2].querySelector('.fa-d').textContent=t('a3d');arts[2].querySelectorAll('.fa-m span')[1].textContent=t('a3m')}
+  document.getElementById('tag1').textContent=t('badge');
+  const projs=pg.querySelectorAll('.fp');
+  if(projs[0]){projs[0].querySelector('.fp-name').textContent=t('p1n');projs[0].querySelector('.fp-desc').textContent=t('p1d')}
+  if(projs[1]){projs[1].querySelector('.fp-name').textContent=t('p2n');projs[1].querySelector('.fp-desc').textContent=t('p2d')}
+  if(projs[2]){projs[2].querySelector('.fp-name').textContent=t('p3n');projs[2].querySelector('.fp-desc').textContent=t('p3d')}
+  if(projs[3]){projs[3].querySelector('.fp-name').textContent=t('p4n');projs[3].querySelector('.fp-desc').textContent=t('p4d')}
+  const ff=pg.querySelectorAll('.ff span');
+  if(ff[0])ff[0].textContent=t('f1');if(ff[1])ff[1].textContent=t('f2');if(ff[2])ff[2].textContent=t('f3');
+}
+
+function toggleLang(){
+  lang=lang==='zh'?'en':'zh';
+  document.getElementById('langBtn').textContent=lang==='zh'?'EN':'中文';
+  const hlb=document.getElementById('heroLangBtn');if(hlb)hlb.textContent=lang==='zh'?'EN':'中文';
+  document.querySelectorAll('.mode-tab')[0].textContent=t('modeG');
+  document.querySelectorAll('.mode-tab')[1].textContent=t('modeD');
+  document.querySelector('.hint').innerHTML=
+    '<kbd>←</kbd><kbd>→</kbd> '+t('hintKeys')+' &nbsp; <kbd>Space</kbd> '+t('hintSel')+' &nbsp; <kbd>Tab</kbd> '+t('hintView');
+  rebuildGallery();
+  rebuildDetailPage();
+  rebuildHero();
+  if(mode==='detail')applyTheme(cur);
+  updateModeInfo();
+}
+
+function rebuildHero(){
+  const h=document.getElementById('heroSection');
+  if(!h)return;
+  document.getElementById('heroTitle').textContent=lang==='zh'?'三十色':'30 Colors';
+  document.getElementById('heroSub').innerHTML=lang==='zh'
+    ?'30 套手工策展的配色方案，每套定义 7 个语义色彩角色。<br>从 Happy Hues、Digital Synopsis、Media.io 等来源精选，<br>为简约风格的个人网站、作品集、博客而生。'
+    :'Choosing colors shouldn\'t be the hard part. 30 moods to flip through,<br>or let your AI recommend one that fits.<br>Add your own colors to this palette.';
+  document.getElementById('heroGuideTitle').textContent=lang==='zh'?'怎 么 用':'H O W';
+  document.getElementById('heroGuideList').innerHTML=lang==='zh'
+    ?'<li>向下滚动浏览全部 30 套配色卡片，点击任意卡片进入详情预览</li><li>详情视图中用 <kbd>←</kbd> <kbd>→</kbd> 切换方案，底部查看推荐语与搭配建议</li><li><kbd>Shift</kbd>+点击 或按 <kbd>空格</kbd> 收藏喜欢的方案，顶栏显示已选数量</li><li>复制 <code>SKILL.md</code> 中的 CSS 变量或 JS 数组到你的项目中即可使用</li><li>设计原则：大量留白、克制用色、衬线标题 + 无衬线正文、去装饰化</li>'
+    :'<li><strong>Install</strong> · Ask AI to grab it from GitHub — one sentence</li><li><strong>Pick</strong> · "Pick me a color scheme" — just say it while building</li><li><strong>Describe</strong> · "Something warm" / "like a bookshop" — say the feeling, AI matches</li><li><strong>Name</strong> · Know the name? Just say "use Earthy Scholar"</li><li><strong>Expand</strong> · "Add a Japanese one to my palette library" — AI crawls, remixes, builds it</li>';
+  document.getElementById('heroEnterBtn').textContent=lang==='zh'?'浏览配色':'Browse Palettes';
+}
+
+function updateModeInfo(){
+  document.getElementById('modeInfo').textContent=mode==='gallery'?t('hintG'):t('hintD');
+}
+
+const db=document.getElementById('dBar');
+T.forEach((th,i)=>{
+  const b=document.createElement('button');
+  b.className='d-btn'+(i===0?' active':'');
+  b.id='db'+i;
+  b.innerHTML=`<div class="d-dots"><div style="background:${th.bg}"></div><div style="background:${th.ac}"></div><div style="background:${th.ac2}"></div></div>${th.id} · ${th.n}`;
+  b.onclick=(e)=>{if(e.shiftKey||e.metaKey){pick(i)}else{applyTheme(i)}};
+  b.ondblclick=()=>pick(i);
+  db.appendChild(b);
+});
+
+function setMode(m){
+  mode=m;
+  document.getElementById('galleryView').style.display=m==='gallery'?'grid':'none';
+  document.getElementById('detailView').style.display=m==='detail'?'block':'none';
+  document.querySelectorAll('.mode-tab').forEach((tab,idx)=>
+    tab.classList.toggle('active',(m==='gallery'&&idx===0)||(m==='detail'&&idx===1)));
+  updateModeInfo();
+  if(m==='detail')applyTheme(cur);
+}
+
+function applyTheme(i){
+  cur=i;const th=T[i];
+  document.querySelectorAll('.d-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  const activeBtn=document.getElementById('db'+i);
+  if(activeBtn)activeBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  document.getElementById('dName').textContent=th.id+' · '+th.n;
+  document.getElementById('dSub').textContent=th.s;
+  document.getElementById('dHex').textContent=[th.bg,th.ac,th.ac2,th.tx].filter(c=>!c.startsWith('rgba')).join(' · ');
+  document.getElementById('dRec').innerHTML='<em>'+t('recL')+'</em>'+tr(th)+'<br><em>'+t('pairL')+'</em>'+tp(th);
+
+  const pg=document.getElementById('fakePage');
+  pg.style.background=th.bg;pg.style.color=th.tx;
+  pg.querySelector('.fn').style.borderBottom='1px solid '+th.tx2+'22';
+  pg.querySelector('.fn-logo').style.color=th.tx;
+  pg.querySelectorAll('.fn-links span').forEach(s=>s.style.color=th.tx2);
+  pg.querySelector('.fh h1').style.color=th.tx;
+  pg.querySelector('.fh p').style.color=th.tx2;
+  pg.querySelector('.fh-tag').style.color=th.tx2;
+  pg.querySelector('.fb1').style.background=th.ac;
+  pg.querySelector('.fb1').style.color=th.bt;
+  pg.querySelector('.fb2').style.borderColor=th.ac;
+  pg.querySelector('.fb2').style.color=th.ac;
+  document.querySelectorAll('.fs').forEach(s=>s.style.borderTop='1px solid '+th.tx2+'18');
+  document.querySelectorAll('.fs-title').forEach(s=>s.style.color=th.tx2);
+  document.querySelectorAll('.fa').forEach(a=>{
+    a.style.background=th.c;
+    a.querySelectorAll('.fa-t').forEach(e=>e.style.color=th.tx);
+    a.querySelectorAll('.fa-d').forEach(e=>e.style.color=th.tx2);
+    a.querySelectorAll('.fa-m span').forEach(e=>e.style.color=th.tx2);
+  });
+  document.getElementById('tag1').style.background=th.ac2;
+  document.getElementById('tag1').style.color=th.bt;
+  document.querySelectorAll('.fp').forEach(p=>{
+    p.style.background=th.c;
+    p.querySelectorAll('.fp-name').forEach(e=>e.style.color=th.tx);
+    p.querySelectorAll('.fp-desc').forEach(e=>e.style.color=th.tx2);
+  });
+  pg.querySelector('.ff').style.borderTop='1px solid '+th.tx2+'18';
+  pg.querySelector('.ff').style.color=th.tx2;
+}
+
+function pick(i){
+  picked.has(i)?picked.delete(i):picked.add(i);
+  document.querySelectorAll('.g-card').forEach((c,j)=>c.classList.toggle('picked',picked.has(j)));
+  document.querySelectorAll('.d-btn').forEach((b,j)=>b.classList.toggle('picked',picked.has(j)));
+  document.getElementById('pickedBadge').textContent=picked.size;
+  const names=[...picked].sort().map(j=>T[j].id).join(' · ');
+  document.getElementById('pickedNames').textContent=names;
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Tab'){e.preventDefault();setMode(mode==='gallery'?'detail':'gallery')}
+  else if(e.key==='ArrowRight'&&mode==='detail'){e.preventDefault();applyTheme((cur+1)%T.length)}
+  else if(e.key==='ArrowLeft'&&mode==='detail'){e.preventDefault();applyTheme((cur-1+T.length)%T.length)}
+  else if(e.key===' '||e.key==='Enter'){e.preventDefault();pick(cur)}
+});
+
+function dismissHero(){
+  const h=document.getElementById('heroSection');
+  const bar=document.querySelector('.mode-bar');
+  h.classList.add('hiding');
+  bar.classList.remove('hidden');
+  setTimeout(()=>{h.style.display='none'},400);
+}
+
+// Initial build
+rebuildGallery();
+</script>
+</body>
+</html>
