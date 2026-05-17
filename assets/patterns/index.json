@@ -1,0 +1,30 @@
+{
+  "patterns": [
+    "dots",
+    "dots-loose",
+    "grid",
+    "grid-fine",
+    "diagonal",
+    "cross",
+    "plus",
+    "scanline",
+    "chevron",
+    "waves",
+    "diamonds",
+    "rings",
+    "triangles",
+    "lattice",
+    "stipple",
+    "herringbone"
+  ],
+  "ornaments": [
+    "asterisk",
+    "rule-flourish",
+    "corner",
+    "diamond-rule",
+    "sun",
+    "leaf"
+  ],
+  "license": "CC0-1.0",
+  "tileable": true
+}

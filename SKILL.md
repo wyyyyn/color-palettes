@@ -1,6 +1,6 @@
 ---
 name: color-palettes
-description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone. A combinable design system — 30 color palettes × 8 font pairings × 6 layouts × 6 tones × 6 moods — previewed live in preview.html. Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) as CSS variables into any codebase.
+description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone / icons. A combinable design system — 30 color palettes × 8 font pairings × 6 layouts × 6 tones × 6 moods — previewed live in preview.html, with bundled self-hosted fonts (OFL), 1960 Lucide icons (ISC) and an original tileable pattern/ornament set (CC0). Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) plus its fonts/icons/patterns into any codebase, fully offline.
 ---
 
 # Color Palettes — Combinable Design System
@@ -142,6 +142,23 @@ CJK 回退统一加 `'Noto Serif SC'`（衬线）/ `'Noto Sans SC'`（无衬线�
 这样既能 1:1 复刻，也能把外站气质收敛进这套可控的语义系统。
 
 ---
+
+## 资源库 (Bundled Assets — offline, self-contained)
+
+仓库 `assets/` 内置了开源资源，复刻时**无需联网、无需 CDN**，直接拷进目标项目即可：
+
+| 目录 | 内容 | 许可 |
+|------|------|------|
+| `assets/fonts/` | 上述 8 个拉丁字族 + Noto Serif/Sans SC 的 woff2，加 `fonts.css`（@font-face） | SIL OFL 1.1（`OFL.txt`） |
+| `assets/icons/lucide/` | 1960 个 Lucide 图标：单文件 `sprite.svg`、`icons/*.svg`、`index.json`、`tags.json`（关键词搜索） | ISC（`LICENSE`） |
+| `assets/patterns/` | 16 个可平铺 SVG 底纹 + 6 个装饰花纹（`ornaments/`）、`patterns.css`、`index.json` | CC0（原创，`LICENSE`） |
+
+复刻时这样用：
+
+- **字体**：把 `assets/fonts/` 整个拷进目标项目，页面 `<head>` 加 `<link rel="stylesheet" href="assets/fonts/fonts.css">`，再设 `--font-display/-body/-mono`（值见上方 FONT 表）。完全离线，不依赖 Google Fonts。
+- **图标**：用雪碧图 `<svg><use href="assets/icons/lucide/sprite.svg#NAME"/></svg>`（`NAME` 见 `index.json`，按 `tags.json` 关键词找）；或直接拷单个 `icons/NAME.svg`。`stroke="currentColor"`，跟随文字色。
+- **花纹**：`background-image:url(assets/patterns/dots.svg)`（`currentColor`，用 `color`+`opacity` 调浓淡）；与 playground 的 MOOD 纹理一脉相承（`scanline/dots/grid…`）。装饰分隔可用 `ornaments/rule-flourish.svg`、`asterisk.svg`（即 ✻ 母题）。
+- 法律：连同各目录的 `OFL.txt / LICENSE` 一起保留即可合法再分发；汇总见仓库根 `THIRD_PARTY_LICENSES.md`。
 
 ## 快速参考 (Palette Hex)
 

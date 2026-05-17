@@ -1,0 +1,21 @@
+/* color-palettes — pattern & ornament library
+   Original work, released under CC0 / public domain (use freely).
+   SVGs use currentColor: set 'color' to tint, opacity to soften.
+   Usage:  .has-pattern{ background-image:url('patterns/dots.svg'); color:#0002 }
+   Or inline as a tiling background; pairs with the playground MOOD textures. */
+.pat-dots{background-image:url('dots.svg');background-repeat:repeat}
+.pat-dots-loose{background-image:url('dots-loose.svg');background-repeat:repeat}
+.pat-grid{background-image:url('grid.svg');background-repeat:repeat}
+.pat-grid-fine{background-image:url('grid-fine.svg');background-repeat:repeat}
+.pat-diagonal{background-image:url('diagonal.svg');background-repeat:repeat}
+.pat-cross{background-image:url('cross.svg');background-repeat:repeat}
+.pat-plus{background-image:url('plus.svg');background-repeat:repeat}
+.pat-scanline{background-image:url('scanline.svg');background-repeat:repeat}
+.pat-chevron{background-image:url('chevron.svg');background-repeat:repeat}
+.pat-waves{background-image:url('waves.svg');background-repeat:repeat}
+.pat-diamonds{background-image:url('diamonds.svg');background-repeat:repeat}
+.pat-rings{background-image:url('rings.svg');background-repeat:repeat}
+.pat-triangles{background-image:url('triangles.svg');background-repeat:repeat}
+.pat-lattice{background-image:url('lattice.svg');background-repeat:repeat}
+.pat-stipple{background-image:url('stipple.svg');background-repeat:repeat}
+.pat-herringbone{background-image:url('herringbone.svg');background-repeat:repeat}
