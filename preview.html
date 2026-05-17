@@ -140,7 +140,7 @@ body{
 .stage[data-pat="none"]::after{display:none}
 .st-orn{height:20px;margin:0 var(--padX) calc(var(--padY) * .35);background-color:var(--c-ac);-webkit-mask:var(--orn,none) center/auto 100% no-repeat;mask:var(--orn,none) center/auto 100% no-repeat;opacity:.5}
 .stage[data-pat="none"] .st-orn{display:none}
-.st-proj-i svg{width:26px;height:26px;display:block;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.st-proj-i{width:30px;height:30px;background:var(--c-ac);-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
 .st-in{position:relative;z-index:1;max-width:calc(var(--measure) + var(--padX)*2);margin:0 auto}
 .st-nav{display:flex;justify-content:space-between;align-items:center;padding:22px var(--padX)}
 .st-logo{font-family:var(--f-display);font-size:calc(var(--fsb) + 1px);font-weight:var(--wD);letter-spacing:.5px}
@@ -178,6 +178,33 @@ body{
 .stage[data-motif="prompt"] .st-sectitle::before{content:"> ";font-family:var(--f-mono);color:var(--c-ac)}
 .stage[data-motif="dot"] .st-sectitle::before{content:"◦  ";color:var(--c-ac)}
 .stage[data-motif="rule"] .st-sectitle{border-bottom:1px solid var(--c-line)}
+
+/* ===== ELEMENTS (元件) component recipes ===== */
+.stage[data-el="pill"] .st-b1,.stage[data-el="pill"] .st-b2{border-radius:999px}
+.stage[data-el="pill"] .st-art-tag{border-radius:999px}
+.stage[data-el="sticker"] .st-b1,.stage[data-el="sticker"] .st-b2{border-radius:6px;border:2px solid var(--c-tx);box-shadow:3px 3px 0 var(--c-tx)}
+.stage[data-el="sticker"] .st-art,.stage[data-el="sticker"] .st-proj{border:2px solid var(--c-tx);box-shadow:5px 5px 0 var(--c-line);border-radius:8px}
+.stage[data-el="sticker"] .st-art-tag{border-radius:999px}
+.stage[data-el="engineer"] .st-b1,.stage[data-el="engineer"] .st-b2{border-radius:0;border:1px solid var(--c-tx)}
+.stage[data-el="engineer"] .st-b1{background:transparent;color:var(--c-tx)}
+.stage[data-el="engineer"] .st-art,.stage[data-el="engineer"] .st-proj{border:1px solid var(--c-line);box-shadow:none;border-radius:0}
+.stage[data-el="engineer"] .st-art-tag{border-radius:0;background:transparent;border:1px solid var(--c-ac);color:var(--c-ac)}
+.stage[data-el="engineer"] .st-links span,.stage[data-el="engineer"] .st-foot span{text-decoration:underline;text-underline-offset:3px}
+.stage[data-el="editorial"] .st-b1{background:transparent;color:var(--c-ac);border:none;padding:6px 0;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+.stage[data-el="editorial"] .st-b2{background:transparent;border:none;padding:6px 0 6px 18px;text-decoration:underline;text-underline-offset:5px}
+.stage[data-el="editorial"] .st-art,.stage[data-el="editorial"] .st-proj{border:none;box-shadow:none;border-radius:0;border-bottom:1px solid var(--c-line)}
+.stage[data-el="editorial"] .st-art-tag{background:transparent;color:var(--c-tx2);border:1px solid var(--c-line);letter-spacing:1px;text-transform:uppercase}
+.stage[data-el="soft"] .st-b1,.stage[data-el="soft"] .st-b2{border-radius:16px;border:none}
+.stage[data-el="soft"] .st-art,.stage[data-el="soft"] .st-proj{border:none;border-radius:18px;box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.stage[data-el="soft"] .st-art-tag{border-radius:999px}
+.stage[data-el="brut"] .st-b1,.stage[data-el="brut"] .st-b2{border-radius:0;border:3px solid var(--c-tx);box-shadow:none;text-transform:uppercase;letter-spacing:1.5px}
+.stage[data-el="brut"] .st-art,.stage[data-el="brut"] .st-proj{border:3px solid var(--c-tx);box-shadow:none;border-radius:0}
+.stage[data-el="brut"] .st-art-tag{text-transform:uppercase;border-radius:0;background:transparent;border:2px solid var(--c-tx);color:var(--c-tx)}
+.stage[data-el="brut"] .st-links span,.stage[data-el="brut"] .st-foot span{text-decoration:underline;text-decoration-thickness:2px}
+.stage[data-el="tactile"] .st-b1{border-radius:8px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.22)}
+.stage[data-el="tactile"] .st-b2{border-radius:8px}
+.stage[data-el="tactile"] .st-art,.stage[data-el="tactile"] .st-proj{border-radius:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 18px rgba(0,0,0,.1)}
+.stage[data-el="tactile"] .st-art-tag{border-radius:6px}
 
 /* ===== TOAST ===== */
 .toast{
@@ -295,10 +322,10 @@ body{
           <section class="st-sec">
             <div class="st-sectitle s2"></div>
             <div class="st-grid">
-              <div class="st-proj p1"><div class="st-proj-i">◎</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
-              <div class="st-proj p2"><div class="st-proj-i">◆</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
-              <div class="st-proj p3"><div class="st-proj-i">◇</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
-              <div class="st-proj p4"><div class="st-proj-i">◔</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p1"><div class="st-proj-i"></div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p2"><div class="st-proj-i"></div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p3"><div class="st-proj-i"></div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p4"><div class="st-proj-i"></div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
             </div>
           </section>
           <footer class="st-foot"><span class="f1"></span><span class="f2"></span><span class="f3"></span></footer>
@@ -360,8 +387,8 @@ const L={
     snEmpty:'还没有快照。挑好一套组合，点「＋ 存当前组合」。',
     snApply:'应用',snCmp:'对比',snapSaved:'已存快照 ✓',snapDup:'这套组合已在快照里',
     cmpTitle:'A / B 对比 · 左 = 当前，右 = 快照',cmpClose:'关闭',
-    axis:{palette:'配 色',font:'字 体',layout:'排 版',tone:'调 性',mood:'氛 围',icons:'图 标',pattern:'花 纹'},
-    axisEn:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN'},
+    axis:{palette:'配 色',font:'字 体',layout:'排 版',tone:'调 性',mood:'氛 围',icons:'图 标',pattern:'花 纹',elements:'元 件'},
+    axisEn:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN',elements:'ELEMENT'},
     logo:'留白集', nav:['缘起','作品','随笔','寄信'], tag:'纸 · 墨 · 余白',
     hero:'设计的尽头是留白，留白的尽头是听见。',
     sub:'把可有可无的话都删去之后，余下的那一行，往往才是你真正想说的。我们在词语与空白的接缝处，替意义留一处可以坐下来歇脚的地方。',
@@ -388,8 +415,8 @@ const L={
     snEmpty:'No snapshots yet. Pick a combo and hit “＋ Save current”.',
     snApply:'Apply',snCmp:'Compare',snapSaved:'Snapshot saved ✓',snapDup:'That combo is already saved',
     cmpTitle:'A / B compare · left = current, right = snapshot',cmpClose:'Close',
-    axis:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN'},
-    axisEn:{palette:'配色',font:'字体',layout:'排版',tone:'调性',mood:'氛围',icons:'图标',pattern:'花纹'},
+    axis:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN',elements:'ELEMENT'},
+    axisEn:{palette:'配色',font:'字体',layout:'排版',tone:'调性',mood:'氛围',icons:'图标',pattern:'花纹',elements:'元件'},
     logo:'Whitespace', nav:['Origin','Work','Essays','Letters'], tag:'paper · ink · the space between',
     hero:'Design ends in whitespace; whitespace ends in being heard.',
     sub:'When every word that could be spared is struck out, the line that remains is usually the one you meant. We keep, in the seam between language and emptiness, a place where meaning can sit down and rest.',
@@ -416,150 +443,200 @@ const T=[
    pair:'搭配衬线标题 + 无衬线正文，留白充足时最为优雅。',
    pairEn:'Pair serif headings with sans-serif body text. Most elegant with generous whitespace.'},
   {id:'B',n:'Rose Petal',s:'柔和浪漫',bg:'#faeee7',c:'#fff',tx:'#33272a',tx2:'#594a4e',ac:'#ff8ba7',ac2:'#c3f0ca',bt:'#33272a',
-   rec:'花瓣落在奶茶上的颜色。粉色系中最不甜腻的一种——因为有薄荷绿在旁边托着。适合生活方式博客、婚礼页面、个人品牌。',
-   recEn:'Petals falling on milk tea. The least cloying pink — grounded by a quiet mint green. Great for lifestyle blogs, wedding pages, personal brands.',
+   rec:'花瓣落在奶茶上的颜色。粉色系中最不甜腻的一种，因为有薄荷绿在旁边托着。适合生活方式博客、婚礼页面、个人品牌。',
+   recEn:'Petals falling on milk tea. A restrained pink, grounded by a quiet mint green. Great for lifestyle blogs, wedding pages, personal brands.',
    pair:'主色粉红要克制使用，大面积留给暖白底色呼吸。',
    pairEn:'Use the pink sparingly. Let the warm white background do the breathing.'},
   {id:'C',n:'Cream & Navy',s:'杂志高级感',bg:'#fef6e4',c:'#f3d2c1',tx:'#001858',tx2:'#172c66',ac:'#f582ae',ac2:'#8bd3dd',bt:'#001858',
    rec:'奶油底上的藏蓝字，像一本排版讲究的独立杂志。桃粉与浅蓝的点缀恰到好处。适合作品集、产品落地页、设计师主页。',
-   recEn:'Navy type on cream — like a beautifully typeset indie magazine. Peach and sky-blue accents hit just right. Ideal for portfolios, landing pages, designer homepages.',
+   recEn:'Navy type on cream, like a beautifully typeset indie magazine. Peach and sky-blue accents hit just right. Ideal for portfolios, landing pages, designer homepages.',
    pair:'深蓝文字自带权威感，配合大号衬线标题效果极佳。',
    pairEn:'Deep navy carries natural authority. Pair with large serif headings for maximum impact.'},
   {id:'D',n:'Teal & Gold',s:'东方美学',bg:'#004643',c:'rgba(171,209,198,.15)',tx:'#fffffe',tx2:'#abd1c6',ac:'#f9bc60',ac2:'#e16162',bt:'#001e1d',
-   rec:'墨绿如深潭，金色如灯盏。这是整套方案中最有叙事感的暗色调——像雨夜的茶室，窗外竹影婆娑。适合个人主页、摄影集、文化类站点。',
-   recEn:'Ink-green like a still pond, gold like a lantern. The most narrative dark palette here — a teahouse on a rainy night, bamboo shadows swaying outside. For personal sites, photography, cultural projects.',
+   rec:'墨绿如深潭，金色如灯盏。这是整套方案中最有叙事感的暗色调，像雨夜的茶室，窗外竹影婆娑。适合个人主页、摄影集、文化类站点。',
+   recEn:'Ink-green like a still pond, gold like a lantern. The most narrative dark palette here, a teahouse on a rainy night with bamboo shadows swaying outside. For personal sites, photography, cultural projects.',
    pair:'金色 accent 是整个画面的灵魂，务必少而精地使用。',
    pairEn:'The gold accent is the soul of this palette. Use it sparingly and precisely.'},
   {id:'E',n:'Forest & Gold',s:'自然清新',bg:'#f2f7f5',c:'#e8f0ec',tx:'#00473e',tx2:'#475d5b',ac:'#faae2b',ac2:'#ffa8ba',bt:'#00473e',
    rec:'清晨的林间小路，阳光从叶缝间漏下来，落成金色的光斑。清新却不寡淡。适合环保品牌、户外博客、自然主题应用。',
-   recEn:'A morning forest path — sunlight filtering through leaves, landing as golden dapples. Fresh but never bland. For eco brands, outdoor blogs, nature-themed apps.',
+   recEn:'A morning forest path, sunlight filtering through leaves, landing as golden dapples. Fresh yet full. For eco brands, outdoor blogs, nature-themed apps.',
    pair:'绿底金字的组合古典而通透，粉色点缀增添一丝温柔。',
    pairEn:'Green with gold is classic and airy. The pink accent adds a touch of warmth.'},
   {id:'F',n:'Paper & Teal',s:'知性干净',bg:'#f8f5f2',c:'#feefe8',tx:'#232323',tx2:'#222525',ac:'#078080',ac2:'#f45d48',bt:'#f8f5f2',
    rec:'铺纸研墨的气质。纸白底色上，青绿色的链接像一枚安静的书签。偶尔出现的朱红，是批注时不经意的落笔。适合技术博客、文档站、工具类产品。',
    recEn:'The feel of laying paper and grinding ink. Teal links like quiet bookmarks on a paper-white page. The occasional vermilion is an absent-minded margin note. For tech blogs, docs, tool products.',
    pair:'最"万能"的浅色方案之一，几乎适配所有内容类型。',
-   pairEn:'One of the most versatile light palettes — works with almost any content type.'},
+   pairEn:'One of the most versatile light palettes, works with almost any content type.'},
   {id:'G',n:'Silver & Orange',s:'现代极简',bg:'#eff0f3',c:'#fffffe',tx:'#0d0d0d',tx2:'#2a2a2a',ac:'#ff8e3c',ac2:'#d9376e',bt:'#0d0d0d',
    rec:'银灰底色如同磨砂金属面板，橙色按钮是唯一的视觉锚点。冷静、利落、不废话。适合 SaaS 产品、开发者工具、仪表盘。',
-   recEn:'Silver-grey like brushed metal. The orange button is the only visual anchor — cool, sharp, no-nonsense. For SaaS, dev tools, dashboards.',
+   recEn:'Silver-grey like brushed metal. The orange button is the only visual anchor, cool, sharp, no-nonsense. For SaaS, dev tools, dashboards.',
    pair:'橙色面积越小，冲击力越大。用在 CTA 按钮上恰好。',
    pairEn:'The smaller the orange, the stronger the punch. Perfect for CTA buttons.'},
   {id:'H',n:'Midnight Rose',s:'深夜书房',bg:'#232946',c:'rgba(184,193,236,.12)',tx:'#fffffe',tx2:'#b8c1ec',ac:'#eebbc3',ac2:'#d4d8f0',bt:'#232946',
    rec:'深蓝如午夜，玫瑰粉如台灯洒下的暖光。安静、私密、适合沉浸式阅读。适合个人博客、夜间模式、阅读类应用。',
    recEn:'Deep blue like midnight, rose-pink like the warm glow of a desk lamp. Quiet, intimate, made for immersive reading. For personal blogs, dark mode, reading apps.',
-   pair:'薰衣草色的次要文字在深蓝底上可读性极佳，优于纯白。',
-   pairEn:'Lavender secondary text reads beautifully on deep blue — better than pure white.'},
+   pair:'薰衣草色的次要文字在深蓝底上可读性极佳，胜过纯白。',
+   pairEn:'Lavender secondary text reads beautifully on deep blue, better than pure white.'},
   {id:'I',n:'Chocolate Rose',s:'复古奢华',bg:'#55423d',c:'rgba(255,243,236,.12)',tx:'#fffffe',tx2:'#fff3ec',ac:'#ffc0ad',ac2:'#e78fb3',bt:'#271c19',
-   rec:'巧克力色的丝绒幕布，玫瑰金的灯光。这套配色自带叙事——像午后咖啡馆的角落。适合时尚品牌、高端餐饮、奢侈品展示。',
-   recEn:'Chocolate velvet curtains, rose-gold lighting. A palette that tells a story — an afternoon corner in a Parisian café. For fashion, fine dining, luxury.',
+   rec:'巧克力色的丝绒幕布，玫瑰金的灯光。这套配色自带叙事，像午后咖啡馆的角落。适合时尚品牌、高端餐饮、奢侈品展示。',
+   recEn:'Chocolate velvet curtains, rose-gold lighting. A palette that tells a story, an afternoon corner in a Parisian café. For fashion, fine dining, luxury.',
    pair:'暗底亮字的方案，注意正文行高要拉大，至少 1.7。',
-   pairEn:'Light on dark demands generous line-height — at least 1.7 for body text.'},
+   pairEn:'Light on dark demands generous line-height, at least 1.7 for body text.'},
   {id:'J',n:'Blush Latte',s:'裸粉渐变',bg:'#F7E6E1',c:'#f0d5cd',tx:'#4B332E',tx2:'#A77A6E',ac:'#CFA59A',ac2:'#A77A6E',bt:'#fff',
    rec:'整套都在裸粉色系里轻轻浮动，像一杯燕麦拿铁表面的奶泡。极度柔和，没有一处硬边。适合美妆品牌、母婴产品、温柔系个人站。',
    recEn:'Everything floats gently in nude-pink, like the foam on an oat latte. Extremely soft, no hard edges anywhere. For beauty brands, maternal care, gentle personal sites.',
    pair:'因为色差小，需要靠字重和字号差异建立层级。',
    pairEn:'Low contrast means hierarchy must come from font weight and size differences.'},
   {id:'K',n:'Champagne Smoke',s:'画廊烛光',bg:'#FBF6EE',c:'#f2ebe0',tx:'#2A2A2B',tx2:'#7B746B',ac:'#2A2A2B',ac2:'#C8B89E',bt:'#FBF6EE',
-   rec:'画廊里的白墙与暖色射灯。没有彩色——全靠明暗与材质说话。这是"无色胜有色"的典范。适合建筑事务所、艺术家主页、极简作品集。',
-   recEn:'Gallery white walls under warm spotlights. No chromatic color — all about light, shadow, and texture. The epitome of "absence as presence." For architecture firms, artist pages, minimal portfolios.',
-   pair:'纯黑 accent 在暖白底上反而不刺眼，反倒有一种沉稳的力量。',
-   pairEn:'Pure black accent on warm white is surprisingly gentle — it carries a quiet authority.'},
+   rec:'画廊里的白墙与暖色射灯。几乎没有彩色，全靠明暗与材质说话。这是"以少胜多"的典范。适合建筑事务所、艺术家主页、极简作品集。',
+   recEn:'Gallery white walls under warm spotlights. Almost no chromatic color, all about light, shadow, and texture. The epitome of restraint. For architecture firms, artist pages, minimal portfolios.',
+   pair:'纯黑 accent 在暖白底上反而不刺眼，带着一种沉稳的力量。',
+   pairEn:'Pure black accent on warm white is surprisingly gentle, carrying a quiet authority.'},
   {id:'L',n:'Vanilla Sage',s:'疗愈自然',bg:'#F6F0E6',c:'#e8eed5',tx:'#2F3E3A',tx2:'#6F8A78',ac:'#6F8A78',ac2:'#A8BDA3',bt:'#F6F0E6',
-   rec:'香草色底板上铺着鼠尾草绿的卡片。整个页面像一盆养了很久的绿植——不张扬，但让人觉得安心。适合健康、冥想、心理咨询类产品。',
-   recEn:'Sage-green cards on a vanilla base. The whole page feels like a houseplant you have tended for years — unassuming yet calming. For wellness, meditation, therapy apps.',
-   pair:'绿色系配色容易显得"土"，关键是底色要足够暖。',
-   pairEn:'Green palettes risk looking earthy — the key is a warm enough background.'},
+   rec:'香草色底板上铺着鼠尾草绿的卡片。整个页面像一盆养了很久的绿植，不张扬，却让人觉得安心。适合健康、冥想、心理咨询类产品。',
+   recEn:'Sage-green cards on a vanilla base. The whole page feels like a houseplant you have tended for years, unassuming yet calming. For wellness, meditation, therapy apps.',
+   pair:'绿色系容易显土，关键是底色要足够暖。',
+   pairEn:'Green palettes risk looking earthy, so the key is a warm enough background.'},
   {id:'M',n:'Sunset Gradient',s:'日落浪漫',bg:'#355C7D',c:'rgba(248,177,149,.12)',tx:'#F8B195',tx2:'#dda090',ac:'#F67280',ac2:'#F8B195',bt:'#355C7D',
    rec:'海边黄昏的最后十分钟。灰蓝色天空渐渐沉下去，地平线上还留着一抹珊瑚色的余温。适合旅行博客、音乐应用、情感类内容。',
    recEn:'The last ten minutes of a seaside dusk. Slate-blue sky sinking while a coral afterglow lingers on the horizon. For travel blogs, music apps, emotional storytelling.',
    pair:'暗色底上的暖色文字有天然的浪漫感，但要注意对比度。',
-   pairEn:'Warm text on a dark background is naturally romantic — but mind the contrast ratio.'},
+   pairEn:'Warm text on a dark background is naturally romantic, so mind the contrast ratio.'},
   {id:'N',n:'Peach & Forest',s:'蜜桃森林',bg:'#2A363B',c:'rgba(153,184,152,.1)',tx:'#FECEAB',tx2:'#99B898',ac:'#FF847C',ac2:'#99B898',bt:'#2A363B',
-   rec:'深林底色上开出蜜桃色的花。暖冷对撞但并不突兀——像冬天壁炉旁的一杯热可可。适合美食博客、植物类应用、户外品牌。',
-   recEn:'Peach blossoms against a deep forest floor. Warm-cold collision that never clashes — like hot cocoa by a winter fireplace. For food blogs, plant apps, outdoor brands.',
+   rec:'深林底色上开出蜜桃色的花。暖冷对撞却很和谐，像冬天壁炉旁的一杯热可可。适合美食博客、植物类应用、户外品牌。',
+   recEn:'Peach blossoms against a deep forest floor. A warm-cold collision that stays harmonious, like hot cocoa by a winter fireplace. For food blogs, plant apps, outdoor brands.',
    pair:'蜜桃色标题 + 草绿色正文的组合非常耐看。',
    pairEn:'Peach headings with sage body text is a surprisingly enduring combination.'},
   {id:'O',n:'Pastel Bloom',s:'糖果轻快',bg:'#fff8f5',c:'#fff',tx:'#444',tx2:'#888',ac:'#FFAAA6',ac2:'#A8E6CE',bt:'#444',
    rec:'像一颗刚拆开包装纸的马卡龙。粉与薄荷绿的经典搭配，轻盈、明快、不沉重。适合儿童教育、轻社交、创意工具。',
-   recEn:'Like unwrapping a fresh macaron. The classic pink-and-mint pairing — light, cheerful, never heavy. For kids\' education, casual social apps, creative tools.',
+   recEn:'Like unwrapping a fresh macaron. The classic pink-and-mint pairing, light, cheerful, never heavy. For kids\' education, casual social apps, creative tools.',
    pair:'底色接近纯白，适合承载大量内容而不显拥挤。',
    pairEn:'Near-white background handles dense content without feeling cramped.'},
   {id:'P',n:'Coral Garden',s:'明快浪漫',bg:'#fdf0e6',c:'#fff',tx:'#3a2020',tx2:'#6b4a4a',ac:'#FE4365',ac2:'#83AF9B',bt:'#fff',
-   rec:'珊瑚红是这套方案的心跳。在奶白色的静谧里，它像一朵突然盛开的花——浓烈、明确、不犹豫。适合活动页、促销落地页、创意机构。',
-   recEn:'Coral red is the heartbeat of this palette. Against creamy silence, it blooms suddenly — bold, decisive, unhesitating. For event pages, promos, creative agencies.',
+   rec:'珊瑚红是这套方案的心跳。在奶白色的静谧里，它像一朵突然盛开的花，浓烈、明确、不犹豫。适合活动页、促销落地页、创意机构。',
+   recEn:'Coral red is the heartbeat of this palette. Against creamy silence it blooms suddenly, bold, decisive, unhesitating. For event pages, promos, creative agencies.',
    pair:'珊瑚红 + 灰绿的互补色组合让页面既有活力又不失稳重。',
-   pairEn:'Coral-red and muted green complement each other — lively yet grounded.'},
-  {id:'Q',n:'Lavender Dusk',s:'紫黄出挑',bg:'#f6efef',c:'#f0e2e1',tx:'#181818',tx2:'#555',ac:'#994ff3',ac2:'#fbdd74',bt:'#fff',
-   rec:'紫色与金黄，一个冷一个暖，本不该和谐——但在浅粉灰底色的调停下，竟有一种戏剧感的优雅。适合创意机构、音乐平台、艺术展览。',
-   recEn:'Purple and gold — one cool, one warm, they shouldn\'t harmonize. Yet on a blush-grey stage, they produce a dramatic elegance. For creative agencies, music platforms, art exhibitions.',
-   pair:'紫色按钮 + 金黄标签的组合非常抢眼，少即是多。',
-   pairEn:'Purple buttons with golden tags are eye-catching. Less is more.'},
+   pairEn:'Coral-red and muted green complement each other, lively yet grounded.'},
+  {id:'Q',n:'Slate & Gold',s:'灰金出挑',bg:'#f6efef',c:'#f0e2e1',tx:'#181818',tx2:'#555',ac:'#4f6d7a',ac2:'#fbdd74',bt:'#fff',
+   rec:'石板蓝与金黄，一个冷一个暖，本不该和谐，却在浅粉灰底色的调停下，生出一种戏剧感的优雅。适合创意机构、音乐平台、艺术展览。',
+   recEn:'Slate-blue and gold, one cool, one warm, an unlikely pair that finds a dramatic elegance on a blush-grey stage. For creative agencies, music platforms, art exhibitions.',
+   pair:'石板蓝按钮 + 金黄标签的组合沉静而抢眼，少即是多。',
+   pairEn:'Slate-blue buttons with golden tags are calm yet eye-catching. Less is more.'},
   {id:'R',n:'Mocha Mousse',s:'摩卡慕斯',bg:'#FAF7F2',c:'#f0ebe3',tx:'#2C1810',tx2:'#6B4C3B',ac:'#A47864',ac2:'#d4a58a',bt:'#FAF7F2',
-   rec:'Pantone 2025 年度色。像一杯摩卡慕斯——不是浓烈的巧克力，是那种加了牛奶之后的温润。全色系同色调，安全感极强。适合生活方式品牌、家居产品、温暖系博客。',
-   recEn:'Pantone 2025 Color of the Year. Like a mocha mousse — not intense chocolate, but the warmth after milk is added. Monochromatic and deeply comforting. For lifestyle brands, home products, warm blogs.',
+   rec:'Pantone 2025 年度色。像一杯摩卡慕斯，是加了牛奶之后的温润而非浓烈的巧克力。全色系同色调，安全感极强。适合生活方式品牌、家居产品、温暖系博客。',
+   recEn:'Pantone 2025 Color of the Year. Like a mocha mousse, the warmth after milk is added rather than intense chocolate. Monochromatic and deeply comforting. For lifestyle brands, home products, warm blogs.',
    pair:'同色调方案的关键是字重和间距拉开差异，否则层级模糊。',
-   pairEn:'In monochromatic palettes, hierarchy comes from weight and spacing — not color.'},
+   pairEn:'In monochromatic palettes, hierarchy comes from weight and spacing rather than color.'},
   {id:'S',n:'Warm Clay',s:'手作质朴',bg:'#FAF2E8',c:'#f3ebe0',tx:'#2F201B',tx2:'#8B5A44',ac:'#C89A7C',ac2:'#8B5A44',bt:'#fff',
    rec:'陶土、亚麻、手工纸。这套配色带着手作的温度，每一个颜色都像是从自然里取来、又被时间打磨过的。适合手工艺品牌、独立书店、慢生活类内容。',
    recEn:'Clay, linen, handmade paper. Every color feels gathered from nature and polished by time. For craft brands, indie bookshops, slow-living content.',
    pair:'与 R 相比更偏暖黄，适合想要"手工感"而非"咖啡馆感"的场景。',
-   pairEn:'Warmer than R — choose this when you want "handmade" rather than "café" vibes.'},
+   pairEn:'Warmer than R, choose this when you want a handmade feel over a café feel.'},
   {id:'T',n:'Dark Ember',s:'暗黑炽烈',bg:'#0f0e17',c:'rgba(167,169,190,.1)',tx:'#fffffe',tx2:'#a7a9be',ac:'#ff8906',ac2:'#f25f4c',bt:'#0f0e17',
-   rec:'纯黑底色上，橙色火焰般炽烈。这是二十套方案中对比度最高、视觉冲击最强的一套。适合游戏、开发者工具、暗黑系产品页、技术会议官网。',
-   recEn:'On pure black, orange burns like flame. The highest contrast palette in this collection — maximum visual impact. For gaming, dev tools, dark product pages, tech conference sites.',
+   rec:'纯黑底色上，橙色火焰般炽烈。这是整套方案中对比度最高、视觉冲击最强的一套。适合游戏、开发者工具、暗黑系产品页、技术会议官网。',
+   recEn:'On pure black, orange burns like flame. The highest contrast palette in this collection, maximum visual impact. For gaming, dev tools, dark product pages, tech conference sites.',
    pair:'橙与红的双 accent 要避免同时大面积出现，否则会显得燥。',
-   pairEn:'Avoid using both orange and red accents in large areas simultaneously — it gets noisy.'},
-  {id:'U',n:'Neon Dusk',s:'赛博黄昏',bg:'#16161a',c:'rgba(127,90,240,.08)',tx:'#fffffe',tx2:'#94a1b2',ac:'#7f5af0',ac2:'#2cb67d',bt:'#fffffe',
-   rec:'深空底色上，紫色与翠绿交替闪烁。这是属于代码编辑器和终端窗口的配色——冷峻、精确、带着一丝科幻感。适合开发者工具、技术产品、游戏后台。',
-   recEn:'Purple and emerald flicker against deep space. A palette born from code editors and terminal windows — sharp, precise, with a hint of sci-fi. For dev tools, tech products, gaming dashboards.',
-   pair:'紫色作为主 accent 极其抢眼，绿色辅助色用于成功状态和次要操作。',
-   pairEn:'Purple as primary accent is striking. Reserve green for success states and secondary actions.'},
-  {id:'V',n:'Violet Pop',s:'紫电惊鸿',bg:'#fffffe',c:'#d1d1e9',tx:'#2b2c34',tx2:'#2b2c34',ac:'#6246ea',ac2:'#e45858',bt:'#fffffe',
-   rec:'纯白底上的紫色按钮，像闪电划过白昼。淡紫色卡片温柔地托底，红色点缀在关键时刻登场。适合创意工具、设计平台、科技初创品牌。',
-   recEn:'Purple buttons on pure white — lightning across a bright sky. Lilac cards soften the base; red appears at critical moments. For creative tools, design platforms, tech startups.',
-   pair:'紫色与红色不要同时大面积出现，一个用于 CTA，一个用于警告/标签。',
-   pairEn:'Avoid using purple and red in large areas simultaneously. One for CTAs, one for alerts/tags.'},
+   pairEn:'Avoid using both orange and red accents in large areas simultaneously; it gets noisy.'},
+  {id:'U',n:'Terminal Dusk',s:'终端暮色',bg:'#16161a',c:'rgba(72,116,120,.08)',tx:'#fffffe',tx2:'#94a1b2',ac:'#487478',ac2:'#2cb67d',bt:'#fffffe',
+   rec:'深空底色上，petrol 青与翠绿交替闪烁。这是属于代码编辑器和终端窗口的配色，冷峻、精确、带着一丝科幻感。适合开发者工具、技术产品、游戏后台。',
+   recEn:'Petrol-teal and emerald flicker against deep space. A palette born from code editors and terminal windows, sharp, precise, with a hint of sci-fi. For dev tools, tech products, gaming dashboards.',
+   pair:'青色作为主 accent 沉稳醒目，绿色辅助色用于成功状态和次要操作。',
+   pairEn:'Teal as primary accent is steady and clear. Reserve green for success states and secondary actions.'},
+  {id:'V',n:'Pine Pop',s:'松绿惊鸿',bg:'#fffffe',c:'#d1d1e9',tx:'#2b2c34',tx2:'#2b2c34',ac:'#3a6f6a',ac2:'#e45858',bt:'#fffffe',
+   rec:'纯白底上的深松绿按钮，像林间一道清亮的影。淡雾蓝卡片温柔地托底，红色点缀在关键时刻登场。适合创意工具、设计平台、科技初创品牌。',
+   recEn:'Deep pine-green buttons on pure white, like a crisp shadow in the woods. Misty-blue cards soften the base; red appears at critical moments. For creative tools, design platforms, tech startups.',
+   pair:'松绿与红色不要同时大面积出现，一个用于 CTA，一个用于警告或标签。',
+   pairEn:'Avoid using pine-green and red in large areas simultaneously. One for CTAs, one for alerts or tags.'},
   {id:'W',n:'Sunshine Mint',s:'柠檬薄荷',bg:'#fffffe',c:'#e3f6f5',tx:'#272343',tx2:'#2d334a',ac:'#ffd803',ac2:'#bae8e8',bt:'#272343',
-   rec:'阳光黄与薄荷绿在白色画布上嬉戏——这是整套方案中最快乐的一组。明亮、乐观、让人想到夏天的柠檬水。适合教育产品、儿童应用、轻量级工具。',
-   recEn:'Sunshine yellow and mint play on a white canvas — the happiest palette in the collection. Bright, optimistic, summery lemonade. For education, kids apps, lightweight tools.',
+   rec:'阳光黄与薄荷绿在白色画布上嬉戏，这是整套方案中最快乐的一组。明亮、乐观、让人想到夏天的柠檬水。适合教育产品、儿童应用、轻量级工具。',
+   recEn:'Sunshine yellow and mint play on a white canvas, the happiest palette in the collection. Bright, optimistic, summery lemonade. For education, kids apps, lightweight tools.',
    pair:'黄色按钮上用深色文字保证可读性，薄荷绿卡片底色清爽而不刺眼。',
    pairEn:'Use dark text on yellow buttons for readability. Mint card backgrounds stay fresh without glare.'},
-  {id:'X',n:'Cotton Candy',s:'棉花糖',bg:'#fec7d7',c:'#d9d4e7',tx:'#0e172c',tx2:'#322f49',ac:'#a786df',ac2:'#f9f8fc',bt:'#fffffe',
-   rec:'粉色底板铺满整个画布，薰衣草紫的卡片浮在上面。像游乐园的棉花糖——甜、软、让人卸下防备。适合少女向品牌、派对邀请、梦幻系产品。',
-   recEn:'Pink floods the canvas, lavender cards float above. Like cotton candy at a fairground — sweet, soft, disarming. For girlish brands, party invites, dreamy products.',
+  {id:'X',n:'Cotton Slate',s:'棉花石板',bg:'#fec7d7',c:'#d9d4e7',tx:'#0e172c',tx2:'#322f49',ac:'#566184',ac2:'#f9f8fc',bt:'#fffffe',
+   rec:'粉色底板铺满整个画布，雾蓝石板色的卡片浮在上面。像游乐园的棉花糖配上一抹理性的灰，甜而不腻。适合少女向品牌、派对邀请、梦幻系产品。',
+   recEn:'Pink floods the canvas, misty slate-blue cards float above. Like cotton candy with a touch of reason, sweet without being cloying. For girlish brands, party invites, dreamy products.',
    pair:'深蓝文字在粉色底上对比度意外地好，是整套方案稳定感的来源。',
-   pairEn:'Dark navy text on pink has surprisingly good contrast — it anchors this dreamy palette.'},
+   pairEn:'Dark navy text on pink has surprisingly good contrast, anchoring this dreamy palette.'},
   {id:'Y',n:'Coastal Linen',s:'海岸亚麻',bg:'#F3EFE7',c:'#e8e4db',tx:'#2C3D45',tx2:'#6C8A96',ac:'#6C8A96',ac2:'#AFC1C7',bt:'#F3EFE7',
    rec:'亚麻白底色上透出一缕海风的蓝灰。没有纯色的强势，只有自然光下布料的质感。适合建筑事务所、室内设计、北欧风格品牌。',
-   recEn:'Linen white with a breath of coastal blue-grey. No bold statements — just the texture of fabric under natural light. For architecture firms, interior design, Scandi brands.',
+   recEn:'Linen white with a breath of coastal blue-grey. No bold statements, just the texture of fabric under natural light. For architecture firms, interior design, Scandi brands.',
    pair:'同为蓝灰色调的 accent 和 accent2 通过深浅差异建立层级，极为克制。',
-   pairEn:'Accent and accent2 share the same blue-grey family. Hierarchy comes from value contrast alone — minimal and restrained.'},
+   pairEn:'Accent and accent2 share the same blue-grey family. Hierarchy comes from value contrast alone, minimal and restrained.'},
   {id:'Z',n:'Terracotta Whisper',s:'陶语轻声',bg:'#F5E7DB',c:'#f0ddd0',tx:'#3A2A25',tx2:'#A55A43',ac:'#D48B6A',ac2:'#A55A43',bt:'#fff',
-   rec:'陶土色的温度从屏幕里渗出来。赤褐、赭石、焦糖——像午后阳光照在泥墙上的那一刻。适合手工陶瓷品牌、有机食品、旅行杂志。',
-   recEn:'Terracotta warmth seeps through the screen. Sienna, ochre, caramel — like afternoon sun on an adobe wall. For ceramic brands, organic food, travel magazines.',
+   rec:'陶土色的温度从屏幕里渗出来。赤褐、赭石、焦糖，像午后阳光照在泥墙上的那一刻。适合手工陶瓷品牌、有机食品、旅行杂志。',
+   recEn:'Terracotta warmth seeps through the screen. Sienna, ochre, caramel, like afternoon sun on an adobe wall. For ceramic brands, organic food, travel magazines.',
    pair:'与 S（手作质朴）相比偏红，更适合食物和大地相关的品牌叙事。',
-   pairEn:'Redder than S (Warm Clay) — better suited for food and earth-related brand narratives.'},
+   pairEn:'Redder than S (Warm Clay), better suited for food and earth-related brand narratives.'},
   {id:'AA',n:'Retro Mint Soda',s:'薄荷汽水',bg:'#F8F1E6',c:'#CDEBDD',tx:'#2B3A3F',tx2:'#4a5c5f',ac:'#72C7B7',ac2:'#F2A65A',bt:'#2B3A3F',
    rec:'薄荷绿卡片浮在奶黄色底板上，琥珀色点缀像气泡冒出来。复古、轻快、有一种 50 年代美式餐厅的怀旧感。适合餐饮品牌、复古风应用、生活方式产品。',
    recEn:'Mint cards float on cream, amber accents bubble up like fizz. Retro, breezy, with a 1950s diner nostalgia. For food brands, vintage-style apps, lifestyle products.',
    pair:'薄荷绿和琥珀色是天然互补色，对比舒适而不刺激。',
-   pairEn:'Mint and amber are natural complements — comfortable contrast without visual strain.'},
+   pairEn:'Mint and amber are natural complements, comfortable contrast without visual strain.'},
   {id:'AB',n:'Iced Blueberry',s:'蓝莓冰沙',bg:'#F7F8FC',c:'#DCE6FA',tx:'#2D3354',tx2:'#6E83C7',ac:'#6E83C7',ac2:'#AFC3F2',bt:'#F7F8FC',
-   rec:'冰蓝色的宁静。整套方案都在蓝紫色域内轻轻滑动，像一杯蓝莓冰沙的渐层。专业、可信、不张扬。适合金融科技、医疗健康、企业 SaaS。',
-   recEn:'Icy-blue tranquility. The entire palette glides within the blue-violet spectrum like a blueberry smoothie gradient. Professional, trustworthy, understated. For fintech, healthcare, enterprise SaaS.',
-   pair:'同色系方案需要靠字号和字重拉开层级，颜色本身不够区分。',
-   pairEn:'Monochromatic blue needs font size and weight to establish hierarchy — color alone won\'t differentiate.'},
+   rec:'冰蓝色的宁静。整套方案都在蓝色域内轻轻滑动，像一杯蓝莓冰沙的渐层。专业、可信、不张扬。适合金融科技、医疗健康、企业 SaaS。',
+   recEn:'Icy-blue tranquility. The entire palette glides within the blue spectrum like a blueberry smoothie gradient. Professional, trustworthy, understated. For fintech, healthcare, enterprise SaaS.',
+   pair:'同色系方案需要靠字号和字重拉开层级，颜色本身区分有限。',
+   pairEn:'Monochromatic blue needs font size and weight to establish hierarchy, since color alone differentiates little.'},
   {id:'AC',n:'Olive Ink',s:'橄榄墨香',bg:'#F2F0E6',c:'#e6e3d5',tx:'#141A14',tx2:'#3F4B39',ac:'#9AA27E',ac2:'#3F4B39',bt:'#F2F0E6',
    rec:'橄榄绿与旧纸色，像一本放在书房角落的植物图鉴。沉静、学术、带着泥土气息。适合出版社官网、植物学应用、环保组织。',
-   recEn:'Olive green and aged paper — like a botanical atlas in the corner of a study. Calm, scholarly, earthy. For publishing houses, botanical apps, environmental orgs.',
+   recEn:'Olive green and aged paper, like a botanical atlas in the corner of a study. Calm, scholarly, earthy. For publishing houses, botanical apps, environmental orgs.',
    pair:'墨绿色 accent 低调到几乎消失，靠面积和位置而非色彩对比引导视线。',
-   pairEn:'The olive accent is so subtle it nearly vanishes. Guide the eye with placement and area, not color contrast.'},
+   pairEn:'The olive accent is so subtle it nearly vanishes. Guide the eye with placement and area rather than color contrast.'},
   {id:'AD',n:'Cherry Mocha',s:'樱桃摩卡',bg:'#F6EEE9',c:'#f0e5de',tx:'#1C1214',tx2:'#5B2A2A',ac:'#B24A4A',ac2:'#E7B9B2',bt:'#fff',
    rec:'樱桃红沉入摩卡底色，像一颗巧克力裹着的酒心樱桃。成熟、温暖、带一丝微醺。适合红酒品牌、精品咖啡、独立设计师。',
-   recEn:'Cherry red sinks into mocha — a chocolate-covered kirsch cherry. Mature, warm, slightly intoxicating. For wine brands, specialty coffee, independent designers.',
+   recEn:'Cherry red sinks into mocha, a chocolate-covered kirsch cherry. Mature, warm, slightly intoxicating. For wine brands, specialty coffee, independent designers.',
    pair:'樱桃红在暖白底上不刺目，配合淡粉 accent2 形成柔和的红色叙事。',
    pairEn:'Cherry red on warm white stays gentle. Paired with blush accent2, it tells a soft red story.'},
+  {id:'AE',n:'Stone Study',s:'石灰书房',bg:'#F4F1EC',c:'#EAE5DC',tx:'#2B2A26',tx2:'#6B665C',ac:'#7C6F5B',ac2:'#A9A292',bt:'#fff',
+   rec:'石灰、麻绳、未漂白的纸。整套配色像一间晒着午后阳光的石屋，每一寸都安静且笃定。适合独立出版、学术机构、慢节奏品牌官网。',
+   recEn:'Limestone, twine, unbleached paper. The whole scheme feels like a stone room in afternoon sun, quiet and assured throughout. For independent publishing, academic institutions, slow-paced brand sites.',
+   pair:'低彩度暖灰需要靠字号与留白建立秩序，accent 用于强调时面积要克制。',
+   pairEn:'Low-chroma warm greys rely on type scale and whitespace for order. Keep accent areas small when emphasizing.'},
+  {id:'AF',n:'Sage Mist',s:'雾色鼠尾草',bg:'#EEF1F0',c:'#E2E7E5',tx:'#1F2624',tx2:'#5C6562',ac:'#5F7A6F',ac2:'#9DAEA6',bt:'#fff',
+   rec:'清晨窗台上的薄雾，鼠尾草的灰绿被柔光稀释成最温和的样子。沉静、清洁、令人放松。适合健康平台、冥想应用、可持续品牌。',
+   recEn:'Morning mist on a windowsill, sage grey-green diluted by soft light into its gentlest form. Calm, clean, relaxing. For wellness platforms, meditation apps, sustainable brands.',
+   pair:'灰绿同色系靠明度分层，accent 做按钮时配白色文字可读性充足。',
+   pairEn:'The grey-green family layers by lightness. With white text on the accent button, readability stays comfortable.'},
+  {id:'AG',n:'Fog Slate',s:'雾灰石板',bg:'#F5F3EF',c:'#E9E6DF',tx:'#23262B',tx2:'#5A6068',ac:'#52677A',ac2:'#9AA6B2',bt:'#fff',
+   rec:'雾天的城市天际线，石板蓝被湿气磨去了锋芒。冷静、专业、带一点北欧的疏离感。适合企业官网、咨询机构、数据产品。',
+   recEn:'A city skyline on a foggy day, slate-blue with its edge worn off by moisture. Cool, professional, with a touch of Nordic distance. For corporate sites, consultancies, data products.',
+   pair:'冷灰底配深石板蓝 accent，层级清晰，适合长文与表格密集的页面。',
+   pairEn:'Cool grey base with a deep slate-blue accent keeps hierarchy clear, well suited to long-form text and table-heavy pages.'},
+  {id:'AH',n:'Clay Field',s:'陶土田野',bg:'#F2EDE7',c:'#E7DFD4',tx:'#33271F',tx2:'#7A6450',ac:'#9C6B4A',ac2:'#C9A98C',bt:'#fff',
+   rec:'翻耕过的田垄，干燥的红陶土在低斜阳光下泛着哑光。温厚、踏实、有手作的呼吸感。适合农场品牌、陶艺工作室、有机食品。',
+   recEn:'Tilled furrows, dry red clay glowing matte under low slanting sun. Warm, grounded, with a handmade breath to it. For farm brands, ceramic studios, organic food.',
+   pair:'低彩陶土色做主 accent 时，白色按钮文字对比充足，正文用深棕保证可读。',
+   pairEn:'When the low-chroma clay leads as the accent, white button text holds enough contrast; use deep brown for body copy readability.'},
+  {id:'AI',n:'Bone Paper',s:'骨白纸感',bg:'#F4F4F2',c:'#E6E6E3',tx:'#1F1F1D',tx2:'#5E5E58',ac:'#6E6A60',ac2:'#A6A299',bt:'#fff',
+   rec:'近乎无彩的骨白与纸灰，只靠明暗与留白说话。极简、克制、把全部注意力还给内容。适合作品集、设计系统文档、极简博客。',
+   recEn:'Near-achromatic bone white and paper grey speaking only through value and whitespace. Minimal, restrained, returning all attention to the content. For portfolios, design-system docs, minimal blogs.',
+   pair:'几乎零彩度方案靠字重、字号与间距建立全部层级，accent 仅作微弱区分。',
+   pairEn:'A near-zero-chroma scheme builds all hierarchy from weight, size, and spacing, with the accent offering only a faint distinction.'},
+  {id:'AJ',n:'Ink Pine',s:'墨黑松青',bg:'#11161A',c:'rgba(150,165,170,.10)',tx:'#F4F6F6',tx2:'#9DAAAE',ac:'#7FA6A0',ac2:'#5E7C77',bt:'#11161A',
+   rec:'近墨的深色底上，松青色像林间夜雾里的一线微光。沉静、专注、适合长时间凝视的界面。适合开发者工具、阅读器夜间模式、技术文档站。',
+   recEn:'On near-ink darkness, pine-teal glows like a thread of light in night fog among trees. Calm, focused, suited to interfaces you stare at for hours. For dev tools, reader dark mode, technical docs.',
+   pair:'暗底松青 accent 低饱和而清晰，正文行高建议 1.7 以上以缓解疲劳。',
+   pairEn:'The dark base with a low-saturation pine accent stays clear; set body line-height above 1.7 to ease fatigue.'},
+  {id:'AK',n:'Desert Bone',s:'沙漠骨色',bg:'#F3EFEA',c:'#E8E1D6',tx:'#2E2A24',tx2:'#6E6253',ac:'#73624A',ac2:'#B7AB92',bt:'#fff',
+   rec:'正午沙丘的阴影面，骨白沙与干木的颜色被阳光晒得发哑。开阔、温暖、有一种风化的从容。适合旅行杂志、户外装备、自然摄影集。',
+   recEn:'The shadow side of a midday dune, bone sand and dry wood baked matte by the sun. Open, warm, with a weathered ease. For travel magazines, outdoor gear, nature photography.',
+   pair:'暖沙色系靠明度差分层，深木色 accent 配白色按钮文字对比充足。',
+   pairEn:'The warm sand family layers by lightness; the deep wood accent holds enough contrast with white button text.'},
+  {id:'AL',n:'Eucalyptus Stone',s:'桉叶石青',bg:'#EDEFEE',c:'#E0E4E2',tx:'#202524',tx2:'#586060',ac:'#5B7470',ac2:'#94A6A2',bt:'#fff',
+   rec:'桉树叶背面的灰青，混着石头的凉意。清冷、洁净、有一种被水洗过的平静。适合护肤品牌、医疗健康、极简电商。',
+   recEn:'The grey-teal underside of a eucalyptus leaf mixed with the coolness of stone. Cool, clean, with a water-washed calm. For skincare brands, healthcare, minimal commerce.',
+   pair:'冷灰青同色系，accent 与 accent2 靠明度拉开层级，按钮文字用白色稳妥。',
+   pairEn:'A cool grey-teal family; accent and accent2 separate by lightness, and white button text stays safe.'},
+  {id:'AM',n:'Driftwood Dark',s:'浮木深褐',bg:'#22201D',c:'rgba(190,178,160,.10)',tx:'#F3EFE8',tx2:'#B3A892',ac:'#A98F6E',ac2:'#7C6A52',bt:'#22201D',
+   rec:'海边晒得发白的浮木，在暮色里只剩温润的深褐与沙金。沉稳、温暖、像一间点着蜡烛的木屋。适合精品民宿、威士忌品牌、慢生活内容。',
+   recEn:'Driftwood bleached by the shore, reduced at dusk to mellow deep brown and sand-gold. Steady, warm, like a wooden cabin lit by candles. For boutique stays, whisky brands, slow-living content.',
+   pair:'暗暖底上沙金 accent 低饱和而温润，正文用米白保证暗色下的可读性。',
+   pairEn:'On the dark warm base, the sand-gold accent stays low-saturation and mellow; use cream body text for readability against the dark.'},
+  {id:'AN',n:'Harbor Steel',s:'港口钢灰',bg:'#F1F1F3',c:'#E3E3E8',tx:'#22232B',tx2:'#585A66',ac:'#646882',ac2:'#9FA2B4',bt:'#fff',
+   rec:'阴天港口的钢架与水泥，冷灰里掺着一点海蓝的记忆。理性、可靠、不带情绪。适合工程类产品、B2B 平台、技术白皮书站。',
+   recEn:'Steel frames and concrete at an overcast harbor, cool grey carrying a faint memory of sea blue. Rational, reliable, free of sentiment. For engineering products, B2B platforms, technical white-paper sites.',
+   pair:'冷灰蓝同色系靠明度分层，深钢蓝 accent 做按钮时白色文字对比充足。',
+   pairEn:'The cool grey-blue family layers by lightness; the deep steel-blue accent holds enough contrast with white button text.'},
 ];
 
 /* ===== 2) TYPE — display / body / mono triples ===== */
@@ -663,33 +740,62 @@ const MOODS=[
    tex:'none',motif:'none',rule:0,density:1,anim:0},
 ];
 
-/* ===== 6) ICONS — Lucide sets (assets/icons/lucide, ISC) ===== */
+/* ===== 6) ICONS — same 4 concepts (folio/calendar/book/canvas), 切风格不切内容
+   assets/icons/styles/<id>/{folio,calendar,book,canvas}.svg ===== */
 const ICONS=[
-  {id:'editorial',n:'编辑文房',nEn:'Editorial',s:'书 · 笔 · 版面',sEn:'book · pen · layout',ic:['book-open','pen-tool','layout-template','palette']},
-  {id:'product',n:'产品套件',nEn:'Product',s:'层 · 历 · 包',sEn:'layers · cal · pack',ic:['layers','calendar','package','sparkles']},
-  {id:'studio',n:'设计工作室',nEn:'Studio',s:'光圈 · 形 · 框',sEn:'aperture · shapes',ic:['aperture','shapes','frame','brush']},
-  {id:'dev',n:'开发者',nEn:'Developer',s:'终端 · 分支',sEn:'terminal · branch',ic:['terminal','git-branch','cpu','code-xml']},
-  {id:'nature',n:'自然',nEn:'Nature',s:'叶 · 日 · 山',sEn:'leaf · sun · peak',ic:['leaf','sun','mountain','feather']},
-  {id:'retail',n:'零售',nEn:'Retail',s:'袋 · 礼 · 签',sEn:'bag · gift · tag',ic:['shopping-bag','gift','tag','star']},
-  {id:'geometric',n:'几何极简',nEn:'Geometric',s:'圆 · 方 · 三角',sEn:'circle · square',ic:['circle','square','triangle','diamond']},
-  {id:'life',n:'生活',nEn:'Life',s:'心 · 咖 · 乐',sEn:'heart · coffee',ic:['heart','coffee','music','camera']},
+  {id:'lucide',n:'线性 Lucide',nEn:'Lucide Line',s:'通用线条',sEn:'clean line'},
+  {id:'phosphor-thin',n:'极细 Phosphor',nEn:'Phosphor Thin',s:'纤细',sEn:'hairline'},
+  {id:'phosphor-light',n:'轻盈 Phosphor',nEn:'Phosphor Light',s:'轻线',sEn:'light'},
+  {id:'phosphor-regular',n:'常规 Phosphor',nEn:'Phosphor Regular',s:'标准',sEn:'regular'},
+  {id:'phosphor-bold',n:'粗体 Phosphor',nEn:'Phosphor Bold',s:'厚重',sEn:'bold'},
+  {id:'phosphor-fill',n:'实心 Phosphor',nEn:'Phosphor Fill',s:'填充',sEn:'solid'},
+  {id:'phosphor-duotone',n:'双调 Phosphor',nEn:'Phosphor Duotone',s:'双色',sEn:'duotone'},
+  {id:'tabler-outline',n:'描边 Tabler',nEn:'Tabler Outline',s:'方正线',sEn:'tabler line'},
+  {id:'tabler-filled',n:'实心 Tabler',nEn:'Tabler Filled',s:'方正实',sEn:'tabler fill'},
+  {id:'hero-outline',n:'描边 Hero',nEn:'Hero Outline',s:'圆润线',sEn:'hero line'},
+  {id:'hero-solid',n:'实心 Hero',nEn:'Hero Solid',s:'圆润实',sEn:'hero solid'},
+  {id:'remix-line',n:'线条 Remix',nEn:'Remix Line',s:'匀线',sEn:'remix line'},
+  {id:'remix-fill',n:'实心 Remix',nEn:'Remix Fill',s:'匀实',sEn:'remix fill'},
 ];
+const ICON_CONCEPTS=['folio','calendar','book','canvas'];
 
 /* ===== 7) PATTERN — 花纹 (assets/patterns, CC0) ===== */
 const PATTERNS=[
-  {id:'none',n:'无纹',nEn:'Bare',s:'不加底纹',sEn:'no pattern',pat:'',orn:''},
-  {id:'dots',n:'圆点',nEn:'Dots',s:'点阵 · ✻',sEn:'dot grid · ✻',pat:'dots.svg',orn:'asterisk.svg'},
-  {id:'grid',n:'网格',nEn:'Grid',s:'方格 · 菱饰',sEn:'grid · diamond',pat:'grid.svg',orn:'diamond-rule.svg'},
-  {id:'diagonal',n:'斜纹',nEn:'Diagonal',s:'斜线 · 花饰',sEn:'diagonal · flourish',pat:'diagonal.svg',orn:'rule-flourish.svg'},
-  {id:'cross',n:'十字纹',nEn:'Cross',s:'十字 · ✻',sEn:'cross · ✻',pat:'cross.svg',orn:'asterisk.svg'},
-  {id:'waves',n:'波纹',nEn:'Waves',s:'波浪 · 叶饰',sEn:'waves · leaf',pat:'waves.svg',orn:'leaf.svg'},
-  {id:'lattice',n:'菱格',nEn:'Lattice',s:'菱格 · 菱饰',sEn:'lattice · diamond',pat:'lattice.svg',orn:'diamond-rule.svg'},
-  {id:'herringbone',n:'人字纹',nEn:'Herringbone',s:'人字 · 花饰',sEn:'herringbone',pat:'herringbone.svg',orn:'rule-flourish.svg'},
+  {id:'none',          n:'无纹',   nEn:'Bare',          s:'不加底纹',  sEn:'no pattern',     pat:'',                  orn:''},
+  {id:'halftone',      n:'网点',   nEn:'Halftone',      s:'印刷渐变',  sEn:'print gradient', pat:'halftone.svg',      orn:'ornaments/asterisk.svg'},
+  {id:'art-deco-fan',  n:'摺扇',   nEn:'Deco Fan',      s:'装饰艺术',  sEn:'art deco',       pat:'art-deco-fan.svg',  orn:'ornaments/sunburst.svg'},
+  {id:'seigaiha',      n:'青海波', nEn:'Seigaiha',      s:'和风浪纹',  sEn:'wave scales',    pat:'seigaiha.svg',      orn:'ornaments/laurel.svg'},
+  {id:'terrazzo',      n:'水磨石', nEn:'Terrazzo',      s:'碎石飞溅',  sEn:'scattered chips',pat:'terrazzo.svg',      orn:'ornaments/diamond-rule.svg'},
+  {id:'engraving',     n:'雕版',   nEn:'Engraving',     s:'排线刻印',  sEn:'etched lines',   pat:'engraving.svg',     orn:'ornaments/deco-rule.svg'},
+  {id:'memphis',       n:'孟菲斯', nEn:'Memphis',       s:'八零波普',  sEn:'80s pop',        pat:'memphis.svg',       orn:'ornaments/asterisk.svg'},
+  {id:'guilloche',     n:'团花',   nEn:'Guilloché',     s:'防伪雕纹',  sEn:'security engine',pat:'guilloche.svg',     orn:'ornaments/diamond-rule.svg'},
+  {id:'blueprint',     n:'蓝图',   nEn:'Blueprint',     s:'制图坐标',  sEn:'drafting grid',  pat:'blueprint.svg',     orn:'ornaments/corner.svg'},
+  {id:'bauhaus',       n:'包豪斯', nEn:'Bauhaus',       s:'构成几何',  sEn:'geometric',      pat:'bauhaus.svg',       orn:'ornaments/sunburst.svg'},
+  {id:'risograph',     n:'孔版',   nEn:'Risograph',     s:'颗粒油印',  sEn:'grain print',    pat:'risograph.svg',     orn:'ornaments/asterisk.svg'},
+  {id:'quatrefoil',    n:'四叶',   nEn:'Quatrefoil',    s:'哥特花格',  sEn:'gothic lattice', pat:'quatrefoil.svg',    orn:'ornaments/laurel.svg'},
+  {id:'basket-weave',  n:'藤编',   nEn:'Basket Weave',  s:'交织经纬',  sEn:'woven texture',  pat:'basket-weave.svg',  orn:'ornaments/deco-rule.svg'},
+  {id:'ticking-stripe',n:'细条纹', nEn:'Ticking',       s:'复古布纹',  sEn:'vintage stripe', pat:'ticking-stripe.svg',orn:'ornaments/diamond-rule.svg'},
+  {id:'star-lattice',  n:'星格',   nEn:'Star Lattice',  s:'伊斯兰镶嵌',sEn:'islamic tiling', pat:'star-lattice.svg',  orn:'ornaments/sunburst.svg'},
+  {id:'chevron-zigzag',n:'人字波', nEn:'Chevron',       s:'锐角律动',  sEn:'zigzag rhythm',  pat:'chevron-zigzag.svg',orn:'ornaments/deco-rule.svg'},
+  {id:'iso-cubes',     n:'立方',   nEn:'Iso Cubes',     s:'立体错视',  sEn:'isometric op',   pat:'iso-cubes.svg',     orn:'ornaments/corner.svg'},
+];
+
+/* ===== 8) ELEMENTS — 元件 component recipes (data-el) ===== */
+const ELEMENTS=[
+  {id:'classic',n:'经典',nEn:'Classic',s:'标准件',sEn:'standard'},
+  {id:'pill',n:'胶囊',nEn:'Pill',s:'全圆角',sEn:'rounded pill'},
+  {id:'sticker',n:'贴纸',nEn:'Sticker',s:'硬投影边',sEn:'hard offset'},
+  {id:'engineer',n:'工程',nEn:'Engineer',s:'方正描边',sEn:'square ruled'},
+  {id:'editorial',n:'出版',nEn:'Editorial',s:'下划线条',sEn:'underline rules'},
+  {id:'soft',n:'柔雾',nEn:'Soft',s:'无边柔影',sEn:'borderless soft'},
+  {id:'brut',n:'粗野',nEn:'Brutalist',s:'粗边大写',sEn:'heavy caps'},
+  {id:'tactile',n:'拟物',nEn:'Tactile',s:'立体内影',sEn:'inset depth'},
 ];
 
 const AXES=[
   {k:'palette',data:T},{k:'font',data:FONTS},{k:'layout',data:LAYOUTS},
-  {k:'tone',data:TONES},{k:'mood',data:MOODS},{k:'icons',data:ICONS},{k:'pattern',data:PATTERNS},
+  {k:'tone',data:TONES},{k:'mood',data:MOODS},{k:'icons',data:ICONS},
+  {k:'pattern',data:PATTERNS},{k:'elements',data:ELEMENTS},
 ];
 
 /* ===== STATE ===== */
@@ -714,10 +820,10 @@ function saveState(){
 }
 
 /* ===== SHAREABLE URL ===== */
-function comboStr(s){return AXES.map(a=>a.data[s[a.k]].id).join('-')}
+function comboStr(s){return AXES.map(a=>a.data[s[a.k]].id).join('~')}
 function parseCombo(str){
   if(!str)return null;
-  const p=String(str).split('-');if(p.length!==AXES.length)return null;
+  const p=String(str).split('~');if(p.length!==AXES.length)return null;
   const r={};
   for(let i=0;i<AXES.length;i++){const j=AXES[i].data.findIndex(o=>o.id===p[i]);if(j<0)return null;r[AXES[i].k]=j}
   return r;
@@ -750,12 +856,17 @@ function thumb(axis,o){
     return `<div class="dg" style="align-items:flex-start;justify-content:center"><i style="width:30px;height:13px;background:var(--ui-ac);opacity:1;border-radius:${Math.min(13,v.btnr)}px;box-shadow:${v.shadow==='none'?'none':'2px 2px 0 var(--ui-line)'}"></i><i style="width:40px;height:9px;border:${v.bw}px solid var(--ui-tx2);background:transparent;opacity:.5;border-radius:${Math.min(9,v.radius)}px"></i></div>`;
   }
   if(axis==='icons'){
-    const sp='assets/icons/lucide/sprite.svg#',ic=`stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;width:17px;height:17px`;
-    return `<div class="ft" style="display:flex;gap:7px;color:var(--ui-tx)"><svg viewBox="0 0 24 24" style="${ic}"><use href="${sp}${o.ic[0]}"/></svg><svg viewBox="0 0 24 24" style="${ic}"><use href="${sp}${o.ic[1]}"/></svg></div>`;
+    const m=c=>`<span style="width:19px;height:19px;background:var(--ui-tx);-webkit-mask:url(assets/icons/styles/${o.id}/${c}.svg) center/contain no-repeat;mask:url(assets/icons/styles/${o.id}/${c}.svg) center/contain no-repeat"></span>`;
+    return `<div class="ft" style="display:flex;gap:7px">${m('canvas')}${m('book')}</div>`;
   }
   if(axis==='pattern'){
-    if(!o.pat)return `<div class="ft" style="color:var(--ui-tx2);font-size:11px">—</div>`;
+    if(!o.pat)return `<div class="ft" style="color:var(--ui-tx2);font-size:11px">·</div>`;
     return `<div class="ft" style="background-color:var(--ui-tx2);-webkit-mask:url(assets/patterns/${o.pat}) repeat;mask:url(assets/patterns/${o.pat}) repeat;opacity:.55"></div>`;
+  }
+  if(axis==='elements'){
+    const E=({classic:{br:'5px',bd:'1px solid transparent',sh:'none'},pill:{br:'999px',bd:'1px solid transparent',sh:'none'},sticker:{br:'4px',bd:'2px solid var(--ui-tx)',sh:'2px 2px 0 var(--ui-tx)'},engineer:{br:'0',bd:'1px solid var(--ui-tx2)',sh:'none'},editorial:{br:'0',bd:'none',sh:'none',u:1},soft:{br:'13px',bd:'none',sh:'0 4px 10px rgba(0,0,0,.16)'},brut:{br:'0',bd:'3px solid var(--ui-tx)',sh:'none'},tactile:{br:'7px',bd:'none',sh:'inset 0 -3px 0 rgba(0,0,0,.28)'}})[o.id]||{br:'5px',bd:'none',sh:'none'};
+    const btn=E.u?`width:30px;height:12px;color:var(--ui-ac);border-bottom:1.5px solid var(--ui-ac)`:`width:32px;height:13px;background:var(--ui-ac);border-radius:${E.br};box-shadow:${E.sh}`;
+    return `<div class="ft" style="flex-direction:column;gap:5px"><span style="${btn}"></span><span style="width:42px;height:11px;border:${E.bd};border-radius:${E.br==='999px'?'8px':E.br};background:transparent"></span></div>`;
   }
   // mood
   const bgmap={paper:'radial-gradient(currentColor .6px,transparent .6px)',scanline:'repeating-linear-gradient(0deg,currentColor 0 1px,transparent 1px 4px)',vignette:'radial-gradient(ellipse,transparent 40%,rgba(0,0,0,.4))',none:'none'};
@@ -837,17 +948,18 @@ function applyComboTo(st,s){
   st.setAttribute('data-rule',(mo.rule||(to.id==='editorial'?1:0))?'1':'0');
   st.setAttribute('data-link',to.link);
   st.setAttribute('data-halign',la.halign);
-  // icons (Lucide sprite)
-  const ico=ICONS[s.icons], SP='assets/icons/lucide/sprite.svg#';
+  // icons — same 4 concepts, switch visual STYLE only (CSS-masked, accent-tinted)
+  const ico=ICONS[s.icons];
   st.querySelectorAll('.st-proj').forEach((pj,k)=>{
-    const box=pj.querySelector('.st-proj-i'), name=ico.ic[k];
-    if(box&&name)box.innerHTML=`<svg viewBox="0 0 24 24"><use href="${SP}${name}"/></svg>`;
+    const box=pj.querySelector('.st-proj-i');
+    if(box&&ICON_CONCEPTS[k]){box.textContent='';box.style.setProperty('--ic',`url(assets/icons/styles/${ico.id}/${ICON_CONCEPTS[k]}.svg)`);}
   });
   // pattern (花纹) + ornament
   const pt=PATTERNS[s.pattern];
   S('--pat',pt.pat?`url(assets/patterns/${pt.pat})`:'none');
-  S('--orn',pt.orn?`url(assets/patterns/ornaments/${pt.orn})`:'none');
+  S('--orn',pt.orn?`url(assets/patterns/${pt.orn})`:'none');
   st.setAttribute('data-pat',pt.pat?pt.id:'none');
+  st.setAttribute('data-el',ELEMENTS[s.elements].id);
   fillTextIn(st);
 }
 function applyCombo(){
@@ -954,7 +1066,7 @@ function exportText(){
   --btn-radius:${to.v.btnr}px; --btn-padding:${to.v.btnp};
   --weight-display:${to.v.wD}; --weight-body:${to.v.wB};
   --transition:${mo.anim}ms;
-  /* icons (Lucide, assets/icons/lucide): ${ico.ic.join(', ')} */
+  /* icons: style "${ico.id}" (assets/icons/styles/${ico.id}/{folio,calendar,book,canvas}.svg) */
   /* pattern (assets/patterns): ${pt.pat||'none'}  ·  ornament: ${pt.orn||'none'} */
 }`;
   const fontsLink=`<!-- Bundled offline fonts: copy assets/fonts/ then link it -->\n<link rel="stylesheet" href="assets/fonts/fonts.css">`;

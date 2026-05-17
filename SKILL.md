@@ -1,14 +1,14 @@
 ---
 name: color-palettes
-description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone / icons / patterns. A 7-axis combinable design system — 30 color palettes × 24 font pairings × 6 layouts × 6 tones × 6 moods × 8 icon sets × 8 patterns — previewed live in preview.html, with bundled self-hosted fonts (OFL), 1960 Lucide icons (ISC) and an original tileable pattern/ornament set (CC0). Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) plus its fonts/icons/patterns into any codebase, fully offline.
+description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone / icons / patterns / components. An 8-axis combinable design system — 40 color palettes (low-saturation, no AI-purple) × 24 font pairings × 6 layouts × 6 tones × 6 moods × 13 icon styles × 17 patterns × 8 element kits — previewed live in preview.html, with bundled self-hosted fonts (OFL), multi-style icons (Lucide/Phosphor/Tabler/Heroicons/Remix) and an original retro/modern pattern set (CC0). Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) plus its fonts/icons/patterns into any codebase, fully offline.
 ---
 
 # Color Palettes — Combinable Design System
 
-This is not just a color list. It is a **7-axis combinable design system** with a live playground (`preview.html`): pick one option from each menu and the mock site re-renders the full combination. Any combo can be **replicated into a real project** as CSS variables (plus its bundled fonts/icons/patterns).
+This is not just a color list. It is an **8-axis combinable design system** with a live playground (`preview.html`): pick one option from each menu and the mock site re-renders the full combination. Any combo can be **replicated into a real project** as CSS variables (plus its bundled fonts/icons/patterns).
 
 ```
-COLOR (30) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (8) × PATTERN (8)
+COLOR (40) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (13 styles) × PATTERN (17) × ELEMENT (8)
 ```
 
 - **Open `preview.html`** in a browser to explore combos, shuffle (Space), lock axes, and **Copy / Export** the current combo (CSS variables + Google Fonts link + JSON config).
@@ -26,9 +26,11 @@ COLOR (30) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (8) × PAT
 
 ---
 
-## 七个轴 (The 7 Axes)
+## 八个轴 (The 8 Axes)
 
-### 1. COLOR · 配色 (30) — `--color-*`
+### 1. COLOR · 配色 (40) — `--color-*`
+
+40 套（A–AN）。**低饱和、克制为基调；全库无高饱和紫色**（紫属"AI 味"，禁用）。AE–AN 为新增低饱和系（石灰/雾鼠尾草/雾灰石板/陶土/骨白/墨松/沙漠骨/桉叶石青/浮木深褐/港口钢灰，取材 Tailwind/Radix/Open Color/Refactoring UI 等）。
 
 7 个语义色彩角色。完整 hex 见下方「快速参考」表与「JS 数据」。
 
@@ -58,15 +60,19 @@ COLOR (30) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (8) × PAT
 
 `paper`(纸纹·✻标记) · `gallery`(极致留白·无饰) · `terminal`(扫描线·$ 提示符) · `magazine`(分隔线·节奏) · `nocturne`(晕影·圆点饰) · `clean`(零纹理·即时)。控制纹理、装饰母题、信息密度、微交互速度。
 
-### 6. ICON · 图标 (8) — Lucide via `assets/icons/lucide/sprite.svg`
+### 6. ICON · 图标 (13 风格) — 切风格不切内容（`assets/icons/styles/<id>/`）
 
-8 套图标主题，各 4 枚（用于"作品选集"卡片）：`editorial`(书/笔/版面) · `product`(层/历/包) · `studio`(光圈/形/框) · `dev`(终端/分支/芯片) · `nature`(叶/日/山) · `retail`(袋/礼/签) · `geometric`(圆/方/三角) · `life`(心/咖/乐)。渲染为 `<svg><use href="assets/icons/lucide/sprite.svg#NAME"/></svg>`，`stroke:currentColor`。
+固定 4 个概念 `folio / calendar / book / canvas`（对应 4 张作品卡，语义恒定），切的是**视觉风格**：`lucide` · `phosphor-thin/light/regular/bold/fill/duotone` · `tabler-outline/filled` · `hero-outline/solid` · `remix-line/fill`。每风格各 4 个 SVG，按 `assets/icons/styles/<id>/<concept>.svg` 经 CSS mask 以 accent 着色渲染。
 
-### 7. PATTERN · 花纹 (8) — `--pat` / `--orn`（`assets/patterns/`，CC0）
+### 7. PATTERN · 花纹 (17) — `--pat` / `--orn`（`assets/patterns/`，CC0 原创）
 
-`none`(无纹) · `dots` · `grid` · `diagonal` · `cross` · `waves` · `lattice` · `herringbone`。每个非 none 选项设一张可平铺底纹（masked，`text2` 着色，低透明）+ 一条装饰花纹分隔（`ornaments/`，accent 着色）。与 MOOD 的纹理正交叠加。
+`none` + 16 套复古/个性现代底纹：`halftone`(网点) · `art-deco-fan`(摺扇) · `seigaiha`(青海波) · `terrazzo`(水磨石) · `engraving`(雕版) · `memphis`(孟菲斯) · `guilloche`(团花) · `blueprint`(蓝图) · `bauhaus`(包豪斯) · `risograph`(孔版) · `quatrefoil`(四叶) · `basket-weave`(藤编) · `ticking-stripe`(细条纹) · `star-lattice`(星格) · `chevron-zigzag`(人字波) · `iso-cubes`(立方)。每个非 none 设一张可平铺底纹（masked，`text2` 着色，低透明）+ 一条装饰花纹分隔（`ornaments/` 共 6 个，accent 着色）。与 MOOD 纹理正交叠加。
 
-> 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS / ICONS / PATTERNS` 数组。要新增选项就往对应数组追加一个对象，UI 自动渲染（`AXES` 驱动，菜单/快照/分享 URL/导出全部自动覆盖新轴）。
+### 8. ELEMENT · 元件 (8) — `data-el` 组件配方
+
+`classic`(标准) · `pill`(胶囊) · `sticker`(硬投影边) · `engineer`(方正描边) · `editorial`(下划线条) · `soft`(无边柔影) · `brut`(粗边大写) · `tactile`(立体内影)。重塑按钮/卡片/标签/链接/分隔的具体长相，叠在 TONE（全局圆角/阴影/字重 token）之上。
+
+> 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS / ICONS / PATTERNS / ELEMENTS` 数组（`AXES` 驱动；菜单/随机/锁定/分享 URL/快照/A·B 对比/导出全部自动覆盖新轴，组合串以 `~` 分隔以兼容含连字符的 id）。
 
 ---
 
@@ -146,16 +152,18 @@ COLOR (30) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (8) × PAT
 
 | 目录 | 内容 | 许可 |
 |------|------|------|
-| `assets/fonts/` | 上述 8 个拉丁字族 + Noto Serif/Sans SC 的 woff2，加 `fonts.css`（@font-face） | SIL OFL 1.1（`OFL.txt`） |
-| `assets/icons/lucide/` | 1960 个 Lucide 图标：单文件 `sprite.svg`、`icons/*.svg`、`index.json`、`tags.json`（关键词搜索） | ISC（`LICENSE`） |
-| `assets/patterns/` | 16 个可平铺 SVG 底纹 + 6 个装饰花纹（`ornaments/`）、`patterns.css`、`index.json` | CC0（原创，`LICENSE`） |
+| `assets/fonts/` | 31 个字族（含 Noto Serif/Sans SC）woff2 + `fonts.css`（@font-face） | SIL OFL 1.1（`OFL.txt`） |
+| `assets/icons/styles/` | 13 风格 × 4 概念（folio/calendar/book/canvas）SVG，`_licenses/` 内含各库许可 | Lucide ISC · Phosphor/Tabler/Heroicons MIT · Remix Apache-2.0 |
+| `assets/icons/lucide/` | 完整 1960 Lucide（`sprite.svg`、`icons/*.svg`、`tags.json`），供复刻时取任意图标 | ISC（`LICENSE`） |
+| `assets/patterns/` | 16 复古/现代可平铺底纹 + 6 装饰花纹（`ornaments/`）、`patterns.css`、`index.json` | CC0（原创，`LICENSE`） |
 
 复刻时这样用：
 
-- **字体**：把 `assets/fonts/` 整个拷进目标项目，页面 `<head>` 加 `<link rel="stylesheet" href="assets/fonts/fonts.css">`，再设 `--font-display/-body/-mono`（值见上方 FONT 表）。完全离线，不依赖 Google Fonts。
-- **图标**：用雪碧图 `<svg><use href="assets/icons/lucide/sprite.svg#NAME"/></svg>`（`NAME` 见 `index.json`，按 `tags.json` 关键词找）；或直接拷单个 `icons/NAME.svg`。`stroke="currentColor"`，跟随文字色。
-- **花纹**：`background-image:url(assets/patterns/dots.svg)`（`currentColor`，用 `color`+`opacity` 调浓淡）；与 playground 的 MOOD 纹理一脉相承（`scanline/dots/grid…`）。装饰分隔可用 `ornaments/rule-flourish.svg`、`asterisk.svg`（即 ✻ 母题）。
-- 法律：连同各目录的 `OFL.txt / LICENSE` 一起保留即可合法再分发；汇总见仓库根 `THIRD_PARTY_LICENSES.md`。
+- **字体**：把 `assets/fonts/` 整个拷进目标项目，`<head>` 加 `<link rel="stylesheet" href="assets/fonts/fonts.css">`，再设 `--font-display/-body/-mono`（值见 `FONTS`）。完全离线。
+- **图标**：拷 `assets/icons/styles/<style>/` 的 4 个概念 SVG，以 CSS mask + `background:accent` 着色（与 playground 一致）；需要更多图标时用完整 `assets/icons/lucide/`（`sprite.svg#NAME`，`tags.json` 搜词）。
+- **花纹**：`mask-image:url(assets/patterns/<id>.svg)` + `background-color:文字/强调色`，低透明平铺；装饰分隔用 `ornaments/`（含 `asterisk.svg` 即 ✻ 母题）。
+- **元件**：把目标根元素加 `data-el="<id>"`，按 `preview.html` 内 `.stage[data-el=...]` 规则套用按钮/卡片/标签配方。
+- 法律：连同各目录 `OFL.txt / LICENSE / _licenses/*` 保留即可合法再分发；汇总见根 `THIRD_PARTY_LICENSES.md`。
 
 ## 快速参考 (Palette Hex)
 

@@ -1,29 +1,29 @@
 {
   "patterns": [
-    "dots",
-    "dots-loose",
-    "grid",
-    "grid-fine",
-    "diagonal",
-    "cross",
-    "plus",
-    "scanline",
-    "chevron",
-    "waves",
-    "diamonds",
-    "rings",
-    "triangles",
-    "lattice",
-    "stipple",
-    "herringbone"
+    "halftone",
+    "art-deco-fan",
+    "seigaiha",
+    "terrazzo",
+    "engraving",
+    "memphis",
+    "guilloche",
+    "blueprint",
+    "bauhaus",
+    "risograph",
+    "quatrefoil",
+    "basket-weave",
+    "ticking-stripe",
+    "star-lattice",
+    "chevron-zigzag",
+    "iso-cubes"
   ],
   "ornaments": [
     "asterisk",
-    "rule-flourish",
+    "deco-rule",
+    "sunburst",
     "corner",
     "diamond-rule",
-    "sun",
-    "leaf"
+    "laurel"
   ],
   "license": "CC0-1.0",
   "tileable": true
