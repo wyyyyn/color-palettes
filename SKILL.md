@@ -1,24 +1,149 @@
 ---
 name: color-palettes
-description: Use when building UI, choosing color schemes, applying themes to frontend projects, or user asks about color palette options. Provides 30 curated palettes with hex codes, CSS variables, and semantic role mappings. Also use when generating theme-switcher or multi-theme support.
+description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone. A combinable design system — 30 color palettes × 8 font pairings × 6 layouts × 6 tones × 6 moods — previewed live in preview.html. Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) as CSS variables into any codebase.
 ---
 
-# Color Palettes
+# Color Palettes — Combinable Design System
 
-30 套手工策展的配色方案，适用于个人网站、作品集、博客、落地页等场景。每套方案定义了 7 个语义色彩角色，确保 UI 的一致性。
+This is not just a color list. It is a **5-axis combinable design system** with a live playground (`preview.html`): pick one option from each menu and the mock site re-renders the full combination. Any combo can be **replicated into a real project** as CSS variables.
+
+```
+COLOR (30) × FONT (8) × LAYOUT (6) × TONE (6) × MOOD (6)
+```
+
+- **Open `preview.html`** in a browser to explore combos, shuffle (Space), lock axes, and **Copy / Export** the current combo (CSS variables + Google Fonts link + JSON config).
+- The 30 color palettes (data below) are the canonical color source and are unchanged from the original collection.
 
 ## 设计原则
 
-使用这些配色方案构建 UI 时，遵循简约风格：
+构建 UI 时遵循克制的编辑风：
 
-- **大量留白**：内容之间保持充足呼吸感，`padding` 和 `margin` 宁多勿少
-- **克制用色**：主色 + 点缀色足矣，不要把 7 个角色色全部同时堆上去
-- **字体搭配**：标题用衬线/半衬线体（如 Playfair Display、Source Serif），正文用无衬线体（如 Inter）
-- **去装饰化**：不加 `border-left` 装饰线、不用渐变按钮、不用阴影堆叠。用背景色区分层级，用圆角柔化边界
-- **信息密度低**：每屏只讲一件事，卡片内文字控制在 2-3 行
-- **动效克制**：`transition` 控制在 150-300ms，仅用于 hover 和切换，不做入场动画
+- **大量留白**：`padding`/`margin` 宁多勿少，每屏只讲一件事
+- **克制用色**：主色 + 点缀色足矣，别把 7 个角色色全堆上
+- **语义化**：颜色映射到角色（bg/text/accent…）而非裸 hex；字号/圆角/阴影也走变量
+- **去装饰化**：不用渐变按钮、不堆阴影；靠背景色与描边分层（除非 TONE 明确选了 elevated/bold）
+- **动效克制**：`transition` 150–400ms，由 MOOD 的 `--transition` 决定
 
-## 快速参考
+---
+
+## 五个轴 (The 5 Axes)
+
+### 1. COLOR · 配色 (30) — `--color-*`
+
+7 个语义色彩角色。完整 hex 见下方「快速参考」表与「JS 数据」。
+
+| 角色 | CSS 变量 | 用途 |
+|------|----------|------|
+| bg | `--color-bg` | 页面背景 |
+| card | `--color-card` | 卡片 / 区块背景 |
+| text | `--color-text` | 标题、主要文字 |
+| text2 | `--color-text2` | 正文、次要文字 |
+| accent | `--color-accent` | 按钮、链接、交互元素 |
+| accent2 | `--color-accent2` | 标签、高亮、次要点缀 |
+| btn-text | `--color-btn-text` | 按钮上的文字颜色 |
+
+### 2. FONT · 字体 (8) — `--font-display / --font-body / --font-mono`
+
+| id | 名称 | display / body / mono |
+|----|------|------------------------|
+| claude | Claude 编辑 | Fraunces / Inter / IBM Plex Mono |
+| mag | 杂志大衬线 | Playfair Display / Source Serif 4 / IBM Plex Mono |
+| swiss | 瑞士中性 | Inter / Inter / IBM Plex Mono |
+| literary | 文学衬线 | Newsreader / Newsreader / IBM Plex Mono |
+| terminal | 终端极客 | Space Grotesk / IBM Plex Mono / IBM Plex Mono |
+| humanist | 人文混排 | Spectral / Inter / IBM Plex Mono |
+| contrast | 编辑反差 | Fraunces / Source Serif 4 / IBM Plex Mono |
+| modern | 现代无衬线 | Space Grotesk / Inter / IBM Plex Mono |
+
+CJK 回退统一加 `'Noto Serif SC'`（衬线）/ `'Noto Sans SC'`（无衬线）。
+
+### 3. LAYOUT · 排版 (6) — `--fs1/2/b/s --line-height --measure --tracking --space-* --gap --cols`
+
+`editorial`(大字距宽留白) · `tight`(紧凑高密度) · `centered`(居中极简) · `magazine`(巨标题叙事) · `dense`(仪表盘) · `poster`(海报巨字)。控制字号阶梯、行距、字距、版心宽、栅格列数、对齐与间距节奏。
+
+### 4. TONE · 调性 (6) — `--radius --border-width --shadow --btn-radius --btn-padding --weight-*`
+
+`sharp`(方角描边无影) · `soft`(圆角胶囊) · `minimal`(细线几乎无形) · `editorial`(下划线印刷感) · `elevated`(阴影立体) · `bold`(粗边硬投影)。形语言：圆角、描边 vs 阴影、按钮形、字重对比。
+
+### 5. MOOD · 氛围 (6) — `--transition` + `data-tex / data-motif / data-rule` + 密度系数
+
+`paper`(纸纹·✻标记) · `gallery`(极致留白·无饰) · `terminal`(扫描线·$ 提示符) · `magazine`(分隔线·节奏) · `nocturne`(晕影·圆点饰) · `clean`(零纹理·即时)。控制纹理、装饰母题、信息密度、微交互速度。
+
+> 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS` 数组。要新增选项就往对应数组追加一个对象，UI 自动渲染。
+
+---
+
+## 复刻进项目 (Replicate a Combo Into Your Project)
+
+**核心能力**：把 playground 选好的一套组合（或从某网站复刻来的气质，见下节），作为 CSS 变量落进用户的真实代码。
+
+### Step 0 — 拿到组合
+
+从 `preview.html` 右上「复制 / 导出」拿到 bundle（或用户口述「配色 D + 字体 terminal + 排版 dense + 调性 sharp + 氛围 terminal」即可自行查上表组装）。导出 bundle 形如：
+
+```
+/* color-palettes · D Teal & Gold / Terminal Geek / Dense Dashboard / Sharp / Terminal */
+:root{
+  --color-bg:#004643; --color-card:rgba(171,209,198,.15);
+  --color-text:#fffffe; --color-text2:#abd1c6;
+  --color-accent:#f9bc60; --color-accent2:#e16162; --color-btn-text:#001e1d;
+  --font-display:'Space Grotesk','Noto Sans SC',sans-serif;
+  --font-body:'IBM Plex Mono','Noto Sans SC',monospace;
+  --font-mono:'IBM Plex Mono',monospace;
+  --fs-h1:26px; --fs-h2:16px; --fs-body:13.5px; --fs-small:10.5px;
+  --line-height:1.5; --measure:880px; --tracking:0px;
+  --space-section:21px; --space-inline:28px; --gap:7px;
+  --radius:0px; --border-width:1px; --shadow:none;
+  --btn-radius:0px; --btn-padding:10px 22px;
+  --weight-display:600; --weight-body:400;
+  --transition:140ms;
+}
+/* + Google Fonts <link> + JSON config { palette, font, layout, tone, mood } */
+```
+
+### Step 1 — 探测目标项目
+
+读 `package.json` / 配置判断技术栈：Tailwind v4、shadcn/ui、Next.js、Vite、纯 CSS、单 HTML 等。找到主样式入口（`globals.css` / `index.css` / `app.css` / `:root`）。
+
+### Step 2 — 落地 CSS 变量（按栈选一种）
+
+- **纯 CSS / 单 HTML**：把 bundle 的 `:root{…}` 整段写进主样式表；元素改用 `var(--color-*)`、`font-family:var(--font-body)`、`border-radius:var(--radius)` 等。
+- **Tailwind v4**：把变量放进 `@theme { --color-bg: …; --font-display: … }`，类名引用 `bg-bg text-text font-display rounded-[var(--radius)]`。
+- **shadcn/ui**：写 `theme.css`，在 `@layer base :root{…}` 覆盖；把 `--color-accent`→`--primary`、`--color-bg`→`--background`、`--color-text`→`--foreground` 做语义映射。
+- **Next.js / Vite**：新建 `styles/design-system.css`，在入口 import 一次。
+
+### Step 3 — 引入字体
+
+把 bundle 里的 Google Fonts `<link>` 加进 `<head>`（或框架的 fonts 配置 / `next/font`）。只引用到的家族，`display=swap`。
+
+### Step 4 — 验证（不可跳过）
+
+1. 起项目，按 [[CLAUDE.md 渲染必截图]] 原则**截图**与 playground 比对一致。
+2. 校验对比度：`text` on `bg`、`btn-text` on `accent` 至少过 WCAG AA（4.5:1 正文）。不达标提示用户换 COLOR 或调 text2。
+3. 列出改了哪些文件 + 一段 before/after 示例 + 跑起来的命令。
+
+### Step 5 — 留痕（可选但推荐）
+
+在目标项目根写一份 `DESIGN.md`（沿用 bundle 注释行的组合名 + 各 token），方便下一个 AI 理解这套系统。
+
+---
+
+## 复刻已有网站 (Clone a Site → Nearest Combo)
+
+反向流程，借助已安装的开源 skill **`clone-website`**（`~/.claude/skills/clone-website`，网站逆向/复刻）：
+
+1. 用 `clone-website` 抓取目标站，拿到它的实际配色、字体、圆角、阴影、间距（computed styles）。
+2. 把抓到的特征**映射到本系统最接近的组合**：
+   - 主色/底色 → 最近的 COLOR（按 bg+accent 色距）
+   - 字体族 → 最近的 FONT（衬线/无衬线/等宽 + 调性）
+   - 圆角/阴影/描边 → TONE；字号阶梯/版心 → LAYOUT；纹理/密度 → MOOD
+3. 在 `preview.html` 里选中该组合让用户确认/微调，再走上面「复刻进项目」Step 1–5 落地。
+
+这样既能 1:1 复刻，也能把外站气质收敛进这套可控的语义系统。
+
+---
+
+## 快速参考 (Palette Hex)
 
 | ID | Name | BG | Card | Text | Text2 | Accent | Accent2 | BtnText | 氛围 |
 |----|------|----|------|------|-------|--------|---------|---------|------|
@@ -53,19 +178,7 @@ description: Use when building UI, choosing color schemes, applying themes to fr
 | AC | Olive Ink | #F2F0E6 | #e6e3d5 | #141A14 | #3F4B39 | #9AA27E | #3F4B39 | #F2F0E6 | 橄榄墨香 |
 | AD | Cherry Mocha | #F6EEE9 | #f0e5de | #1C1214 | #5B2A2A | #B24A4A | #E7B9B2 | #fff | 樱桃摩卡 |
 
-## 色彩角色
-
-| 角色 | CSS 变量 | 用途 |
-|------|----------|------|
-| bg | `--color-bg` | 页面背景 |
-| card | `--color-card` | 卡片 / 区块背景 |
-| text | `--color-text` | 标题、主要文字 |
-| text2 | `--color-text2` | 正文、次要文字 |
-| accent | `--color-accent` | 按钮、链接、交互元素 |
-| accent2 | `--color-accent2` | 标签、高亮、次要点缀 |
-| btn-text | `--color-btn-text` | 按钮上的文字颜色 |
-
-## CSS 变量模板
+## CSS 变量模板 (单个配色)
 
 ```css
 [data-theme="A"] {
@@ -79,7 +192,7 @@ description: Use when building UI, choosing color schemes, applying themes to fr
 }
 ```
 
-## JS 数据
+## JS 数据 (30 配色)
 
 ```js
 const themes = [
@@ -118,20 +231,20 @@ const themes = [
 
 ## 选色建议
 
-| 场景 | 推荐方案 |
+| 场景 | 推荐配色 |
 |------|----------|
-| 个人博客 / 写作站 | A（旧书店温润）、K（画廊烛光）、R（摩卡慕斯）、AC（橄榄墨香） |
-| 作品集 / Portfolio | F（知性干净）、G（现代极简）、E（自然清新）、Y（海岸亚麻） |
-| 暗色主题 | D（东方美学）、H（深夜书房）、T（暗黑炽烈）、U（赛博黄昏） |
-| 女性化 / 柔和 | B（玫瑰花瓣）、J（裸粉渐变）、O（糖果轻快）、X（棉花糖） |
-| 高对比 / 张力 | C（杂志高级感）、N（蜜桃森林）、Q（紫黄出挑）、V（紫电惊鸿） |
-| SaaS / 开发者工具 | G（现代极简）、U（赛博黄昏）、V（紫电惊鸿）、AB（蓝莓冰沙） |
-| 暖色调 / 手工感 | S（手作质朴）、Z（陶语轻声）、AD（樱桃摩卡）、R（摩卡慕斯） |
-| 清新活力 | W（柠檬薄荷）、AA（薄荷汽水）、E（自然清新）、O（糖果轻快） |
+| 个人博客 / 写作站 | A、K、R、AC ｜ 字体 literary/humanist ｜ 排版 editorial ｜ 氛围 paper |
+| 作品集 / Portfolio | F、G、E、Y ｜ 字体 claude/contrast ｜ 排版 magazine/poster ｜ 氛围 gallery |
+| 暗色主题 | D、H、T、U ｜ 字体 terminal/modern ｜ 调性 sharp ｜ 氛围 terminal/nocturne |
+| 女性化 / 柔和 | B、J、O、X ｜ 字体 humanist ｜ 调性 soft ｜ 氛围 paper |
+| 高对比 / 张力 | C、N、Q、V ｜ 字体 mag ｜ 调性 bold ｜ 排版 magazine |
+| SaaS / 开发者工具 | G、U、V、AB ｜ 字体 swiss/modern ｜ 调性 minimal/sharp ｜ 排版 dense |
+| 暖色调 / 手工感 | S、Z、AD、R ｜ 字体 claude ｜ 调性 editorial ｜ 氛围 paper |
+| 清新活力 | W、AA、E、O ｜ 字体 modern ｜ 调性 soft ｜ 氛围 clean |
 
 ## 来源
 
-- [Happy Hues](https://www.happyhues.co) — A, B, C, D, E, F, G, H, I, Q, T, U, V, W, X
-- [Digital Synopsis](https://digitalsynopsis.com/design/minimal-web-color-palettes-combination-hex-code/) — M, N, O, P
-- [Media.io Aesthetic Palettes](https://www.media.io/color-palette/aesthetic-color-palette.html) — J, K, L, S, Y, Z, AA, AB, AC, AD
-- Pantone 2025 Color of the Year — R (Mocha Mousse #A47864)
+- 配色：[Happy Hues](https://www.happyhues.co) · [Digital Synopsis](https://digitalsynopsis.com/design/minimal-web-color-palettes-combination-hex-code/) · [Media.io](https://www.media.io/color-palette/aesthetic-color-palette.html) · Pantone 2025 (R)
+- 字体：Google Fonts（Fraunces / Inter / Playfair Display / Source Serif 4 / Newsreader / Spectral / Space Grotesk / IBM Plex Mono）
+- 调性/氛围：Anthropic / Claude 设计语言（cream + 黏土橙 + 方角无阴影 + ✻）、Realtime Colors、Radix、Open Props 等社区实践
+- 复刻：配合已安装的开源 skill `clone-website`（网站逆向 → 最近组合 → 应用）
