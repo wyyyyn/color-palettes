@@ -1,343 +1,337 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-ui-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>三十色 — 配色方案预览</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>设计实验室 — 五维组合预览</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Spectral:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter','Noto Serif SC',sans-serif;background:#111;color:#fff;min-height:100vh}
+:root{
+  --ui-bg:#faf9f5; --ui-panel:#fffdf8; --ui-panel2:#f3f1ea; --ui-line:#e8e6dc;
+  --ui-tx:#141413; --ui-tx2:#6f6d63; --ui-ac:#d97757; --ui-ac-press:#c15f3c;
+  --ui-shadow:0 1px 2px rgba(20,20,19,.04),0 8px 30px rgba(20,20,19,.05);
+}
+html[data-ui-theme="dark"]{
+  --ui-bg:#262624; --ui-panel:#30302e; --ui-panel2:#2b2a28; --ui-line:#3d3b35;
+  --ui-tx:#faf9f5; --ui-tx2:#b0aea5; --ui-ac:#e08a6b; --ui-ac-press:#d97757;
+  --ui-shadow:0 1px 2px rgba(0,0,0,.2),0 10px 34px rgba(0,0,0,.32);
+}
+html,body{height:100%}
+body{
+  font-family:'Inter','Noto Sans SC',system-ui,sans-serif;
+  background:var(--ui-bg);color:var(--ui-tx);
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--ui-line);border-radius:4px}
+::-webkit-scrollbar-track{background:transparent}
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.g-card{animation:fadeUp .4s ease both}
+/* ===== APP SHELL ===== */
+.app{display:flex;flex-direction:column;height:100vh}
+.bar{
+  flex-shrink:0;display:flex;align-items:center;justify-content:space-between;
+  height:54px;padding:0 20px;background:var(--ui-panel);
+  border-bottom:1px solid var(--ui-line);z-index:30;
+}
+.brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;letter-spacing:.3px}
+.brand .star{color:var(--ui-ac);font-size:15px}
+.brand .sub{font-size:11px;color:var(--ui-tx2);font-weight:400;margin-left:4px}
+.bar-actions{display:flex;align-items:center;gap:8px}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  height:32px;padding:0 13px;border-radius:7px;
+  border:1px solid var(--ui-line);background:var(--ui-panel);
+  color:var(--ui-tx);font-size:12px;font-family:inherit;cursor:pointer;
+  transition:border-color .15s,background .15s,color .15s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--ui-tx2)}
+.btn.primary{background:var(--ui-ac);border-color:var(--ui-ac);color:#fff}
+.btn.primary:hover{background:var(--ui-ac-press);border-color:var(--ui-ac-press)}
+.btn .k{font-size:10px;opacity:.6;font-family:'IBM Plex Mono',monospace}
+.body{flex:1;display:flex;min-height:0}
 
-/* ===== HERO FADE ===== */
-#heroSection.hiding{opacity:0;transform:translateY(-20px);pointer-events:none}
-.mode-bar{transition:opacity .3s,transform .3s}
-.mode-bar.hidden{opacity:0;transform:translateY(-50px);pointer-events:none}
-
-/* ===== MODE TOGGLE ===== */
-.mode-bar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  background:rgba(17,17,17,.96);backdrop-filter:blur(10px);
-  border-bottom:1px solid #2a2a2a;
+/* ===== SIDEBAR ===== */
+.side{
+  width:328px;flex-shrink:0;overflow-y:auto;
+  background:var(--ui-panel);border-right:1px solid var(--ui-line);
+  padding:6px 0 60px;
+}
+.menu{border-bottom:1px solid var(--ui-line)}
+.menu-h{
   display:flex;align-items:center;justify-content:space-between;
-  height:50px;padding:0 24px;
+  padding:13px 18px 9px;position:sticky;top:0;
+  background:var(--ui-panel);z-index:2;
 }
-.mode-tabs{display:flex;gap:4px;background:#1a1a1a;border-radius:8px;padding:3px}
-.mode-tab{
-  padding:6px 16px;border-radius:6px;border:none;
-  background:transparent;color:#888;font-size:12px;font-family:inherit;
-  cursor:pointer;transition:all .15s;
+.menu-h .t{display:flex;align-items:baseline;gap:8px}
+.menu-h .t b{font-size:12.5px;font-weight:600;letter-spacing:1px}
+.menu-h .t span{font-size:10px;color:var(--ui-tx2)}
+.lock{
+  width:26px;height:26px;border-radius:6px;border:1px solid var(--ui-line);
+  background:transparent;color:var(--ui-tx2);cursor:pointer;font-size:12px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s;
 }
-.mode-tab.active{background:#333;color:#fff}
-.mode-info{font-size:11px;color:#666}
-.picked-badge{background:#4ecdc4;color:#111;padding:2px 8px;border-radius:10px;font-weight:600;font-size:11px;margin-left:6px}
-.lang-toggle{
-  padding:4px 10px;border-radius:6px;border:1px solid #444;
-  background:transparent;color:#999;font-size:11px;font-family:inherit;
-  cursor:pointer;transition:all .15s;margin-left:8px;
+.lock:hover{border-color:var(--ui-tx2)}
+.lock.on{background:var(--ui-ac);border-color:var(--ui-ac);color:#fff}
+.opts{display:flex;flex-direction:column;gap:5px;padding:2px 12px 16px}
+.opts.scroll{max-height:266px;overflow-y:auto;padding-right:8px}
+.opt{
+  display:flex;align-items:center;gap:11px;
+  padding:8px 9px;border-radius:8px;cursor:pointer;
+  border:1px solid transparent;background:var(--ui-panel2);
+  transition:border-color .14s,transform .14s;
 }
-.lang-toggle:hover{border-color:#888;color:#fff}
+.opt:hover{border-color:var(--ui-tx2)}
+.opt.sel{border-color:var(--ui-ac);background:color-mix(in srgb,var(--ui-ac) 9%,var(--ui-panel2))}
+.opt .thumb{flex-shrink:0;width:54px;height:38px;border-radius:5px;overflow:hidden;border:1px solid var(--ui-line)}
+.opt .meta{min-width:0;flex:1}
+.opt .meta .n{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.opt .meta .s{font-size:10.5px;color:var(--ui-tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.opt .chk{flex-shrink:0;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ui-line);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent}
+.opt.sel .chk{background:var(--ui-ac);border-color:var(--ui-ac);color:#fff}
+/* swatch thumb */
+.sw{display:flex;height:100%}.sw i{flex:1;display:block}
+/* font thumb */
+.ft{display:flex;align-items:center;justify-content:center;height:100%;font-size:17px;background:var(--ui-panel)}
+/* schematic thumb */
+.dg{display:flex;flex-direction:column;justify-content:center;gap:3px;height:100%;padding:7px 8px;background:var(--ui-panel)}
+.dg i{display:block;height:3px;border-radius:2px;background:var(--ui-tx2);opacity:.4}
 
-/* ===== GALLERY VIEW ===== */
-#galleryView{padding:70px 24px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
-.g-card{
-  border-radius:10px;overflow:hidden;cursor:pointer;
-  border:2px solid transparent;transition:all .2s;
-  position:relative;
+/* ===== STAGE (live preview) ===== */
+.main{flex:1;min-width:0;overflow-y:auto;background:var(--ui-bg);padding:34px 40px 80px}
+.combo{
+  max-width:980px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:6px;
+  font-size:11px;color:var(--ui-tx2);
 }
-.g-card:hover{border-color:#555;transform:translateY(-2px)}
-.g-card.picked{border-color:#4ecdc4}
-.g-card-pick{
-  position:absolute;top:8px;right:8px;z-index:2;
-  width:24px;height:24px;border-radius:50%;
-  background:rgba(0,0,0,.5);border:2px solid #666;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;transition:all .15s;
+.combo .c{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 10px;
+  border:1px solid var(--ui-line);border-radius:20px;background:var(--ui-panel);
 }
-.g-card.picked .g-card-pick{background:#4ecdc4;border-color:#4ecdc4;color:#111}
-.g-swatch{display:flex;height:8px}
-.g-swatch div{flex:1}
-.g-mock{padding:20px 24px;min-height:220px;transition:all .3s}
-.g-mock-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:10px}
-.g-mock-logo{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:500;letter-spacing:1px}
-.g-mock-links{display:flex;gap:14px;font-size:10px;opacity:.55}
-.g-mock-tag{font-size:8px;letter-spacing:2px;opacity:.45;margin-bottom:8px}
-.g-mock h2{font-family:'Noto Serif SC',Georgia,serif;font-size:17px;font-weight:400;line-height:1.55;margin-bottom:8px}
-.g-mock p{font-size:11px;line-height:1.7;opacity:.6;margin-bottom:14px;max-width:90%}
-.g-mock-btns{display:flex;gap:8px;margin-bottom:16px}
-.g-btn1{padding:5px 14px;border-radius:4px;font-size:10px;font-weight:500;border:none}
-.g-btn2{padding:5px 14px;border-radius:4px;font-size:10px;border:1.5px solid;background:transparent}
-.g-mock-article{padding:10px 14px;border-radius:6px;margin-bottom:6px}
-.g-mock-article-t{font-family:'Noto Serif SC',serif;font-size:12px;margin-bottom:3px}
-.g-mock-article-d{font-size:9px;opacity:.5;line-height:1.6}
-.g-label{background:rgba(17,17,17,.92);padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
-.g-label-name{font-size:13px;font-weight:500}
-.g-label-sub{font-size:11px;color:#888}
-.g-label-rec{font-size:9px;color:#4ecdc4;margin-top:2px}
+.combo .c b{color:var(--ui-tx);font-weight:500}
+.combo .c em{font-style:normal;opacity:.6;font-size:10px}
 
-/* ===== DETAIL VIEW ===== */
-#detailView{display:none;padding:70px 24px 24px}
-.d-bar{
-  display:flex;gap:6px;margin-bottom:20px;
-  overflow-x:auto;padding-bottom:8px;
-  -webkit-overflow-scrolling:touch;
+#stage{
+  --c-bg:#f9f4ef;--c-card:#eaddcf;--c-tx:#020826;--c-tx2:#716040;
+  --c-ac:#8c7851;--c-ac2:#f25042;--c-bt:#fff;--c-line:#7160402e;
+  --f-display:'Fraunces','Noto Serif SC',Georgia,serif;
+  --f-body:'Inter','Noto Sans SC',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --fs1:40px;--fs2:22px;--fsb:16px;--fss:12px;--lh:1.8;--measure:600px;
+  --track:0px;--padY:56px;--padX:40px;--gap:14px;--cols:2;--halign:left;--heroPadY:56px;
+  --radius:8px;--bw:1px;--shadow:none;--btnr:6px;--btnp:10px 22px;--wD:600;--wB:400;
+  --anim:360ms;
+  max-width:980px;margin:0 auto;position:relative;overflow:hidden;
+  border-radius:14px;background:var(--c-bg);color:var(--c-tx);
+  font-family:var(--f-body);box-shadow:var(--ui-shadow);
+  transition:background var(--anim) ease,color var(--anim) ease;
 }
-.d-bar::-webkit-scrollbar{height:3px}
-.d-bar::-webkit-scrollbar-thumb{background:#444;border-radius:2px}
-.d-btn{
-  flex-shrink:0;display:flex;align-items:center;gap:5px;
-  height:34px;padding:0 10px 0 5px;
-  border:1.5px solid #333;border-radius:7px;
-  background:transparent;cursor:pointer;
-  color:#999;font-size:11px;font-family:inherit;transition:all .15s;
-}
-.d-btn:hover{border-color:#666;color:#fff}
-.d-btn.active{border-color:#fff;color:#fff;background:rgba(255,255,255,.06)}
-.d-btn.picked{box-shadow:0 0 0 2px #4ecdc4;border-color:#4ecdc4}
-.d-dots{display:flex;gap:1px;border-radius:3px;overflow:hidden}
-.d-dots div{width:10px;height:20px}
+#stage::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
+#stage[data-tex="paper"]::before{background-image:radial-gradient(var(--c-tx) .6px,transparent .6px);background-size:7px 7px;opacity:.045}
+#stage[data-tex="scanline"]::before{background-image:repeating-linear-gradient(0deg,var(--c-tx) 0 1px,transparent 1px 4px);opacity:.05}
+#stage[data-tex="vignette"]::before{background:radial-gradient(ellipse at 50% 35%,transparent 52%,rgba(0,0,0,.2))}
+#stage[data-tex="none"]::before{display:none}
+.st-in{position:relative;z-index:1;max-width:calc(var(--measure) + var(--padX)*2);margin:0 auto}
+.st-nav{display:flex;justify-content:space-between;align-items:center;padding:22px var(--padX)}
+.st-logo{font-family:var(--f-display);font-size:calc(var(--fsb) + 1px);font-weight:var(--wD);letter-spacing:.5px}
+.st-links{display:flex;gap:20px;font-size:var(--fss)}
+.st-links span{opacity:.6}
+.st-hero{padding:var(--heroPadY) var(--padX) calc(var(--heroPadY) * .8);text-align:var(--halign)}
+.st-tag{font-family:var(--f-mono);font-size:var(--fss);letter-spacing:2px;opacity:.5;margin-bottom:16px;text-transform:uppercase}
+.st-h1{font-family:var(--f-display);font-size:var(--fs1);font-weight:var(--wD);line-height:1.32;letter-spacing:var(--track);margin-bottom:16px}
+.st-lede{font-size:var(--fsb);line-height:var(--lh);opacity:.72;max-width:var(--measure);margin-bottom:24px}
+.st-hero[style*="center"] .st-lede,#stage[data-halign] .st-hero{margin-left:auto;margin-right:auto}
+.st-btns{display:flex;gap:10px;justify-content:var(--halign)}
+.st-b1,.st-b2{font-family:var(--f-body);font-size:var(--fss);font-weight:500;padding:var(--btnp);border-radius:var(--btnr);cursor:default;transition:all var(--anim)}
+.st-b1{background:var(--c-ac);color:var(--c-bt);border:none}
+.st-b2{background:transparent;color:var(--c-ac);border:1.5px solid var(--c-ac)}
+.st-sec{padding:calc(var(--padY) * .7) var(--padX)}
+.st-sectitle{font-family:var(--f-mono);font-size:var(--fss);letter-spacing:2px;opacity:.5;margin-bottom:20px;padding-bottom:8px;text-transform:uppercase}
+#stage[data-rule="1"] .st-sectitle{border-bottom:1px solid var(--c-line)}
+.st-art{padding:18px 20px;margin-bottom:var(--gap);background:var(--c-card);border:var(--bw) solid var(--c-line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.st-art-t{font-family:var(--f-display);font-size:var(--fs2);font-weight:var(--wD);margin-bottom:6px}
+.st-art-d{font-size:var(--fsb);line-height:var(--lh);opacity:.66;margin-bottom:9px}
+.st-art-m{font-family:var(--f-mono);font-size:calc(var(--fss) - 1px);opacity:.45;display:flex;gap:14px;align-items:center}
+.st-art-tag{padding:2px 9px;border-radius:calc(var(--radius) * .4);font-size:calc(var(--fss) - 1px);background:var(--c-ac2);color:var(--c-bt);opacity:1}
+.st-grid{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:var(--gap)}
+.st-proj{padding:22px;background:var(--c-card);border:var(--bw) solid var(--c-line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.st-proj-i{font-size:22px;margin-bottom:10px;color:var(--c-ac)}
+.st-proj-n{font-family:var(--f-display);font-size:var(--fs2);font-weight:var(--wD);margin-bottom:6px}
+.st-proj-d{font-size:var(--fss);line-height:var(--lh);opacity:.58}
+.st-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:28px var(--padX);font-family:var(--f-mono);font-size:calc(var(--fss) - 1px);opacity:.4;border-top:1px solid var(--c-line)}
+.st-link{text-decoration:none;color:inherit}
+#stage[data-link="underline"] .st-links span,#stage[data-link="underline"] .st-foot span{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+/* motifs */
+#stage[data-motif="star"] .st-logo::before{content:"✻ ";color:var(--c-ac)}
+#stage[data-motif="star"] .st-sectitle::before{content:"✻  ";color:var(--c-ac)}
+#stage[data-motif="prompt"] .st-logo::before{content:"$ ";font-family:var(--f-mono);color:var(--c-ac)}
+#stage[data-motif="prompt"] .st-sectitle::before{content:"> ";font-family:var(--f-mono);color:var(--c-ac)}
+#stage[data-motif="dot"] .st-sectitle::before{content:"◦  ";color:var(--c-ac)}
+#stage[data-motif="rule"] .st-sectitle{border-bottom:1px solid var(--c-line)}
 
-#fakePage{
-  max-width:900px;margin:0 auto;
-  border-radius:12px;overflow:hidden;
-  box-shadow:0 4px 60px rgba(0,0,0,.5);
-  transition:background .35s;
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,16px);
+  background:var(--ui-tx);color:var(--ui-bg);font-size:12px;
+  padding:9px 18px;border-radius:8px;opacity:0;pointer-events:none;
+  transition:opacity .22s,transform .22s;z-index:100;font-family:'IBM Plex Mono',monospace;
 }
-.fn{display:flex;justify-content:space-between;align-items:center;padding:18px 36px}
-.fn-logo{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:500;letter-spacing:1px}
-.fn-links{display:flex;gap:22px;font-size:12px}
-.fn-links span{opacity:.65}
-.fh{padding:52px 36px 44px}
-.fh-tag{font-size:10px;letter-spacing:2px;opacity:.5;margin-bottom:14px}
-.fh h1{font-family:'Noto Serif SC',Georgia,serif;font-size:28px;font-weight:400;line-height:1.55;margin-bottom:14px}
-.fh p{font-size:14px;line-height:1.8;opacity:.65;max-width:540px;margin-bottom:22px}
-.fh-btns{display:flex;gap:10px}
-.fb1{padding:9px 22px;border-radius:6px;font-size:12px;font-weight:500;border:none}
-.fb2{padding:9px 22px;border-radius:6px;font-size:12px;border:1.5px solid;background:transparent}
-.fs{padding:36px;transition:border-color .35s}
-.fs-title{font-size:10px;letter-spacing:2px;opacity:.45;margin-bottom:20px}
-.fa{padding:18px 22px;border-radius:8px;margin-bottom:12px}
-.fa-t{font-family:'Noto Serif SC',Georgia,serif;font-size:16px;margin-bottom:5px}
-.fa-d{font-size:12px;opacity:.6;line-height:1.7;margin-bottom:8px}
-.fa-m{font-size:10px;opacity:.4;display:flex;gap:14px;align-items:center}
-.fa-tag{padding:2px 8px;border-radius:3px;font-size:9px;font-weight:500;opacity:1}
-.fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fp{padding:22px;border-radius:8px}
-.fp-icon{font-size:22px;margin-bottom:10px}
-.fp-name{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:500;margin-bottom:5px}
-.fp-desc{font-size:11px;opacity:.55;line-height:1.6}
-.ff{padding:28px 36px;display:flex;justify-content:space-between;font-size:11px;opacity:.35}
-
-.d-info{
-  max-width:900px;margin:16px auto 0;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:12px;color:#888;
-}
-.d-info strong{color:#fff;font-weight:500;font-size:14px}
-.d-rec{max-width:900px;margin:12px auto 0;font-size:12px;color:#666;line-height:1.7}
-.d-rec em{color:#999;font-style:normal}
-
+.toast.show{opacity:1;transform:translate(-50%,0)}
 .hint{
-  position:fixed;bottom:16px;right:16px;z-index:999;
-  background:rgba(30,30,30,.92);border:1px solid #333;border-radius:8px;
-  padding:8px 12px;font-size:10px;color:#777;line-height:1.5;
+  position:fixed;bottom:18px;right:18px;z-index:40;
+  background:var(--ui-panel);border:1px solid var(--ui-line);border-radius:8px;
+  padding:7px 11px;font-size:10px;color:var(--ui-tx2);line-height:1.6;
 }
-.hint kbd{background:#222;border:1px solid #444;border-radius:2px;padding:0 4px;color:#bbb;font-family:inherit;font-size:9px}
+.hint kbd{font-family:'IBM Plex Mono',monospace;background:var(--ui-panel2);border:1px solid var(--ui-line);border-radius:3px;padding:0 4px;font-size:9px;color:var(--ui-tx)}
 
-/* ===== HERO ===== */
-#heroSection{
-  padding:80px 24px 0;
-  max-width:720px;margin:0 auto;
-  text-align:center;
-  transition:opacity .3s;
+/* ===== EXPORT PANEL ===== */
+.export{
+  position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:90;
+  display:none;align-items:center;justify-content:center;padding:32px;
 }
-.hero-num{
-  font-family:'Playfair Display',serif;font-size:120px;font-weight:400;
-  line-height:1;letter-spacing:-4px;
-  background:linear-gradient(135deg,#f9bc60 0%,#e07a5f 40%,#c89a7c 70%,#8c7851 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:8px;
+.export.show{display:flex}
+.export-box{
+  width:min(680px,100%);max-height:80vh;display:flex;flex-direction:column;
+  background:var(--ui-panel);border:1px solid var(--ui-line);border-radius:12px;overflow:hidden;
 }
-.hero-title{
-  font-family:'Noto Serif SC','Playfair Display',serif;
-  font-size:22px;font-weight:400;color:#ccc;
-  letter-spacing:2px;margin-bottom:24px;
+.export-h{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--ui-line)}
+.export-h b{font-size:13px}
+.export pre{
+  margin:0;padding:18px 20px;overflow:auto;flex:1;
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.7;
+  color:var(--ui-tx);background:var(--ui-panel2);white-space:pre;
 }
-.hero-sub{
-  font-size:13px;color:#666;line-height:1.9;max-width:520px;margin:0 auto 32px;
+.export-f{display:flex;gap:8px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--ui-line)}
+@media(max-width:780px){
+  .side{position:fixed;left:0;top:54px;bottom:0;z-index:25;transform:translateX(-100%);transition:transform .25s}
+  .side.open{transform:translateX(0)}
+  .main{padding:20px 14px 70px}
+  .menu-only{display:inline-flex}
 }
-.hero-divider{
-  width:40px;height:1px;background:#333;margin:0 auto 32px;
-}
-.hero-guide{
-  text-align:left;max-width:480px;margin:0 auto;
-  padding:20px 24px;background:rgba(255,255,255,.03);border-radius:10px;
-  border:1px solid #222;margin-bottom:32px;
-}
-.hero-guide-title{
-  font-size:11px;color:#666;letter-spacing:2px;margin-bottom:14px;
-}
-.hero-guide ol{
-  list-style:none;counter-reset:step;padding:0;
-}
-.hero-guide li{
-  counter-increment:step;font-size:12px;color:#888;line-height:1.8;
-  padding-left:24px;position:relative;margin-bottom:8px;
-}
-.hero-guide li::before{
-  content:counter(step);position:absolute;left:0;top:1px;
-  width:16px;height:16px;border-radius:50%;
-  background:#222;color:#666;font-size:9px;font-weight:600;
-  display:flex;align-items:center;justify-content:center;
-}
-.hero-guide code{
-  background:#1a1a1a;padding:1px 5px;border-radius:3px;font-size:11px;color:#aaa;
-}
-.hero-enter{
-  display:inline-block;padding:10px 28px;border-radius:8px;
-  background:linear-gradient(135deg,#c89a7c,#e07a5f);color:#fff;
-  font-size:13px;font-weight:500;border:none;cursor:pointer;
-  transition:all .2s;margin-bottom:16px;letter-spacing:1px;
-}
-.hero-enter:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(200,154,124,.4)}
+.menu-only{display:none}
 </style>
 </head>
 <body>
-
-<div class="mode-bar hidden">
-  <div style="display:flex;align-items:center;gap:16px">
-    <div class="mode-tabs">
-      <button class="mode-tab active" onclick="setMode('gallery')">总览</button>
-      <button class="mode-tab" onclick="setMode('detail')">详情</button>
+<div class="app">
+  <div class="bar">
+    <div class="brand">
+      <button class="btn menu-only" id="sideToggle" onclick="document.querySelector('.side').classList.toggle('open')">☰</button>
+      <span class="star">✻</span><span id="brandT">设计实验室</span>
+      <span class="sub" id="brandS">配色 · 字体 · 排版 · 调性 · 氛围，自由组合</span>
     </div>
-    <span class="mode-info" id="modeInfo">点击卡片预览 · Shift+点击收藏</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
-    <span class="mode-info">已选：</span>
-    <span class="picked-badge" id="pickedBadge">0</span>
-    <span class="mode-info" id="pickedNames"></span>
-  </div>
-</div>
-
-<div id="heroSection">
-  <div class="hero-num" id="heroNum">30</div>
-  <div class="hero-title" id="heroTitle">三十色</div>
-  <div class="hero-sub" id="heroSub">
-    配色不该是难题。这里有 30 种氛围等你翻阅，<br>
-    也可以交给 AI 按你的心情推荐。<br>
-    随时往这块调色盘里添加自己的颜色。
-  </div>
-  <div class="hero-divider"></div>
-  <div class="hero-guide">
-    <div class="hero-guide-title" id="heroGuideTitle">怎 么 用</div>
-    <ol id="heroGuideList">
-      <li><strong>安装</strong> · 让 AI 从 GitHub 帮你装好，一句话的事</li>
-      <li><strong>选色</strong> · "帮我选个配色" — 写页面时随口一说</li>
-      <li><strong>描述</strong> · "暖一点的"、"像咖啡馆" — 说感觉就行，AI 帮你匹配</li>
-      <li><strong>指定</strong> · 知道名字的话，直接说"用 Earthy Scholar"</li>
-      <li><strong>扩展</strong> · "在我的配色库里加一套日系的" — AI 去网上找、撞色、生成新方案</li>
-    </ol>
-  </div>
-  <div style="display:flex;gap:10px;justify-content:center;align-items:center">
-    <button class="hero-enter" onclick="dismissHero()" id="heroEnterBtn">浏览配色</button>
-    <button class="lang-toggle" id="heroLangBtn" onclick="toggleLang()" style="padding:8px 16px;font-size:12px;border-radius:8px">EN</button>
-  </div>
-</div>
-
-<div id="galleryView"></div>
-
-<div id="detailView">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-    <button onclick="setMode('gallery')" style="flex-shrink:0;width:32px;height:32px;border-radius:8px;border:1.5px solid #333;background:transparent;color:#999;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.borderColor='#666';this.style.color='#fff'" onmouseout="this.style.borderColor='#333';this.style.color='#999'">&#8592;</button>
-    <div class="d-bar" id="dBar" style="margin-bottom:0"></div>
-  </div>
-  <div id="fakePage">
-    <div class="fn"><div class="fn-logo">留白集</div><div class="fn-links"><span>关于</span><span>作品</span><span>随笔</span><span>联络</span></div></div>
-    <div class="fh">
-      <div class="fh-tag">设计 · 文字 · 手艺</div>
-      <h1>好的设计，是让人忘记设计本身。</h1>
-      <p>在意图与形式之间，留一段可以呼吸的距离。克制是审美的起点，留白是表达的另一种方式。</p>
-      <div class="fh-btns"><div class="fb1">浏览作品</div><div class="fb2">阅读随笔</div></div>
+    <div class="bar-actions">
+      <button class="btn" id="randBtn" onclick="randomize()">⇄ <span id="lRand">随机</span> <span class="k">Space</span></button>
+      <button class="btn" id="copyBtn" onclick="openExport()">⧉ <span id="lExport">复制 / 导出</span></button>
+      <button class="btn" id="langBtn" onclick="toggleLang()">EN</button>
+      <button class="btn" id="themeBtn" onclick="toggleUITheme()" title="alt+T">◐</button>
     </div>
-    <div class="fs" id="secArt">
-      <div class="fs-title">近期随笔</div>
-      <div class="fa" id="a1"><div class="fa-t">克制的力量</div><div class="fa-d">最好的界面让人觉得它一直就在那里。而达到这种"消失感"所需要的纪律，远比堆砌功能更难。</div><div class="fa-m"><span>2026.04</span><span>设计随想</span><span class="fa-tag" id="tag1">推荐</span></div></div>
-      <div class="fa" id="a2"><div class="fa-t">色彩是氛围，不是装饰</div><div class="fa-d">一套配色不是色卡。它是你未曾踏入的房间里，空气的温度。</div><div class="fa-m"><span>2026.03</span><span>色彩手记</span></div></div>
-      <div class="fa" id="a3"><div class="fa-t">元素之间的间距</div><div class="fa-d">留白不是空。它是音符之间的停顿——正是那些沉默，赋予了旋律意义。</div><div class="fa-m"><span>2026.02</span><span>排版笔记</span></div></div>
-    </div>
-    <div class="fs" id="secProj">
-      <div class="fs-title">精选作品</div>
-      <div class="fp-grid">
-        <div class="fp" id="p1"><div class="fp-icon">&#9678;</div><div class="fp-name">作品集模板</div><div class="fp-desc">支持主题切换的极简作品集，语义化配色，一键换装。</div></div>
-        <div class="fp" id="p2"><div class="fp-icon">&#9830;</div><div class="fp-name">日历手帐</div><div class="fp-desc">基于暖色调排版的日记应用，文字与留白的平衡练习。</div></div>
-        <div class="fp" id="p3"><div class="fp-icon">&#9674;</div><div class="fp-name">书架</div><div class="fp-desc">卡片式阅读清单，柔和过渡动效，安静地陪你读完一本书。</div></div>
-        <div class="fp" id="p4"><div class="fp-icon">&#9700;</div><div class="fp-name">画布</div><div class="fp-desc">生成式色彩实验场，探索和谐与节奏的视觉可能。</div></div>
+  </div>
+  <div class="body">
+    <aside class="side" id="side"></aside>
+    <main class="main">
+      <div class="combo" id="comboBar"></div>
+      <div id="stage" data-tex="paper" data-motif="star" data-rule="1" data-link="plain" data-halign="left">
+        <div class="st-in">
+          <nav class="st-nav">
+            <span class="st-logo">留白集</span>
+            <span class="st-links"></span>
+          </nav>
+          <header class="st-hero">
+            <div class="st-tag"></div>
+            <h1 class="st-h1"></h1>
+            <p class="st-lede"></p>
+            <div class="st-btns"><button class="st-b1"></button><button class="st-b2"></button></div>
+          </header>
+          <section class="st-sec">
+            <div class="st-sectitle s1"></div>
+            <article class="st-art a1"><div class="st-art-t"></div><div class="st-art-d"></div><div class="st-art-m"><span class="m-d"></span><span class="m-c"></span><span class="st-art-tag"></span></div></article>
+            <article class="st-art a2"><div class="st-art-t"></div><div class="st-art-d"></div><div class="st-art-m"><span class="m-d"></span><span class="m-c"></span></div></article>
+            <article class="st-art a3"><div class="st-art-t"></div><div class="st-art-d"></div><div class="st-art-m"><span class="m-d"></span><span class="m-c"></span></div></article>
+          </section>
+          <section class="st-sec">
+            <div class="st-sectitle s2"></div>
+            <div class="st-grid">
+              <div class="st-proj p1"><div class="st-proj-i">◎</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p2"><div class="st-proj-i">◆</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p3"><div class="st-proj-i">◇</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+              <div class="st-proj p4"><div class="st-proj-i">◔</div><div class="st-proj-n"></div><div class="st-proj-d"></div></div>
+            </div>
+          </section>
+          <footer class="st-foot"><span class="f1"></span><span class="f2"></span><span class="f3"></span></footer>
+        </div>
       </div>
-    </div>
-    <div class="ff"><span>二十色 · color-palettes</span><span>简约至上</span><span>为 Claude Code 而作</span></div>
+    </main>
   </div>
-  <div class="d-info"><div><strong id="dName">A · Earthy Scholar</strong> <span id="dSub">旧书店温润</span></div><div id="dHex" style="font-family:monospace;font-size:11px;color:#666"></div></div>
-  <div class="d-rec" id="dRec"></div>
 </div>
 
 <div class="hint">
-  <kbd>←</kbd><kbd>→</kbd> 切换 &nbsp; <kbd>Space</kbd> 收藏 &nbsp; <kbd>Tab</kbd> 总览/详情
+  <kbd>Space</kbd> <span id="hRand">随机</span> · <kbd>←</kbd><kbd>→</kbd> <span id="hPal">配色</span> · <kbd>L</kbd> <span id="hLock">锁定配色</span>
+</div>
+<div class="toast" id="toast"></div>
+<div class="export" id="exportModal" onclick="if(event.target===this)closeExport()">
+  <div class="export-box">
+    <div class="export-h"><b id="exTitle">当前组合 · 导出</b><button class="btn" onclick="closeExport()">✕</button></div>
+    <pre id="exportText"></pre>
+    <div class="export-f">
+      <button class="btn" onclick="copyExport()" id="exCopy">复制全部</button>
+      <button class="btn primary" onclick="closeExport()" id="exDone">完成</button>
+    </div>
+  </div>
 </div>
 
 <script>
 let lang='zh';
 const L={
   zh:{
+    brandT:'设计实验室',brandS:'配色 · 字体 · 排版 · 调性 · 氛围，自由组合',
+    rand:'随机',export:'复制 / 导出',exTitle:'当前组合 · 导出',exCopy:'复制全部',exDone:'完成',
+    copied:'已复制组合配置 ✓',
+    hRand:'随机',hPal:'配色',hLock:'锁定配色',
+    axis:{palette:'配 色',font:'字 体',layout:'排 版',tone:'调 性',mood:'氛 围'},
+    axisEn:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD'},
     logo:'留白集', nav:['关于','作品','随笔','联络'], tag:'设计 · 文字 · 手艺',
     hero:'好的设计，是让人忘记设计本身。',
-    sub:'在意图与形式之间，留一段可以呼吸的距离。',
+    sub:'在意图与形式之间，留一段可以呼吸的距离。克制是审美的起点，留白是表达的另一种方式。',
     btn1:'浏览作品', btn2:'阅读随笔',
-    sec1:'近期随笔',
+    sec1:'近期随笔', sec2:'精选作品',
     a1t:'克制的力量', a1d:'最好的界面让人觉得它一直就在那里。而达到这种"消失感"所需要的纪律，远比堆砌功能更难。',
     a2t:'色彩是氛围，不是装饰', a2d:'一套配色不是色卡。它是你未曾踏入的房间里，空气的温度。',
     a3t:'元素之间的间距', a3d:'留白不是空。它是音符之间的停顿——正是那些沉默，赋予了旋律意义。',
     a1m:'设计随想', a2m:'色彩手记', a3m:'排版笔记', badge:'推荐',
-    sec2:'精选作品',
+    months:['2026.04','2026.03','2026.02'],
     p1n:'作品集模板', p1d:'支持主题切换的极简作品集，语义化配色，一键换装。',
     p2n:'日历手帐', p2d:'基于暖色调排版的日记应用，文字与留白的平衡练习。',
     p3n:'书架', p3d:'卡片式阅读清单，柔和过渡动效，安静地陪你读完一本书。',
     p4n:'画布', p4d:'生成式色彩实验场，探索和谐与节奏的视觉可能。',
-    f1:'二十色 · color-palettes', f2:'简约至上', f3:'为 Claude Code 而作',
-    modeG:'总览', modeD:'详情',
-    hintG:'点击卡片预览 · Shift+点击收藏', hintD:'←→ 切换 · 空格收藏 · Tab 返回总览',
-    sel:'已选：', recL:'推荐语：', pairL:'搭配建议：',
-    hintKeys:'切换', hintSel:'收藏', hintView:'总览/详情',
+    f1:'三十色 · color-palettes', f2:'简约至上', f3:'为 Claude Code 而作',
   },
   en:{
+    brandT:'Design Lab',brandS:'Color · Type · Layout · Tone · Mood — mix freely',
+    rand:'Shuffle',export:'Copy / Export',exTitle:'Current combo · Export',exCopy:'Copy all',exDone:'Done',
+    copied:'Combo config copied ✓',
+    hRand:'shuffle',hPal:'color',hLock:'lock color',
+    axis:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD'},
+    axisEn:{palette:'配色',font:'字体',layout:'排版',tone:'调性',mood:'氛围'},
     logo:'Whitespace', nav:['About','Work','Writing','Contact'], tag:'Design · Words · Craft',
     hero:'Good design makes you forget design itself.',
-    sub:'Between intention and form, leave room to breathe.',
+    sub:'Between intention and form, leave room to breathe. Restraint is where taste begins; whitespace is another way to speak.',
     btn1:'View Work', btn2:'Read Writing',
-    sec1:'Recent Writing',
+    sec1:'Recent Writing', sec2:'Selected Projects',
     a1t:'The Quiet Power of Restraint', a1d:'The best interfaces feel like they were always there — and the discipline to achieve that invisibility is harder than piling on features.',
     a2t:'Color as Atmosphere', a2d:'A palette is not a paint swatch. It is the emotional temperature of a room you have never entered.',
     a3t:'The Space Between', a3d:'Whitespace is not empty. It is the silence between notes — the very thing that gives melody its meaning.',
     a1m:'Design', a2m:'Color Theory', a3m:'Typography', badge:'Featured',
-    sec2:'Selected Projects',
+    months:['2026.04','2026.03','2026.02'],
     p1n:'Folio', p1d:'A minimal portfolio template with theme switching and semantic color roles.',
     p2n:'Almanac', p2d:'A daily journal app built on warm typography and the balance of text and space.',
     p3n:'Shelf', p3d:'Card-based reading list with gentle transitions — quietly keeping you company.',
     p4n:'Canvas', p4d:'Generative color playground exploring harmony and visual rhythm.',
-    f1:'20 Colors · color-palettes', f2:'Less is more', f3:'Built for Claude Code',
-    modeG:'Gallery', modeD:'Detail',
-    hintG:'Click to preview · Shift+click to select', hintD:'←→ switch · Space select · Tab gallery',
-    sel:'Selected:', recL:'Recommendation: ', pairL:'Pairing tip: ',
-    hintKeys:'switch', hintSel:'select', hintView:'toggle view',
+    f1:'30 Colors · color-palettes', f2:'Less is more', f3:'Built for Claude Code',
   }
 };
 
+/* ===== 1) COLOR — original 30 palettes, unchanged ===== */
 const T=[
   {id:'A',n:'Earthy Scholar',s:'旧书店温润',bg:'#f9f4ef',c:'#eaddcf',tx:'#020826',tx2:'#716040',ac:'#8c7851',ac2:'#f25042',bt:'#fff',
    rec:'像翻开一本泛黄的精装书。土褐与象牙白铺底，偶尔一笔朱红点亮视线。适合学术博客、读书笔记、个人随笔站。',
@@ -491,210 +485,332 @@ const T=[
    pairEn:'Cherry red on warm white stays gentle. Paired with blush accent2, it tells a soft red story.'},
 ];
 
-let cur=0, picked=new Set(), mode='gallery';
+/* ===== 2) TYPE — display / body / mono triples ===== */
+const FONTS=[
+  {id:'claude',n:'Claude 编辑',nEn:'Claude Editorial',s:'暖纸 · 人文',sEn:'warm · humanist',
+   d:"'Fraunces','Noto Serif SC',Georgia,serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',ui-monospace,Menlo,monospace"},
+  {id:'mag',n:'杂志大衬线',nEn:'Magazine Serif',s:'戏剧 · 优雅',sEn:'dramatic · elegant',
+   d:"'Playfair Display','Noto Serif SC',Georgia,serif",b:"'Source Serif 4','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+  {id:'swiss',n:'瑞士中性',nEn:'Swiss Neutral',s:'克制 · 理性',sEn:'restrained · rational',
+   d:"'Inter','Noto Sans SC',system-ui,sans-serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+  {id:'literary',n:'文学衬线',nEn:'Literary',s:'安静 · 书卷',sEn:'quiet · bookish',
+   d:"'Newsreader','Noto Serif SC',Georgia,serif",b:"'Newsreader','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+  {id:'terminal',n:'终端极客',nEn:'Terminal Geek',s:'冷峻 · 精确',sEn:'sharp · precise',
+   d:"'Space Grotesk','Noto Sans SC',sans-serif",b:"'IBM Plex Mono','Noto Sans SC',monospace",m:"'IBM Plex Mono',monospace"},
+  {id:'humanist',n:'人文混排',nEn:'Humanist Mix',s:'温润 · 均衡',sEn:'warm · balanced',
+   d:"'Spectral','Noto Serif SC',Georgia,serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+  {id:'contrast',n:'编辑反差',nEn:'Editorial Contrast',s:'有声 · 张力',sEn:'voiced · tension',
+   d:"'Fraunces','Noto Serif SC',Georgia,serif",b:"'Source Serif 4','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+  {id:'modern',n:'现代无衬线',nEn:'Modern Sans',s:'清晰 · 当代',sEn:'clean · contemporary',
+   d:"'Space Grotesk','Noto Sans SC',sans-serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+];
 
-function t(key){return L[lang][key]}
-function tr(item){return lang==='zh'?item.rec:item.recEn}
-function tp(item){return lang==='zh'?item.pair:item.pairEn}
+/* ===== 3) LAYOUT — scale / leading / measure / grid / rhythm ===== */
+const LAYOUTS=[
+  {id:'editorial',n:'编辑宽行',nEn:'Editorial',s:'大字距 · 充分留白',sEn:'roomy · airy',
+   v:{fs1:40,fs2:21,fsb:16,fss:12,lh:1.8,measure:600,track:0,padY:56,padX:40,gap:14,cols:2,halign:'left',heroPadY:56}},
+  {id:'tight',n:'紧凑网格',nEn:'Tight Grid',s:'信息密度高',sEn:'dense info',
+   v:{fs1:30,fs2:18,fsb:14.5,fss:11,lh:1.55,measure:760,track:0,padY:34,padX:36,gap:10,cols:2,halign:'left',heroPadY:40}},
+  {id:'centered',n:'居中极简',nEn:'Centered Minimal',s:'对称 · 安静',sEn:'symmetric · calm',
+   v:{fs1:34,fs2:19,fsb:15,fss:12,lh:1.75,measure:560,track:.2,padY:52,padX:40,gap:14,cols:1,halign:'center',heroPadY:62}},
+  {id:'magazine',n:'杂志大标题',nEn:'Magazine',s:'强标题 · 叙事',sEn:'big headline',
+   v:{fs1:54,fs2:22,fsb:15,fss:11,lh:1.7,measure:640,track:-.5,padY:48,padX:40,gap:16,cols:2,halign:'left',heroPadY:64}},
+  {id:'dense',n:'密集仪表',nEn:'Dense Dashboard',s:'紧凑 · 工具感',sEn:'compact · utility',
+   v:{fs1:26,fs2:16,fsb:13.5,fss:10.5,lh:1.5,measure:880,track:0,padY:24,padX:32,gap:8,cols:2,halign:'left',heroPadY:30}},
+  {id:'poster',n:'海报留白',nEn:'Poster',s:'巨字 · 极致留白',sEn:'huge type · max space',
+   v:{fs1:62,fs2:22,fsb:15,fss:11,lh:1.9,measure:520,track:1,padY:64,padX:46,gap:18,cols:1,halign:'center',heroPadY:90}},
+];
 
-function rebuildGallery(){
-  const gv=document.getElementById('galleryView');
-  gv.innerHTML='';
-  T.forEach((th,i)=>{
-    const card=document.createElement('div');
-    card.className='g-card'+(picked.has(i)?' picked':'');
-    card.id='gc'+i;
-    card.innerHTML=`
-      <div class="g-card-pick">✓</div>
-      <div class="g-swatch">
-        <div style="background:${th.bg}"></div><div style="background:${th.c.startsWith('rgba')?th.bg:th.c}"></div>
-        <div style="background:${th.ac}"></div><div style="background:${th.ac2}"></div><div style="background:${th.tx}"></div>
+/* ===== 4) TONE — shape language ===== */
+const TONES=[
+  {id:'sharp',n:'锐利方正',nEn:'Sharp',s:'方角 · 描边 · 无影',sEn:'square · ruled · flat',
+   v:{radius:0,bw:1,shadow:'none',btnr:0,btnp:'10px 22px',wD:600,wB:400},link:'underline'},
+  {id:'soft',n:'柔和圆润',nEn:'Soft',s:'圆角 · 胶囊按钮',sEn:'rounded · pill',
+   v:{radius:14,bw:0,shadow:'0 8px 30px rgba(0,0,0,.08)',btnr:999,btnp:'11px 24px',wD:600,wB:400},link:'plain'},
+  {id:'minimal',n:'极简克制',nEn:'Minimal',s:'细线 · 几乎无形',sEn:'hairline · barely there',
+   v:{radius:4,bw:1,shadow:'none',btnr:4,btnp:'9px 18px',wD:500,wB:400},link:'plain'},
+  {id:'editorial',n:'编辑严肃',nEn:'Editorial',s:'下划线 · 印刷感',sEn:'underline · print',
+   v:{radius:2,bw:1,shadow:'none',btnr:2,btnp:'10px 20px',wD:600,wB:400},link:'underline'},
+  {id:'elevated',n:'卡片浮起',nEn:'Elevated',s:'阴影 · 立体',sEn:'shadow · lifted',
+   v:{radius:10,bw:0,shadow:'0 6px 24px rgba(0,0,0,.1)',btnr:8,btnp:'10px 22px',wD:600,wB:400},link:'plain'},
+  {id:'bold',n:'大胆张扬',nEn:'Bold',s:'粗边 · 硬投影',sEn:'thick · hard shadow',
+   v:{radius:0,bw:2,shadow:'6px 6px 0 rgba(0,0,0,.18)',btnr:0,btnp:'12px 26px',wD:700,wB:500},link:'underline'},
+];
+
+/* ===== 5) MOOD — ambient finish ===== */
+const MOODS=[
+  {id:'paper',n:'纸质温润',nEn:'Paper',s:'纸纹 · ✻ 标记',sEn:'grain · ✻ marks',
+   tex:'paper',motif:'star',rule:1,density:1,anim:360},
+  {id:'gallery',n:'美术馆白盒',nEn:'Gallery',s:'极致留白 · 无饰',sEn:'max space · bare',
+   tex:'none',motif:'none',rule:0,density:1.28,anim:600},
+  {id:'terminal',n:'终端极客',nEn:'Terminal',s:'扫描线 · $ 提示符',sEn:'scanline · $ prompt',
+   tex:'scanline',motif:'prompt',rule:1,density:.86,anim:140},
+  {id:'magazine',n:'杂志呼吸',nEn:'Magazine',s:'分隔线 · 节奏',sEn:'rules · rhythm',
+   tex:'none',motif:'rule',rule:1,density:1.06,anim:320},
+  {id:'nocturne',n:'暗夜静谧',nEn:'Nocturne',s:'晕影 · 圆点饰',sEn:'vignette · dots',
+   tex:'vignette',motif:'dot',rule:0,density:1,anim:480},
+  {id:'clean',n:'素白无饰',nEn:'Clean',s:'零纹理 · 即时',sEn:'no texture · instant',
+   tex:'none',motif:'none',rule:0,density:1,anim:0},
+];
+
+const AXES=[
+  {k:'palette',data:T},{k:'font',data:FONTS},{k:'layout',data:LAYOUTS},
+  {k:'tone',data:TONES},{k:'mood',data:MOODS},
+];
+
+/* ===== STATE ===== */
+let sel={palette:0,font:0,layout:0,tone:0,mood:0};
+let locked={palette:false,font:false,layout:false,tone:false,mood:false};
+
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem('cp_sel')||'null');
+    if(s)for(const a of AXES){const arr=a.data;let i=arr.findIndex(o=>o.id===s[a.k]);if(i<0)i=0;sel[a.k]=i}
+    const lk=JSON.parse(localStorage.getItem('cp_locked')||'null');if(lk)locked=Object.assign(locked,lk);
+    const lg=localStorage.getItem('cp_lang');if(lg)lang=lg;
+    const th=localStorage.getItem('cp_uitheme');if(th)document.documentElement.setAttribute('data-ui-theme',th);
+  }catch(e){}
+}
+function saveState(){
+  const s={};for(const a of AXES)s[a.k]=a.data[sel[a.k]].id;
+  localStorage.setItem('cp_sel',JSON.stringify(s));
+  localStorage.setItem('cp_locked',JSON.stringify(locked));
+  localStorage.setItem('cp_lang',lang);
+  localStorage.setItem('cp_uitheme',document.documentElement.getAttribute('data-ui-theme'));
+}
+
+function t(k){return L[lang][k]}
+function on(o){return lang==='zh'?o.n:(o.nEn||o.n)}
+function os(o){return lang==='zh'?o.s:(o.sEn||o.s)}
+
+/* ===== THUMBNAILS ===== */
+function thumb(axis,o){
+  if(axis==='palette')
+    return `<div class="sw"><i style="background:${o.bg}"></i><i style="background:${o.c.startsWith('rgba')?o.bg:o.c}"></i><i style="background:${o.ac}"></i><i style="background:${o.ac2}"></i><i style="background:${o.tx}"></i></div>`;
+  if(axis==='font')
+    return `<div class="ft" style="font-family:${o.d}">Ag留</div>`;
+  if(axis==='layout'){
+    const v=o.v,w1=Math.min(46,v.measure/18),lhh=Math.max(2,7-v.lh*2);
+    return `<div class="dg"><i style="width:${Math.min(46,v.fs1)}px;height:${Math.max(4,v.fs1/9)}px;opacity:.6"></i><i style="width:${w1}px;margin-bottom:${lhh}px"></i><i style="width:${w1-6}px"></i></div>`;
+  }
+  if(axis==='tone'){
+    const v=o.v;
+    return `<div class="dg" style="align-items:flex-start;justify-content:center"><i style="width:30px;height:13px;background:var(--ui-ac);opacity:1;border-radius:${Math.min(13,v.btnr)}px;box-shadow:${v.shadow==='none'?'none':'2px 2px 0 var(--ui-line)'}"></i><i style="width:40px;height:9px;border:${v.bw}px solid var(--ui-tx2);background:transparent;opacity:.5;border-radius:${Math.min(9,v.radius)}px"></i></div>`;
+  }
+  // mood
+  const bgmap={paper:'radial-gradient(currentColor .6px,transparent .6px)',scanline:'repeating-linear-gradient(0deg,currentColor 0 1px,transparent 1px 4px)',vignette:'radial-gradient(ellipse,transparent 40%,rgba(0,0,0,.4))',none:'none'};
+  const mk={star:'✻',prompt:'$_',dot:'◦',rule:'—',none:''};
+  return `<div class="ft" style="background:var(--ui-panel2);position:relative;color:var(--ui-tx2)"><span style="position:absolute;inset:0;background-image:${bgmap[o.tex]};background-size:6px 6px;opacity:.5"></span><span style="position:relative;font-size:14px;color:var(--ui-ac)">${mk[o.motif]}</span></div>`;
+}
+
+/* ===== BUILD MENUS ===== */
+function buildMenus(){
+  const side=document.getElementById('side');
+  side.innerHTML='';
+  for(const a of AXES){
+    const m=document.createElement('div');m.className='menu';
+    const big=a.data.length>9;
+    m.innerHTML=`
+      <div class="menu-h">
+        <div class="t"><b>${t('axis')[a.k]}</b><span>${t('axisEn')[a.k]} · ${a.data.length}</span></div>
+        <button class="lock${locked[a.k]?' on':''}" data-axis="${a.k}" title="lock">${locked[a.k]?'🔒':'🔓'}</button>
       </div>
-      <div class="g-mock" style="background:${th.bg};color:${th.tx}">
-        <div class="g-mock-nav" style="border-bottom:1px solid ${th.tx2}22">
-          <div class="g-mock-logo" style="color:${th.tx}">${t('logo')}</div>
-          <div class="g-mock-links" style="color:${th.tx2}">${t('nav').map(n=>'<span>'+n+'</span>').join('')}</div>
-        </div>
-        <div class="g-mock-tag" style="color:${th.tx2}">${t('tag')}</div>
-        <h2 style="color:${th.tx}">${t('hero')}</h2>
-        <p style="color:${th.tx2}">${t('sub')}</p>
-        <div class="g-mock-btns">
-          <div class="g-btn1" style="background:${th.ac};color:${th.bt}">${t('btn1')}</div>
-          <div class="g-btn2" style="border-color:${th.ac};color:${th.ac}">${t('btn2')}</div>
-        </div>
-        <div class="g-mock-article" style="background:${th.c}">
-          <div class="g-mock-article-t" style="color:${th.tx}">${t('a1t')}</div>
-          <div class="g-mock-article-d" style="color:${th.tx2}">${t('a1d').slice(0,40)}…</div>
-        </div>
-        <div class="g-mock-article" style="background:${th.c}">
-          <div class="g-mock-article-t" style="color:${th.tx}">${t('a2t')}</div>
-          <div class="g-mock-article-d" style="color:${th.tx2}">${t('a2d').slice(0,40)}…</div>
-        </div>
-      </div>
-      <div class="g-label">
-        <div>
-          <div class="g-label-name">${th.id} · ${th.n}</div>
-          <div class="g-label-rec">${th.s}</div>
-        </div>
-        <div class="g-label-sub">${tp(th).slice(0,18)}…</div>
-      </div>`;
-    card.onclick=(e)=>{
-      if(e.shiftKey||e.metaKey){pick(i)}
-      else{cur=i;setMode('detail')}
-    };
-    card.style.animationDelay=(i*0.03)+'s';
-    gv.appendChild(card);
+      <div class="opts${big?' scroll':''}" data-list="${a.k}"></div>`;
+    side.appendChild(m);
+    const list=m.querySelector('[data-list]');
+    a.data.forEach((o,i)=>{
+      const el=document.createElement('div');
+      el.className='opt'+(sel[a.k]===i?' sel':'');
+      el.dataset.axis=a.k;el.dataset.i=i;
+      el.innerHTML=`<div class="thumb">${thumb(a.k,o)}</div>
+        <div class="meta"><div class="n">${a.k==='palette'?o.id+' · ':''}${on(o)}</div><div class="s">${os(o)}</div></div>
+        <div class="chk">✓</div>`;
+      el.onclick=()=>selectOpt(a.k,i);
+      list.appendChild(el);
+    });
+    m.querySelector('.lock').onclick=()=>toggleLock(a.k);
+  }
+}
+
+function selectOpt(axis,i){
+  sel[axis]=i;
+  document.querySelectorAll(`.opt[data-axis="${axis}"]`).forEach(el=>{
+    el.classList.toggle('sel',+el.dataset.i===i);
   });
+  const list=document.querySelector(`.opts[data-list="${axis}"]`);
+  const cur=list&&list.querySelector('.opt.sel');
+  if(cur&&list.classList.contains('scroll'))cur.scrollIntoView({block:'nearest'});
+  applyCombo();saveState();
+}
+function toggleLock(axis){
+  locked[axis]=!locked[axis];
+  const b=document.querySelector(`.lock[data-axis="${axis}"]`);
+  b.classList.toggle('on',locked[axis]);b.textContent=locked[axis]?'🔒':'🔓';
+  saveState();
 }
 
-function rebuildDetailPage(){
-  const pg=document.getElementById('fakePage');
-  pg.querySelector('.fn-logo').textContent=t('logo');
-  const links=pg.querySelectorAll('.fn-links span');
-  t('nav').forEach((n,i)=>{if(links[i])links[i].textContent=n});
-  pg.querySelector('.fh-tag').textContent=t('tag');
-  pg.querySelector('.fh h1').textContent=t('hero');
-  pg.querySelector('.fh p').textContent=t('sub');
-  pg.querySelector('.fb1').textContent=t('btn1');
-  pg.querySelector('.fb2').textContent=t('btn2');
-  const titles=pg.querySelectorAll('.fs-title');
-  if(titles[0])titles[0].textContent=t('sec1');
-  if(titles[1])titles[1].textContent=t('sec2');
-  const arts=pg.querySelectorAll('.fa');
-  if(arts[0]){arts[0].querySelector('.fa-t').textContent=t('a1t');arts[0].querySelector('.fa-d').textContent=t('a1d');arts[0].querySelectorAll('.fa-m span')[1].textContent=t('a1m')}
-  if(arts[1]){arts[1].querySelector('.fa-t').textContent=t('a2t');arts[1].querySelector('.fa-d').textContent=t('a2d');arts[1].querySelectorAll('.fa-m span')[1].textContent=t('a2m')}
-  if(arts[2]){arts[2].querySelector('.fa-t').textContent=t('a3t');arts[2].querySelector('.fa-d').textContent=t('a3d');arts[2].querySelectorAll('.fa-m span')[1].textContent=t('a3m')}
-  document.getElementById('tag1').textContent=t('badge');
-  const projs=pg.querySelectorAll('.fp');
-  if(projs[0]){projs[0].querySelector('.fp-name').textContent=t('p1n');projs[0].querySelector('.fp-desc').textContent=t('p1d')}
-  if(projs[1]){projs[1].querySelector('.fp-name').textContent=t('p2n');projs[1].querySelector('.fp-desc').textContent=t('p2d')}
-  if(projs[2]){projs[2].querySelector('.fp-name').textContent=t('p3n');projs[2].querySelector('.fp-desc').textContent=t('p3d')}
-  if(projs[3]){projs[3].querySelector('.fp-name').textContent=t('p4n');projs[3].querySelector('.fp-desc').textContent=t('p4d')}
-  const ff=pg.querySelectorAll('.ff span');
-  if(ff[0])ff[0].textContent=t('f1');if(ff[1])ff[1].textContent=t('f2');if(ff[2])ff[2].textContent=t('f3');
+/* ===== APPLY COMBO ===== */
+function applyCombo(){
+  const pal=T[sel.palette],fo=FONTS[sel.font],la=LAYOUTS[sel.layout].v,
+        to=TONES[sel.tone],mo=MOODS[sel.mood];
+  const st=document.getElementById('stage'),S=(k,v)=>st.style.setProperty(k,v);
+  // colors
+  S('--c-bg',pal.bg);S('--c-card',pal.c);S('--c-tx',pal.tx);S('--c-tx2',pal.tx2);
+  S('--c-ac',pal.ac);S('--c-ac2',pal.ac2);S('--c-bt',pal.bt);
+  S('--c-line',(pal.tx2.startsWith('#')?pal.tx2:'#808080')+'2e');
+  // fonts
+  S('--f-display',fo.d);S('--f-body',fo.b);S('--f-mono',fo.m);
+  // layout × mood density
+  const d=mo.density;
+  S('--fs1',la.fs1+'px');S('--fs2',la.fs2+'px');S('--fsb',la.fsb+'px');S('--fss',la.fss+'px');
+  S('--lh',la.lh);S('--measure',la.measure+'px');S('--track',la.track+'px');
+  S('--padY',Math.round(la.padY*d)+'px');S('--padX',Math.round(la.padX*d)+'px');
+  S('--gap',Math.round(la.gap*d)+'px');S('--cols',la.cols);S('--halign',la.halign);
+  S('--heroPadY',Math.round(la.heroPadY*d)+'px');
+  // tone
+  S('--radius',to.v.radius+'px');S('--bw',to.v.bw+'px');S('--shadow',to.v.shadow);
+  S('--btnr',to.v.btnr+'px');S('--btnp',to.v.btnp);S('--wD',to.v.wD);S('--wB',to.v.wB);
+  // mood
+  S('--anim',mo.anim+'ms');
+  st.setAttribute('data-tex',mo.tex);
+  st.setAttribute('data-motif',mo.motif);
+  st.setAttribute('data-rule',(mo.rule||(to.id==='editorial'?1:0))?'1':'0');
+  st.setAttribute('data-link',to.link);
+  st.setAttribute('data-halign',la.halign);
+  fillText();
+  renderCombo();
 }
 
-function toggleLang(){
-  lang=lang==='zh'?'en':'zh';
+function fillText(){
+  const q=s=>document.querySelector(s),Q=s=>document.querySelectorAll(s);
+  q('.st-logo').textContent=t('logo');
+  q('.st-links').innerHTML=t('nav').map(n=>`<span>${n}</span>`).join('');
+  q('.st-tag').textContent=t('tag');
+  q('.st-h1').textContent=t('hero');
+  q('.st-lede').textContent=t('sub');
+  q('.st-b1').textContent=t('btn1');q('.st-b2').textContent=t('btn2');
+  q('.s1').textContent=t('sec1');q('.s2').textContent=t('sec2');
+  const A=[['a1','a1t','a1d','a1m'],['a2','a2t','a2d','a2m'],['a3','a3t','a3d','a3m']];
+  A.forEach((x,idx)=>{
+    const r=q('.'+x[0]);if(!r)return;
+    r.querySelector('.st-art-t').textContent=t(x[1]);
+    r.querySelector('.st-art-d').textContent=t(x[2]);
+    r.querySelector('.m-d').textContent=t('months')[idx];
+    r.querySelector('.m-c').textContent=t(x[3]);
+  });
+  const tg=q('.a1 .st-art-tag');if(tg)tg.textContent=t('badge');
+  [['p1','p1n','p1d'],['p2','p2n','p2d'],['p3','p3n','p3d'],['p4','p4n','p4d']].forEach(x=>{
+    const r=q('.'+x[0]);if(!r)return;
+    r.querySelector('.st-proj-n').textContent=t(x[1]);
+    r.querySelector('.st-proj-d').textContent=t(x[2]);
+  });
+  q('.f1').textContent=t('f1');q('.f2').textContent=t('f2');q('.f3').textContent=t('f3');
+}
+
+function renderCombo(){
+  const cb=document.getElementById('comboBar');
+  const items=[
+    ['palette',T[sel.palette].id+' · '+on(T[sel.palette])],
+    ['font',on(FONTS[sel.font])],
+    ['layout',on(LAYOUTS[sel.layout])],
+    ['tone',on(TONES[sel.tone])],
+    ['mood',on(MOODS[sel.mood])],
+  ];
+  cb.innerHTML=items.map(([k,v])=>`<span class="c"><em>${t('axis')[k]}</em><b>${v}</b></span>`).join('');
+}
+
+/* ===== UI strings ===== */
+function applyUIStrings(){
+  document.getElementById('brandT').textContent=t('brandT');
+  document.getElementById('brandS').textContent=t('brandS');
+  document.getElementById('lRand').textContent=t('rand');
+  document.getElementById('lExport').textContent=t('export');
   document.getElementById('langBtn').textContent=lang==='zh'?'EN':'中文';
-  const hlb=document.getElementById('heroLangBtn');if(hlb)hlb.textContent=lang==='zh'?'EN':'中文';
-  document.querySelectorAll('.mode-tab')[0].textContent=t('modeG');
-  document.querySelectorAll('.mode-tab')[1].textContent=t('modeD');
-  document.querySelector('.hint').innerHTML=
-    '<kbd>←</kbd><kbd>→</kbd> '+t('hintKeys')+' &nbsp; <kbd>Space</kbd> '+t('hintSel')+' &nbsp; <kbd>Tab</kbd> '+t('hintView');
-  rebuildGallery();
-  rebuildDetailPage();
-  rebuildHero();
-  if(mode==='detail')applyTheme(cur);
-  updateModeInfo();
+  document.getElementById('hRand').textContent=t('hRand');
+  document.getElementById('hPal').textContent=t('hPal');
+  document.getElementById('hLock').textContent=t('hLock');
+  document.getElementById('exTitle').textContent=t('exTitle');
+  document.getElementById('exCopy').textContent=t('exCopy');
+  document.getElementById('exDone').textContent=t('exDone');
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
 }
 
-function rebuildHero(){
-  const h=document.getElementById('heroSection');
-  if(!h)return;
-  document.getElementById('heroTitle').textContent=lang==='zh'?'三十色':'30 Colors';
-  document.getElementById('heroSub').innerHTML=lang==='zh'
-    ?'30 套手工策展的配色方案，每套定义 7 个语义色彩角色。<br>从 Happy Hues、Digital Synopsis、Media.io 等来源精选，<br>为简约风格的个人网站、作品集、博客而生。'
-    :'Choosing colors shouldn\'t be the hard part. 30 moods to flip through,<br>or let your AI recommend one that fits.<br>Add your own colors to this palette.';
-  document.getElementById('heroGuideTitle').textContent=lang==='zh'?'怎 么 用':'H O W';
-  document.getElementById('heroGuideList').innerHTML=lang==='zh'
-    ?'<li>向下滚动浏览全部 30 套配色卡片，点击任意卡片进入详情预览</li><li>详情视图中用 <kbd>←</kbd> <kbd>→</kbd> 切换方案，底部查看推荐语与搭配建议</li><li><kbd>Shift</kbd>+点击 或按 <kbd>空格</kbd> 收藏喜欢的方案，顶栏显示已选数量</li><li>复制 <code>SKILL.md</code> 中的 CSS 变量或 JS 数组到你的项目中即可使用</li><li>设计原则：大量留白、克制用色、衬线标题 + 无衬线正文、去装饰化</li>'
-    :'<li><strong>Install</strong> · Ask AI to grab it from GitHub — one sentence</li><li><strong>Pick</strong> · "Pick me a color scheme" — just say it while building</li><li><strong>Describe</strong> · "Something warm" / "like a bookshop" — say the feeling, AI matches</li><li><strong>Name</strong> · Know the name? Just say "use Earthy Scholar"</li><li><strong>Expand</strong> · "Add a Japanese one to my palette library" — AI crawls, remixes, builds it</li>';
-  document.getElementById('heroEnterBtn').textContent=lang==='zh'?'浏览配色':'Browse Palettes';
+function toggleLang(){lang=lang==='zh'?'en':'zh';applyUIStrings();buildMenus();applyCombo();saveState()}
+function toggleUITheme(){
+  const h=document.documentElement,n=h.getAttribute('data-ui-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-ui-theme',n);saveState();
 }
 
-function updateModeInfo(){
-  document.getElementById('modeInfo').textContent=mode==='gallery'?t('hintG'):t('hintD');
+/* ===== RANDOMIZE (unlocked axes) ===== */
+function randomize(){
+  for(const a of AXES){
+    if(locked[a.k])continue;
+    let i,n=a.data.length;if(n<2){sel[a.k]=0;continue}
+    do{i=Math.floor(Math.random()*n)}while(i===sel[a.k]);
+    sel[a.k]=i;
+  }
+  buildMenus();applyCombo();saveState();
 }
 
-const db=document.getElementById('dBar');
-T.forEach((th,i)=>{
-  const b=document.createElement('button');
-  b.className='d-btn'+(i===0?' active':'');
-  b.id='db'+i;
-  b.innerHTML=`<div class="d-dots"><div style="background:${th.bg}"></div><div style="background:${th.ac}"></div><div style="background:${th.ac2}"></div></div>${th.id} · ${th.n}`;
-  b.onclick=(e)=>{if(e.shiftKey||e.metaKey){pick(i)}else{applyTheme(i)}};
-  b.ondblclick=()=>pick(i);
-  db.appendChild(b);
-});
-
-function setMode(m){
-  mode=m;
-  document.getElementById('galleryView').style.display=m==='gallery'?'grid':'none';
-  document.getElementById('detailView').style.display=m==='detail'?'block':'none';
-  document.querySelectorAll('.mode-tab').forEach((tab,idx)=>
-    tab.classList.toggle('active',(m==='gallery'&&idx===0)||(m==='detail'&&idx===1)));
-  updateModeInfo();
-  if(m==='detail')applyTheme(cur);
+/* ===== EXPORT ===== */
+function exportText(){
+  const pal=T[sel.palette],fo=FONTS[sel.font],la=LAYOUTS[sel.layout].v,
+        to=TONES[sel.tone],mo=MOODS[sel.mood],d=mo.density;
+  const head=`/* color-palettes · ${pal.id} ${pal.n} / ${fo.nEn} / ${LAYOUTS[sel.layout].nEn} / ${TONES[sel.tone].nEn} / ${MOODS[sel.mood].nEn} */`;
+  const css=`:root{
+  --color-bg:${pal.bg};
+  --color-card:${pal.c};
+  --color-text:${pal.tx};
+  --color-text2:${pal.tx2};
+  --color-accent:${pal.ac};
+  --color-accent2:${pal.ac2};
+  --color-btn-text:${pal.bt};
+  --font-display:${fo.d};
+  --font-body:${fo.b};
+  --font-mono:${fo.m};
+  --fs-h1:${la.fs1}px; --fs-h2:${la.fs2}px; --fs-body:${la.fsb}px; --fs-small:${la.fss}px;
+  --line-height:${la.lh}; --measure:${la.measure}px; --tracking:${la.track}px;
+  --space-section:${Math.round(la.padY*d)}px; --space-inline:${Math.round(la.padX*d)}px; --gap:${Math.round(la.gap*d)}px;
+  --radius:${to.v.radius}px; --border-width:${to.v.bw}px; --shadow:${to.v.shadow};
+  --btn-radius:${to.v.btnr}px; --btn-padding:${to.v.btnp};
+  --weight-display:${to.v.wD}; --weight-body:${to.v.wB};
+  --transition:${mo.anim}ms;
+}`;
+  const fontsLink=`<!-- fonts -->\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces&family=Inter&family=Playfair+Display&family=Source+Serif+4&family=Newsreader&family=Spectral&family=Space+Grotesk&family=IBM+Plex+Mono&display=swap">`;
+  const json='/* config */\n'+JSON.stringify({palette:pal.id,font:fo.id,layout:LAYOUTS[sel.layout].id,tone:to.id,mood:mo.id},null,2);
+  return head+'\n'+css+'\n\n'+fontsLink+'\n\n'+json;
+}
+function openExport(){document.getElementById('exportText').textContent=exportText();document.getElementById('exportModal').classList.add('show')}
+function closeExport(){document.getElementById('exportModal').classList.remove('show')}
+function copyExport(){copyTxt(exportText());}
+function copyTxt(txt){
+  const done=()=>{toast(t('copied'))};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(()=>fb())}
+  else fb();
+  function fb(){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}ta.remove();done()}
+}
+let toastTm;
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTm);toastTm=setTimeout(()=>el.classList.remove('show'),1900);
 }
 
-function applyTheme(i){
-  cur=i;const th=T[i];
-  document.querySelectorAll('.d-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
-  const activeBtn=document.getElementById('db'+i);
-  if(activeBtn)activeBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-  document.getElementById('dName').textContent=th.id+' · '+th.n;
-  document.getElementById('dSub').textContent=th.s;
-  document.getElementById('dHex').textContent=[th.bg,th.ac,th.ac2,th.tx].filter(c=>!c.startsWith('rgba')).join(' · ');
-  document.getElementById('dRec').innerHTML='<em>'+t('recL')+'</em>'+tr(th)+'<br><em>'+t('pairL')+'</em>'+tp(th);
-
-  const pg=document.getElementById('fakePage');
-  pg.style.background=th.bg;pg.style.color=th.tx;
-  pg.querySelector('.fn').style.borderBottom='1px solid '+th.tx2+'22';
-  pg.querySelector('.fn-logo').style.color=th.tx;
-  pg.querySelectorAll('.fn-links span').forEach(s=>s.style.color=th.tx2);
-  pg.querySelector('.fh h1').style.color=th.tx;
-  pg.querySelector('.fh p').style.color=th.tx2;
-  pg.querySelector('.fh-tag').style.color=th.tx2;
-  pg.querySelector('.fb1').style.background=th.ac;
-  pg.querySelector('.fb1').style.color=th.bt;
-  pg.querySelector('.fb2').style.borderColor=th.ac;
-  pg.querySelector('.fb2').style.color=th.ac;
-  document.querySelectorAll('.fs').forEach(s=>s.style.borderTop='1px solid '+th.tx2+'18');
-  document.querySelectorAll('.fs-title').forEach(s=>s.style.color=th.tx2);
-  document.querySelectorAll('.fa').forEach(a=>{
-    a.style.background=th.c;
-    a.querySelectorAll('.fa-t').forEach(e=>e.style.color=th.tx);
-    a.querySelectorAll('.fa-d').forEach(e=>e.style.color=th.tx2);
-    a.querySelectorAll('.fa-m span').forEach(e=>e.style.color=th.tx2);
-  });
-  document.getElementById('tag1').style.background=th.ac2;
-  document.getElementById('tag1').style.color=th.bt;
-  document.querySelectorAll('.fp').forEach(p=>{
-    p.style.background=th.c;
-    p.querySelectorAll('.fp-name').forEach(e=>e.style.color=th.tx);
-    p.querySelectorAll('.fp-desc').forEach(e=>e.style.color=th.tx2);
-  });
-  pg.querySelector('.ff').style.borderTop='1px solid '+th.tx2+'18';
-  pg.querySelector('.ff').style.color=th.tx2;
-}
-
-function pick(i){
-  picked.has(i)?picked.delete(i):picked.add(i);
-  document.querySelectorAll('.g-card').forEach((c,j)=>c.classList.toggle('picked',picked.has(j)));
-  document.querySelectorAll('.d-btn').forEach((b,j)=>b.classList.toggle('picked',picked.has(j)));
-  document.getElementById('pickedBadge').textContent=picked.size;
-  const names=[...picked].sort().map(j=>T[j].id).join(' · ');
-  document.getElementById('pickedNames').textContent=names;
-}
-
+/* ===== KEYBOARD ===== */
 document.addEventListener('keydown',e=>{
-  if(e.key==='Tab'){e.preventDefault();setMode(mode==='gallery'?'detail':'gallery')}
-  else if(e.key==='ArrowRight'&&mode==='detail'){e.preventDefault();applyTheme((cur+1)%T.length)}
-  else if(e.key==='ArrowLeft'&&mode==='detail'){e.preventDefault();applyTheme((cur-1+T.length)%T.length)}
-  else if(e.key===' '||e.key==='Enter'){e.preventDefault();pick(cur)}
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  if(e.key===' '){e.preventDefault();randomize()}
+  else if(e.key==='ArrowRight'){e.preventDefault();selectOpt('palette',(sel.palette+1)%T.length)}
+  else if(e.key==='ArrowLeft'){e.preventDefault();selectOpt('palette',(sel.palette-1+T.length)%T.length)}
+  else if(e.key==='l'||e.key==='L'){toggleLock('palette')}
+  else if(e.key==='t'&&e.altKey){toggleUITheme()}
+  else if(e.key==='Escape'){closeExport()}
 });
 
-function dismissHero(){
-  const h=document.getElementById('heroSection');
-  const bar=document.querySelector('.mode-bar');
-  h.classList.add('hiding');
-  bar.classList.remove('hidden');
-  setTimeout(()=>{h.style.display='none'},400);
-}
-
-// Initial build
-rebuildGallery();
+/* ===== INIT ===== */
+loadState();
+applyUIStrings();
+buildMenus();
+applyCombo();
 </script>
 </body>
 </html>
