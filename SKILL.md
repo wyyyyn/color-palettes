@@ -1,14 +1,14 @@
 ---
 name: color-palettes
-description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone / icons. A combinable design system — 30 color palettes × 8 font pairings × 6 layouts × 6 tones × 6 moods — previewed live in preview.html, with bundled self-hosted fonts (OFL), 1960 Lucide icons (ISC) and an original tileable pattern/ornament set (CC0). Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) plus its fonts/icons/patterns into any codebase, fully offline.
+description: Use when building UI, choosing or applying a visual style to a frontend project, theming, or the user asks about palettes / fonts / layout / tone / icons / patterns. A 7-axis combinable design system — 30 color palettes × 24 font pairings × 6 layouts × 6 tones × 6 moods × 8 icon sets × 8 patterns — previewed live in preview.html, with bundled self-hosted fonts (OFL), 1960 Lucide icons (ISC) and an original tileable pattern/ornament set (CC0). Use the "Replicate into a project" workflow to apply a chosen combo (or one cloned from a site) plus its fonts/icons/patterns into any codebase, fully offline.
 ---
 
 # Color Palettes — Combinable Design System
 
-This is not just a color list. It is a **5-axis combinable design system** with a live playground (`preview.html`): pick one option from each menu and the mock site re-renders the full combination. Any combo can be **replicated into a real project** as CSS variables.
+This is not just a color list. It is a **7-axis combinable design system** with a live playground (`preview.html`): pick one option from each menu and the mock site re-renders the full combination. Any combo can be **replicated into a real project** as CSS variables (plus its bundled fonts/icons/patterns).
 
 ```
-COLOR (30) × FONT (8) × LAYOUT (6) × TONE (6) × MOOD (6)
+COLOR (30) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (8) × PATTERN (8)
 ```
 
 - **Open `preview.html`** in a browser to explore combos, shuffle (Space), lock axes, and **Copy / Export** the current combo (CSS variables + Google Fonts link + JSON config).
@@ -26,7 +26,7 @@ COLOR (30) × FONT (8) × LAYOUT (6) × TONE (6) × MOOD (6)
 
 ---
 
-## 五个轴 (The 5 Axes)
+## 七个轴 (The 7 Axes)
 
 ### 1. COLOR · 配色 (30) — `--color-*`
 
@@ -42,20 +42,9 @@ COLOR (30) × FONT (8) × LAYOUT (6) × TONE (6) × MOOD (6)
 | accent2 | `--color-accent2` | 标签、高亮、次要点缀 |
 | btn-text | `--color-btn-text` | 按钮上的文字颜色 |
 
-### 2. FONT · 字体 (8) — `--font-display / --font-body / --font-mono`
+### 2. FONT · 字体 (24) — `--font-display / --font-body / --font-mono`
 
-| id | 名称 | display / body / mono |
-|----|------|------------------------|
-| claude | Claude 编辑 | Fraunces / Inter / IBM Plex Mono |
-| mag | 杂志大衬线 | Playfair Display / Source Serif 4 / IBM Plex Mono |
-| swiss | 瑞士中性 | Inter / Inter / IBM Plex Mono |
-| literary | 文学衬线 | Newsreader / Newsreader / IBM Plex Mono |
-| terminal | 终端极客 | Space Grotesk / IBM Plex Mono / IBM Plex Mono |
-| humanist | 人文混排 | Spectral / Inter / IBM Plex Mono |
-| contrast | 编辑反差 | Fraunces / Source Serif 4 / IBM Plex Mono |
-| modern | 现代无衬线 | Space Grotesk / Inter / IBM Plex Mono |
-
-CJK 回退统一加 `'Noto Serif SC'`（衬线）/ `'Noto Sans SC'`（无衬线）。
+24 套策展配对（display / body / mono 三件套），覆盖编辑、杂志、瑞士、文学、终端、古典 Garamond、Baskerville、Crimson、板衬 Bitter/Zilla、时装 Abril/DM Serif、几何 Manrope/Outfit/Sora、当代 Bricolage 等气质。id 与具体字族真值见 `preview.html` 的 `FONTS` 数组。涉及字体的 9 个拉丁/CJK 家族全部 woff2 自托管在 `assets/fonts/`（见下「资源库」），CJK 回退统一加 `'Noto Serif SC'`（衬线）/ `'Noto Sans SC'`（无衬线）。
 
 ### 3. LAYOUT · 排版 (6) — `--fs1/2/b/s --line-height --measure --tracking --space-* --gap --cols`
 
@@ -69,7 +58,15 @@ CJK 回退统一加 `'Noto Serif SC'`（衬线）/ `'Noto Sans SC'`（无衬线�
 
 `paper`(纸纹·✻标记) · `gallery`(极致留白·无饰) · `terminal`(扫描线·$ 提示符) · `magazine`(分隔线·节奏) · `nocturne`(晕影·圆点饰) · `clean`(零纹理·即时)。控制纹理、装饰母题、信息密度、微交互速度。
 
-> 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS` 数组。要新增选项就往对应数组追加一个对象，UI 自动渲染。
+### 6. ICON · 图标 (8) — Lucide via `assets/icons/lucide/sprite.svg`
+
+8 套图标主题，各 4 枚（用于"作品选集"卡片）：`editorial`(书/笔/版面) · `product`(层/历/包) · `studio`(光圈/形/框) · `dev`(终端/分支/芯片) · `nature`(叶/日/山) · `retail`(袋/礼/签) · `geometric`(圆/方/三角) · `life`(心/咖/乐)。渲染为 `<svg><use href="assets/icons/lucide/sprite.svg#NAME"/></svg>`，`stroke:currentColor`。
+
+### 7. PATTERN · 花纹 (8) — `--pat` / `--orn`（`assets/patterns/`，CC0）
+
+`none`(无纹) · `dots` · `grid` · `diagonal` · `cross` · `waves` · `lattice` · `herringbone`。每个非 none 选项设一张可平铺底纹（masked，`text2` 着色，低透明）+ 一条装饰花纹分隔（`ornaments/`，accent 着色）。与 MOOD 的纹理正交叠加。
+
+> 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS / ICONS / PATTERNS` 数组。要新增选项就往对应数组追加一个对象，UI 自动渲染（`AXES` 驱动，菜单/快照/分享 URL/导出全部自动覆盖新轴）。
 
 ---
 

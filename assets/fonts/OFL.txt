@@ -1,16 +1,13 @@
-This folder bundles the following typefaces, each licensed under the
-SIL Open Font License, Version 1.1 (free to use, embed, and redistribute):
+This folder bundles the following typefaces, each © its respective
+Project Authors and licensed under the SIL Open Font License, Version 1.1
+(free to use, embed, and redistribute):
 
-  Fraunces            © The Fraunces Project Authors
-  Inter               © The Inter Project Authors
-  Playfair Display    © The Playfair Display Project Authors
-  Source Serif 4      © Adobe (Source Serif Project)
-  Newsreader          © The Newsreader Project Authors
-  Spectral            © Productiontype.com (Spectral Project Authors)
-  Space Grotesk       © The Space Grotesk Project Authors
-  IBM Plex Mono       © IBM Corp. (IBM Plex Project Authors)
-  Noto Serif SC       © The Noto Project Authors (Google)
-  Noto Sans SC        © The Noto Project Authors (Google)
+  Fraunces, Inter, Playfair Display, Source Serif 4, Newsreader, Spectral,
+  Space Grotesk, Cormorant Garamond, EB Garamond, Libre Baskerville,
+  Crimson Pro, Lora, Bitter, DM Serif Display, DM Sans, Instrument Serif,
+  Abril Fatface, Work Sans, Zilla Slab, Manrope, Plus Jakarta Sans, Sora,
+  Outfit, Archivo, Bricolage Grotesque, Hanken Grotesk, IBM Plex Mono,
+  JetBrains Mono, Space Mono, Noto Serif SC, Noto Sans SC.
 
 Source: Google Fonts (https://fonts.google.com). woff2 subsets fetched
 from the Google Fonts CSS API. Canonical license text:

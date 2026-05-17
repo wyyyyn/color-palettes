@@ -9,7 +9,7 @@
 <!-- Fallback: Google Fonts CDN (used only if the bundled assets are absent) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Spectral:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces&family=Inter&family=Playfair+Display&family=Source+Serif+4&family=Newsreader&family=Spectral&family=Space+Grotesk&family=Cormorant+Garamond&family=EB+Garamond&family=Libre+Baskerville&family=Crimson+Pro&family=Lora&family=Bitter&family=DM+Serif+Display&family=DM+Sans&family=Instrument+Serif&family=Abril+Fatface&family=Work+Sans&family=Zilla+Slab&family=Manrope&family=Plus+Jakarta+Sans&family=Sora&family=Outfit&family=Archivo&family=Bricolage+Grotesque&family=Hanken+Grotesk&family=IBM+Plex+Mono&family=JetBrains+Mono&family=Space+Mono&family=Noto+Serif+SC&family=Noto+Sans+SC&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -136,6 +136,11 @@ body{
 .stage[data-tex="scanline"]::before{background-image:repeating-linear-gradient(0deg,var(--c-tx) 0 1px,transparent 1px 4px);opacity:.05}
 .stage[data-tex="vignette"]::before{background:radial-gradient(ellipse at 50% 35%,transparent 52%,rgba(0,0,0,.2))}
 .stage[data-tex="none"]::before{display:none}
+.stage::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-color:var(--c-tx2);-webkit-mask-image:var(--pat,none);mask-image:var(--pat,none);-webkit-mask-repeat:repeat;mask-repeat:repeat;opacity:.07}
+.stage[data-pat="none"]::after{display:none}
+.st-orn{height:20px;margin:0 var(--padX) calc(var(--padY) * .35);background-color:var(--c-ac);-webkit-mask:var(--orn,none) center/auto 100% no-repeat;mask:var(--orn,none) center/auto 100% no-repeat;opacity:.5}
+.stage[data-pat="none"] .st-orn{display:none}
+.st-proj-i svg{width:26px;height:26px;display:block;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .st-in{position:relative;z-index:1;max-width:calc(var(--measure) + var(--padX)*2);margin:0 auto}
 .st-nav{display:flex;justify-content:space-between;align-items:center;padding:22px var(--padX)}
 .st-logo{font-family:var(--f-display);font-size:calc(var(--fsb) + 1px);font-weight:var(--wD);letter-spacing:.5px}
@@ -280,6 +285,7 @@ body{
             <p class="st-lede"></p>
             <div class="st-btns"><button class="st-b1"></button><button class="st-b2"></button></div>
           </header>
+          <div class="st-orn"></div>
           <section class="st-sec">
             <div class="st-sectitle s1"></div>
             <article class="st-art a1"><div class="st-art-t"></div><div class="st-art-d"></div><div class="st-art-m"><span class="m-d"></span><span class="m-c"></span><span class="st-art-tag"></span></div></article>
@@ -354,23 +360,23 @@ const L={
     snEmpty:'还没有快照。挑好一套组合，点「＋ 存当前组合」。',
     snApply:'应用',snCmp:'对比',snapSaved:'已存快照 ✓',snapDup:'这套组合已在快照里',
     cmpTitle:'A / B 对比 · 左 = 当前，右 = 快照',cmpClose:'关闭',
-    axis:{palette:'配 色',font:'字 体',layout:'排 版',tone:'调 性',mood:'氛 围'},
-    axisEn:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD'},
-    logo:'留白集', nav:['关于','作品','随笔','联络'], tag:'设计 · 文字 · 手艺',
-    hero:'好的设计，是让人忘记设计本身。',
-    sub:'在意图与形式之间，留一段可以呼吸的距离。克制是审美的起点，留白是表达的另一种方式。',
-    btn1:'浏览作品', btn2:'阅读随笔',
-    sec1:'近期随笔', sec2:'精选作品',
-    a1t:'克制的力量', a1d:'最好的界面让人觉得它一直就在那里。而达到这种"消失感"所需要的纪律，远比堆砌功能更难。',
-    a2t:'色彩是氛围，不是装饰', a2d:'一套配色不是色卡。它是你未曾踏入的房间里，空气的温度。',
-    a3t:'元素之间的间距', a3d:'留白不是空。它是音符之间的停顿——正是那些沉默，赋予了旋律意义。',
-    a1m:'设计随想', a2m:'色彩手记', a3m:'排版笔记', badge:'推荐',
+    axis:{palette:'配 色',font:'字 体',layout:'排 版',tone:'调 性',mood:'氛 围',icons:'图 标',pattern:'花 纹'},
+    axisEn:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN'},
+    logo:'留白集', nav:['缘起','作品','随笔','寄信'], tag:'纸 · 墨 · 余白',
+    hero:'设计的尽头是留白，留白的尽头是听见。',
+    sub:'把可有可无的话都删去之后，余下的那一行，往往才是你真正想说的。我们在词语与空白的接缝处，替意义留一处可以坐下来歇脚的地方。',
+    btn1:'翻阅作品', btn2:'读一页随笔',
+    sec1:'案头随笔', sec2:'作品选集',
+    a1t:'论克制', a1d:'真正的力量从不喧哗。它像深夜里一盏不晃眼的灯——你几乎忘了它在那儿，却一直靠它看清脚下的路。',
+    a2t:'颜色是一种气候', a2d:'一种颜色不是颜料，是一间屋子的天气。你还没推门进去，它已经替你定下了今天的心情。',
+    a3t:'间距亦是修辞', a3d:'两个字之间的空白，并非无话可说；那是把话讲完之后，特意留住的一口气。',
+    a1m:'随笔', a2m:'色谭', a3m:'排版小记', badge:'选',
     months:['2026.04','2026.03','2026.02'],
-    p1n:'作品集模板', p1d:'支持主题切换的极简作品集，语义化配色，一键换装。',
-    p2n:'日历手帐', p2d:'基于暖色调排版的日记应用，文字与留白的平衡练习。',
-    p3n:'书架', p3d:'卡片式阅读清单，柔和过渡动效，安静地陪你读完一本书。',
-    p4n:'画布', p4d:'生成式色彩实验场，探索和谐与节奏的视觉可能。',
-    f1:'三十色 · color-palettes', f2:'简约至上', f3:'为 Claude Code 而作',
+    p1n:'《留白集》', p1d:'一册可以换装的作品集。颜色是它的语气，留白是它的停顿，读者是它未写完的最后一章。',
+    p2n:'《岁时记》', p2d:'按节气书写的日历手帐。让每一天先有它的温度，然后才有日期。',
+    p3n:'《书架》', p3d:'卡片式的读书清单。它从不催你读完，只是安静地陪着，像一位不说话的旧友。',
+    p4n:'《画布》', p4d:'一处生成式的色彩试验场——在偶然里打捞秩序，又在秩序里，故意放回一点偶然。',
+    f1:'留白集 · color-palettes', f2:'少，即是丰饶', f3:'为 Claude Code 而作',
   },
   en:{
     brandT:'Design Lab',brandS:'Color · Type · Layout · Tone · Mood — mix freely',
@@ -382,23 +388,23 @@ const L={
     snEmpty:'No snapshots yet. Pick a combo and hit “＋ Save current”.',
     snApply:'Apply',snCmp:'Compare',snapSaved:'Snapshot saved ✓',snapDup:'That combo is already saved',
     cmpTitle:'A / B compare · left = current, right = snapshot',cmpClose:'Close',
-    axis:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD'},
-    axisEn:{palette:'配色',font:'字体',layout:'排版',tone:'调性',mood:'氛围'},
-    logo:'Whitespace', nav:['About','Work','Writing','Contact'], tag:'Design · Words · Craft',
-    hero:'Good design makes you forget design itself.',
-    sub:'Between intention and form, leave room to breathe. Restraint is where taste begins; whitespace is another way to speak.',
-    btn1:'View Work', btn2:'Read Writing',
-    sec1:'Recent Writing', sec2:'Selected Projects',
-    a1t:'The Quiet Power of Restraint', a1d:'The best interfaces feel like they were always there — and the discipline to achieve that invisibility is harder than piling on features.',
-    a2t:'Color as Atmosphere', a2d:'A palette is not a paint swatch. It is the emotional temperature of a room you have never entered.',
-    a3t:'The Space Between', a3d:'Whitespace is not empty. It is the silence between notes — the very thing that gives melody its meaning.',
-    a1m:'Design', a2m:'Color Theory', a3m:'Typography', badge:'Featured',
+    axis:{palette:'COLOR',font:'TYPE',layout:'LAYOUT',tone:'TONE',mood:'MOOD',icons:'ICON',pattern:'PATTERN'},
+    axisEn:{palette:'配色',font:'字体',layout:'排版',tone:'调性',mood:'氛围',icons:'图标',pattern:'花纹'},
+    logo:'Whitespace', nav:['Origin','Work','Essays','Letters'], tag:'paper · ink · the space between',
+    hero:'Design ends in whitespace; whitespace ends in being heard.',
+    sub:'When every word that could be spared is struck out, the line that remains is usually the one you meant. We keep, in the seam between language and emptiness, a place where meaning can sit down and rest.',
+    btn1:'Read the Work', btn2:'Read an Essay',
+    sec1:'Desk Essays', sec2:'Selected Work',
+    a1t:'On Restraint', a1d:'Real strength never raises its voice. It is the lamp that does not dazzle — you forget it is there, and by it you see the road beneath your feet.',
+    a2t:'Colour Is a Climate', a2d:'A colour is not a pigment but the weather of a room. Before you push the door open, it has already decided your mood for the day.',
+    a3t:'Spacing Is Rhetoric', a3d:'The blank between two words is not nothing left to say. It is the breath held back, on purpose, once the sentence is done.',
+    a1m:'Essay', a2m:'On Colour', a3m:'On Type', badge:'Pick',
     months:['2026.04','2026.03','2026.02'],
-    p1n:'Folio', p1d:'A minimal portfolio template with theme switching and semantic color roles.',
-    p2n:'Almanac', p2d:'A daily journal app built on warm typography and the balance of text and space.',
-    p3n:'Shelf', p3d:'Card-based reading list with gentle transitions — quietly keeping you company.',
-    p4n:'Canvas', p4d:'Generative color playground exploring harmony and visual rhythm.',
-    f1:'30 Colors · color-palettes', f2:'Less is more', f3:'Built for Claude Code',
+    p1n:'Whitespace', p1d:'A portfolio you can re-dress. Colour is its tone of voice; whitespace, its pause; the reader, its unwritten last chapter.',
+    p2n:'Almanac', p2d:'A journal written by the seasons. Let each day have a temperature before it is given a date.',
+    p3n:'Shelf', p3d:'A card-based reading list. It will not hurry you; it simply keeps company, like an old friend who does not speak.',
+    p4n:'Canvas', p4d:'A generative field for colour — it fishes order out of accident, then leaves, on purpose, a little accident inside the order.',
+    f1:'Whitespace · color-palettes', f2:'Less, and therefore abundant', f3:'Built for Claude Code',
   }
 };
 
@@ -557,23 +563,56 @@ const T=[
 ];
 
 /* ===== 2) TYPE — display / body / mono triples ===== */
+const _SF="'Noto Serif SC',Georgia,serif", _SS="'Noto Sans SC',system-ui,sans-serif", _MO="ui-monospace,Menlo,monospace";
 const FONTS=[
   {id:'claude',n:'Claude 编辑',nEn:'Claude Editorial',s:'暖纸 · 人文',sEn:'warm · humanist',
-   d:"'Fraunces','Noto Serif SC',Georgia,serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',ui-monospace,Menlo,monospace"},
+   d:`'Fraunces',${_SF}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'mag',n:'杂志大衬线',nEn:'Magazine Serif',s:'戏剧 · 优雅',sEn:'dramatic · elegant',
-   d:"'Playfair Display','Noto Serif SC',Georgia,serif",b:"'Source Serif 4','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Playfair Display',${_SF}`,b:`'Source Serif 4',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'swiss',n:'瑞士中性',nEn:'Swiss Neutral',s:'克制 · 理性',sEn:'restrained · rational',
-   d:"'Inter','Noto Sans SC',system-ui,sans-serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Inter',${_SS}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'literary',n:'文学衬线',nEn:'Literary',s:'安静 · 书卷',sEn:'quiet · bookish',
-   d:"'Newsreader','Noto Serif SC',Georgia,serif",b:"'Newsreader','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Newsreader',${_SF}`,b:`'Newsreader',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'terminal',n:'终端极客',nEn:'Terminal Geek',s:'冷峻 · 精确',sEn:'sharp · precise',
-   d:"'Space Grotesk','Noto Sans SC',sans-serif",b:"'IBM Plex Mono','Noto Sans SC',monospace",m:"'IBM Plex Mono',monospace"},
+   d:`'Space Grotesk',${_SS}`,b:`'JetBrains Mono',${_SS}`,m:`'JetBrains Mono',${_MO}`},
   {id:'humanist',n:'人文混排',nEn:'Humanist Mix',s:'温润 · 均衡',sEn:'warm · balanced',
-   d:"'Spectral','Noto Serif SC',Georgia,serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Spectral',${_SF}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'contrast',n:'编辑反差',nEn:'Editorial Contrast',s:'有声 · 张力',sEn:'voiced · tension',
-   d:"'Fraunces','Noto Serif SC',Georgia,serif",b:"'Source Serif 4','Noto Serif SC',Georgia,serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Fraunces',${_SF}`,b:`'Source Serif 4',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
   {id:'modern',n:'现代无衬线',nEn:'Modern Sans',s:'清晰 · 当代',sEn:'clean · contemporary',
-   d:"'Space Grotesk','Noto Sans SC',sans-serif",b:"'Inter','Noto Sans SC',system-ui,sans-serif",m:"'IBM Plex Mono',monospace"},
+   d:`'Space Grotesk',${_SS}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'garamond',n:'古典加拉蒙',nEn:'Garamond Classic',s:'古典 · 雅致',sEn:'classical · refined',
+   d:`'Cormorant Garamond',${_SF}`,b:`'EB Garamond',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'oldstyle',n:'旧体书卷',nEn:'Old-Style Book',s:'学术 · 旧体',sEn:'scholarly · old-style',
+   d:`'EB Garamond',${_SF}`,b:`'EB Garamond',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'baskerville',n:'巴斯克维尔',nEn:'Baskerville',s:'权威 · 印刷',sEn:'authoritative · print',
+   d:`'Libre Baskerville',${_SF}`,b:`'Libre Baskerville',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'crimson',n:'学术克里姆森',nEn:'Crimson Academic',s:'学术 · 安静',sEn:'academic · calm',
+   d:`'Crimson Pro',${_SF}`,b:`'Crimson Pro',${_SF}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'lora',n:'柔润 Lora',nEn:'Lora Soft',s:'柔和 · 易读',sEn:'gentle · readable',
+   d:`'Lora',${_SF}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'bitter',n:'板衬温润',nEn:'Slab Warm',s:'稳重 · 温润',sEn:'sturdy · warm',
+   d:`'Bitter',${_SF}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'dmserif',n:'高对比标题',nEn:'High-Contrast',s:'魅力 · 时装',sEn:'glamour · fashion',
+   d:`'DM Serif Display',${_SF}`,b:`'DM Sans',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'instrument',n:'仪器衬线',nEn:'Instrument',s:'编辑 · 通透',sEn:'editorial · airy',
+   d:`'Instrument Serif',${_SF}`,b:`'Inter',${_SS}`,m:`'Space Mono',${_MO}`},
+  {id:'abril',n:'时装大标题',nEn:'Couture Display',s:'大胆 · 高定',sEn:'bold · couture',
+   d:`'Abril Fatface',${_SF}`,b:`'Work Sans',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'zilla',n:'工程板衬',nEn:'Engineered Slab',s:'技术 · 扎实',sEn:'technical · solid',
+   d:`'Zilla Slab',${_SF}`,b:`'Inter',${_SS}`,m:`'JetBrains Mono',${_MO}`},
+  {id:'manrope',n:'几何 Manrope',nEn:'Geometric',s:'几何 · 中性',sEn:'geometric · neutral',
+   d:`'Manrope',${_SS}`,b:`'Manrope',${_SS}`,m:`'Space Mono',${_MO}`},
+  {id:'jakarta',n:'友好雅加达',nEn:'Friendly Sans',s:'友好 · 圆融',sEn:'friendly · rounded',
+   d:`'Plus Jakarta Sans',${_SS}`,b:`'Plus Jakarta Sans',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'sora',n:'科技 Sora',nEn:'Tech Sora',s:'科技 · 利落',sEn:'techy · crisp',
+   d:`'Sora',${_SS}`,b:`'Inter',${_SS}`,m:`'JetBrains Mono',${_MO}`},
+  {id:'outfit',n:'极简 Outfit',nEn:'Minimal Outfit',s:'极简 · 均匀',sEn:'minimal · even',
+   d:`'Outfit',${_SS}`,b:`'Outfit',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'archivo',n:'宽体 Archivo',nEn:'Wide Grotesque',s:'怪诞 · 宽阔',sEn:'grotesque · wide',
+   d:`'Archivo',${_SS}`,b:`'Inter',${_SS}`,m:`'IBM Plex Mono',${_MO}`},
+  {id:'bricolage',n:'当代拼贴',nEn:'Contemporary',s:'当代 · 个性',sEn:'contemporary · quirky',
+   d:`'Bricolage Grotesque',${_SS}`,b:`'Hanken Grotesk',${_SS}`,m:`'Space Mono',${_MO}`},
 ];
 
 /* ===== 3) LAYOUT — scale / leading / measure / grid / rhythm ===== */
@@ -624,14 +663,38 @@ const MOODS=[
    tex:'none',motif:'none',rule:0,density:1,anim:0},
 ];
 
+/* ===== 6) ICONS — Lucide sets (assets/icons/lucide, ISC) ===== */
+const ICONS=[
+  {id:'editorial',n:'编辑文房',nEn:'Editorial',s:'书 · 笔 · 版面',sEn:'book · pen · layout',ic:['book-open','pen-tool','layout-template','palette']},
+  {id:'product',n:'产品套件',nEn:'Product',s:'层 · 历 · 包',sEn:'layers · cal · pack',ic:['layers','calendar','package','sparkles']},
+  {id:'studio',n:'设计工作室',nEn:'Studio',s:'光圈 · 形 · 框',sEn:'aperture · shapes',ic:['aperture','shapes','frame','brush']},
+  {id:'dev',n:'开发者',nEn:'Developer',s:'终端 · 分支',sEn:'terminal · branch',ic:['terminal','git-branch','cpu','code-xml']},
+  {id:'nature',n:'自然',nEn:'Nature',s:'叶 · 日 · 山',sEn:'leaf · sun · peak',ic:['leaf','sun','mountain','feather']},
+  {id:'retail',n:'零售',nEn:'Retail',s:'袋 · 礼 · 签',sEn:'bag · gift · tag',ic:['shopping-bag','gift','tag','star']},
+  {id:'geometric',n:'几何极简',nEn:'Geometric',s:'圆 · 方 · 三角',sEn:'circle · square',ic:['circle','square','triangle','diamond']},
+  {id:'life',n:'生活',nEn:'Life',s:'心 · 咖 · 乐',sEn:'heart · coffee',ic:['heart','coffee','music','camera']},
+];
+
+/* ===== 7) PATTERN — 花纹 (assets/patterns, CC0) ===== */
+const PATTERNS=[
+  {id:'none',n:'无纹',nEn:'Bare',s:'不加底纹',sEn:'no pattern',pat:'',orn:''},
+  {id:'dots',n:'圆点',nEn:'Dots',s:'点阵 · ✻',sEn:'dot grid · ✻',pat:'dots.svg',orn:'asterisk.svg'},
+  {id:'grid',n:'网格',nEn:'Grid',s:'方格 · 菱饰',sEn:'grid · diamond',pat:'grid.svg',orn:'diamond-rule.svg'},
+  {id:'diagonal',n:'斜纹',nEn:'Diagonal',s:'斜线 · 花饰',sEn:'diagonal · flourish',pat:'diagonal.svg',orn:'rule-flourish.svg'},
+  {id:'cross',n:'十字纹',nEn:'Cross',s:'十字 · ✻',sEn:'cross · ✻',pat:'cross.svg',orn:'asterisk.svg'},
+  {id:'waves',n:'波纹',nEn:'Waves',s:'波浪 · 叶饰',sEn:'waves · leaf',pat:'waves.svg',orn:'leaf.svg'},
+  {id:'lattice',n:'菱格',nEn:'Lattice',s:'菱格 · 菱饰',sEn:'lattice · diamond',pat:'lattice.svg',orn:'diamond-rule.svg'},
+  {id:'herringbone',n:'人字纹',nEn:'Herringbone',s:'人字 · 花饰',sEn:'herringbone',pat:'herringbone.svg',orn:'rule-flourish.svg'},
+];
+
 const AXES=[
   {k:'palette',data:T},{k:'font',data:FONTS},{k:'layout',data:LAYOUTS},
-  {k:'tone',data:TONES},{k:'mood',data:MOODS},
+  {k:'tone',data:TONES},{k:'mood',data:MOODS},{k:'icons',data:ICONS},{k:'pattern',data:PATTERNS},
 ];
 
 /* ===== STATE ===== */
-let sel={palette:0,font:0,layout:0,tone:0,mood:0};
-let locked={palette:false,font:false,layout:false,tone:false,mood:false};
+let sel={}, locked={};
+for(const a of AXES){sel[a.k]=0;locked[a.k]=false}
 
 function loadState(){
   try{
@@ -651,13 +714,12 @@ function saveState(){
 }
 
 /* ===== SHAREABLE URL ===== */
-function comboStr(s){return T[s.palette].id+'-'+FONTS[s.font].id+'-'+LAYOUTS[s.layout].id+'-'+TONES[s.tone].id+'-'+MOODS[s.mood].id}
+function comboStr(s){return AXES.map(a=>a.data[s[a.k]].id).join('-')}
 function parseCombo(str){
   if(!str)return null;
-  const p=String(str).split('-');if(p.length!==5)return null;
-  const ix=(arr,id)=>arr.findIndex(o=>o.id===id);
-  const r={palette:ix(T,p[0]),font:ix(FONTS,p[1]),layout:ix(LAYOUTS,p[2]),tone:ix(TONES,p[3]),mood:ix(MOODS,p[4])};
-  for(const k in r)if(r[k]<0)return null;
+  const p=String(str).split('-');if(p.length!==AXES.length)return null;
+  const r={};
+  for(let i=0;i<AXES.length;i++){const j=AXES[i].data.findIndex(o=>o.id===p[i]);if(j<0)return null;r[AXES[i].k]=j}
   return r;
 }
 function syncHash(){try{history.replaceState(null,'','#'+comboStr(sel))}catch(e){}}
@@ -686,6 +748,14 @@ function thumb(axis,o){
   if(axis==='tone'){
     const v=o.v;
     return `<div class="dg" style="align-items:flex-start;justify-content:center"><i style="width:30px;height:13px;background:var(--ui-ac);opacity:1;border-radius:${Math.min(13,v.btnr)}px;box-shadow:${v.shadow==='none'?'none':'2px 2px 0 var(--ui-line)'}"></i><i style="width:40px;height:9px;border:${v.bw}px solid var(--ui-tx2);background:transparent;opacity:.5;border-radius:${Math.min(9,v.radius)}px"></i></div>`;
+  }
+  if(axis==='icons'){
+    const sp='assets/icons/lucide/sprite.svg#',ic=`stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;width:17px;height:17px`;
+    return `<div class="ft" style="display:flex;gap:7px;color:var(--ui-tx)"><svg viewBox="0 0 24 24" style="${ic}"><use href="${sp}${o.ic[0]}"/></svg><svg viewBox="0 0 24 24" style="${ic}"><use href="${sp}${o.ic[1]}"/></svg></div>`;
+  }
+  if(axis==='pattern'){
+    if(!o.pat)return `<div class="ft" style="color:var(--ui-tx2);font-size:11px">—</div>`;
+    return `<div class="ft" style="background-color:var(--ui-tx2);-webkit-mask:url(assets/patterns/${o.pat}) repeat;mask:url(assets/patterns/${o.pat}) repeat;opacity:.55"></div>`;
   }
   // mood
   const bgmap={paper:'radial-gradient(currentColor .6px,transparent .6px)',scanline:'repeating-linear-gradient(0deg,currentColor 0 1px,transparent 1px 4px)',vignette:'radial-gradient(ellipse,transparent 40%,rgba(0,0,0,.4))',none:'none'};
@@ -767,6 +837,17 @@ function applyComboTo(st,s){
   st.setAttribute('data-rule',(mo.rule||(to.id==='editorial'?1:0))?'1':'0');
   st.setAttribute('data-link',to.link);
   st.setAttribute('data-halign',la.halign);
+  // icons (Lucide sprite)
+  const ico=ICONS[s.icons], SP='assets/icons/lucide/sprite.svg#';
+  st.querySelectorAll('.st-proj').forEach((pj,k)=>{
+    const box=pj.querySelector('.st-proj-i'), name=ico.ic[k];
+    if(box&&name)box.innerHTML=`<svg viewBox="0 0 24 24"><use href="${SP}${name}"/></svg>`;
+  });
+  // pattern (花纹) + ornament
+  const pt=PATTERNS[s.pattern];
+  S('--pat',pt.pat?`url(assets/patterns/${pt.pat})`:'none');
+  S('--orn',pt.orn?`url(assets/patterns/ornaments/${pt.orn})`:'none');
+  st.setAttribute('data-pat',pt.pat?pt.id:'none');
   fillTextIn(st);
 }
 function applyCombo(){
@@ -803,13 +884,10 @@ function fillTextIn(st){
 
 function renderCombo(){
   const cb=document.getElementById('comboBar');
-  const items=[
-    ['palette',T[sel.palette].id+' · '+on(T[sel.palette])],
-    ['font',on(FONTS[sel.font])],
-    ['layout',on(LAYOUTS[sel.layout])],
-    ['tone',on(TONES[sel.tone])],
-    ['mood',on(MOODS[sel.mood])],
-  ];
+  const items=AXES.map(a=>{
+    const o=a.data[sel[a.k]];
+    return [a.k,(a.k==='palette'?o.id+' · ':'')+on(o)];
+  });
   cb.innerHTML=items.map(([k,v])=>`<span class="c"><em>${t('axis')[k]}</em><b>${v}</b></span>`).join('');
 }
 
@@ -856,7 +934,8 @@ function randomize(){
 function exportText(){
   const pal=T[sel.palette],fo=FONTS[sel.font],la=LAYOUTS[sel.layout].v,
         to=TONES[sel.tone],mo=MOODS[sel.mood],d=mo.density;
-  const head=`/* color-palettes · ${pal.id} ${pal.n} / ${fo.nEn} / ${LAYOUTS[sel.layout].nEn} / ${TONES[sel.tone].nEn} / ${MOODS[sel.mood].nEn} */`;
+  const ico=ICONS[sel.icons], pt=PATTERNS[sel.pattern];
+  const head=`/* color-palettes · ${pal.id} ${pal.n} / ${fo.nEn} / ${LAYOUTS[sel.layout].nEn} / ${TONES[sel.tone].nEn} / ${MOODS[sel.mood].nEn} / icons:${ico.nEn} / pattern:${PATTERNS[sel.pattern].nEn} */`;
   const css=`:root{
   --color-bg:${pal.bg};
   --color-card:${pal.c};
@@ -875,9 +954,11 @@ function exportText(){
   --btn-radius:${to.v.btnr}px; --btn-padding:${to.v.btnp};
   --weight-display:${to.v.wD}; --weight-body:${to.v.wB};
   --transition:${mo.anim}ms;
+  /* icons (Lucide, assets/icons/lucide): ${ico.ic.join(', ')} */
+  /* pattern (assets/patterns): ${pt.pat||'none'}  ·  ornament: ${pt.orn||'none'} */
 }`;
-  const fontsLink=`<!-- fonts -->\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces&family=Inter&family=Playfair+Display&family=Source+Serif+4&family=Newsreader&family=Spectral&family=Space+Grotesk&family=IBM+Plex+Mono&display=swap">`;
-  const json='/* config */\n'+JSON.stringify({palette:pal.id,font:fo.id,layout:LAYOUTS[sel.layout].id,tone:to.id,mood:mo.id},null,2);
+  const fontsLink=`<!-- Bundled offline fonts: copy assets/fonts/ then link it -->\n<link rel="stylesheet" href="assets/fonts/fonts.css">`;
+  const json='/* config */\n'+JSON.stringify({palette:pal.id,font:fo.id,layout:LAYOUTS[sel.layout].id,tone:to.id,mood:mo.id,icons:ico.id,pattern:pt.id},null,2);
   return head+'\n'+css+'\n\n'+fontsLink+'\n\n'+json;
 }
 function openExport(){document.getElementById('exportText').textContent=exportText();document.getElementById('exportModal').classList.add('show')}
