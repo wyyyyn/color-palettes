@@ -70,7 +70,7 @@ COLOR (40) × FONT (24) × LAYOUT (6) × TONE (6) × MOOD (6) × ICON (13 styles
 
 ### 8. ELEMENT · 元件 (8) — `data-el` 组件配方
 
-`classic`(标准) · `pill`(胶囊) · `sticker`(硬投影边) · `engineer`(方正描边) · `editorial`(下划线条) · `soft`(无边柔影) · `brut`(粗边大写) · `tactile`(立体内影)。重塑按钮/卡片/标签/链接/分隔的具体长相，叠在 TONE（全局圆角/阴影/字重 token）之上。
+取材成熟开源组件系统：`shadcn`(shadcn/ui 细线克制) · `soft`(daisyUI 淡彩无边) · `solid`(填充微影) · `outline`(勾边按钮) · `pill`(全圆角) · `pico`(Pico 极简柔影) · `elevated`(浮层卡片) · `flat`(扁平 ghost)。重塑按钮/卡片/标签的具体长相，描边一律用低对比 `--c-line`（不用会在深色变白的硬边），叠在 TONE 之上。
 
 > 数据真值在 `preview.html` 的 `T / FONTS / LAYOUTS / TONES / MOODS / ICONS / PATTERNS / ELEMENTS` 数组（`AXES` 驱动；菜单/随机/锁定/分享 URL/快照/A·B 对比/导出全部自动覆盖新轴，组合串以 `~` 分隔以兼容含连字符的 id）。
 
