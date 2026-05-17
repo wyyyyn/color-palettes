@@ -36,7 +36,8 @@ body{
   height:54px;padding:0 20px;background:var(--ui-panel);
   border-bottom:1px solid var(--ui-line);z-index:30;
 }
-.brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;letter-spacing:.3px}
+.brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;letter-spacing:.3px;white-space:nowrap;min-width:0}
+#brandT{white-space:nowrap}
 .brand .star{color:var(--ui-ac);font-size:15px}
 .brand .sub{font-size:11px;color:var(--ui-tx2);font-weight:400;margin-left:4px}
 .bar-actions{display:flex;align-items:center;gap:8px}
@@ -203,13 +204,17 @@ body{
   color:var(--ui-tx);background:var(--ui-panel2);white-space:pre;
 }
 .export-f{display:flex;gap:8px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--ui-line)}
+.menu-only{display:none}
 @media(max-width:780px){
-  .side{position:fixed;left:0;top:54px;bottom:0;z-index:25;transform:translateX(-100%);transition:transform .25s}
+  .side{position:fixed;left:0;top:54px;bottom:0;width:300px;z-index:25;transform:translateX(-100%);transition:transform .25s;box-shadow:var(--ui-shadow)}
   .side.open{transform:translateX(0)}
   .main{padding:20px 14px 70px}
-  .menu-only{display:inline-flex}
+  .menu-only{display:inline-flex;padding:0 9px}
+  .brand .sub{display:none}
+  .bar{padding:0 12px;gap:8px}
+  .bar-actions .btn{padding:0 9px;font-size:11px}
+  .bar-actions{gap:5px}
 }
-.menu-only{display:none}
 </style>
 </head>
 <body>
